@@ -1,4 +1,5 @@
 package cz.cvut.fel.omo.smarthome.events;
 
-public class EventListener {
+public interface EventListener {
+    void onEvent(Event e);
 }

@@ -14,6 +14,10 @@ public class SmartHomeContext {
     private final List<Floor> floors = new ArrayList<>();
     private final List<Person> residents = new ArrayList<>();
 
+    private final cz.cvut.fel.omo.smarthome.events.EventBus eventBus = new cz.cvut.fel.omo.smarthome.events.EventBus();
+    public cz.cvut.fel.omo.smarthome.events.EventBus getEventBus() { return eventBus; }
+
+
     private SmartHomeContext() {}
 
     public static SmartHomeContext getInstance() {

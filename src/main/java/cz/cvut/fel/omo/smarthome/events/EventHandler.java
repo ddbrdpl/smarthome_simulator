@@ -1,4 +1,6 @@
 package cz.cvut.fel.omo.smarthome.events;
 
-public class EventHandler {
+public interface EventHandler {
+    boolean handle(Event e);
+    void setNext(EventHandler next);
 }
