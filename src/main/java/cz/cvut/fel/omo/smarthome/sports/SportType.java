@@ -1,4 +1,9 @@
 package cz.cvut.fel.omo.smarthome.sports;
 
-public class SportType {
+public enum SportType {
+    SCALE,
+    TREADMILL,
+    BIKE,
+    POOL,
+    SMITH_MACHINE
 }

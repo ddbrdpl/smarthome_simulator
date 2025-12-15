@@ -1,4 +1,10 @@
 package cz.cvut.fel.omo.smarthome.people;
 
-public class Role {
+public enum Role {
+    FATHER,
+    MOTHER,
+    SON,
+    DAUGHTER,
+    GRANDFATHER,
+    CAT
 }
