@@ -1,0 +1,55 @@
+{
+  "rooms": [
+    { "name": "Garage", "type": "GARAGE" },
+    { "name": "Garden", "type": "GARDEN" },
+    { "name": "SonRoom", "type": "CHILDREN_SON" },
+    { "name": "DaughterRoom", "type": "CHILDREN_DAUGHTER" },
+    { "name": "LivingRoom", "type": "LIVING" },
+    { "name": "Kitchen", "type": "KITCHEN" },
+    { "name": "Bathroom", "type": "BATHROOM" }
+  ],
+  "persons": [
+    { "id": "p1", "name": "Otec", "role": "FATHER", "room": "LivingRoom" },
+    { "id": "p2", "name": "Matka", "role": "MOTHER", "room": "Kitchen" },
+    { "id": "p3", "name": "Syn", "role": "SON", "room": "SonRoom" },
+    { "id": "p4", "name": "Dcera", "role": "DAUGHTER", "room": "DaughterRoom" },
+    { "id": "p5", "name": "Ded", "role": "GRANDFATHER", "room": "LivingRoom" },
+    { "id": "p6", "name": "Kocka", "role": "CAT", "room": "Garden" }
+  ],
+  "devices": [
+    { "id": "d1",  "name": "Garage Light", "type": "SMART_LIGHT", "room": "Garage" },
+    { "id": "d2",  "name": "Garden Light", "type": "GARDEN_LIGHT", "room": "Garden" },
+    { "id": "d3",  "name": "Living Group Light", "type": "GROUP_LIGHT", "room": "LivingRoom" },
+    { "id": "d4",  "name": "Kitchen Light", "type": "SMART_LIGHT", "room": "Kitchen" },
+    { "id": "d5",  "name": "Bathroom Light", "type": "SMART_LIGHT", "room": "Bathroom" },
+
+    { "id": "d6",  "name": "Main Door Lock", "type": "SMART_LOCK", "room": "LivingRoom" },
+    { "id": "d7",  "name": "Garage Motion", "type": "MOTION_SENSOR", "room": "Garage" },
+    { "id": "d8",  "name": "Door/Window Sensor", "type": "DOOR_WINDOW_SENSOR", "room": "LivingRoom" },
+    { "id": "d9",  "name": "Smoke/Gas Sensor", "type": "SMOKE_GAS_SENSOR", "room": "Kitchen" },
+    { "id": "d10", "name": "Water Leak Sensor", "type": "WATER_LEAK_SENSOR", "room": "Bathroom" },
+    { "id": "d11", "name": "Outdoor Camera", "type": "OUTDOOR_CAMERA", "room": "Garden" },
+
+    { "id": "d12", "name": "Thermostat", "type": "THERMOSTAT", "room": "LivingRoom" },
+    { "id": "d13", "name": "Humidifier/AC", "type": "HUMIDIFIER_AC", "room": "LivingRoom" },
+    { "id": "d14", "name": "Air Quality Sensor", "type": "AIR_QUALITY_SENSOR", "room": "LivingRoom" },
+
+    { "id": "d15", "name": "Coffee Machine", "type": "SMART_COFFEE_MACHINE", "room": "Kitchen" },
+    { "id": "d16", "name": "Washing Machine", "type": "SMART_WASHING_MACHINE", "room": "Bathroom" },
+
+    { "id": "d17", "name": "Smart TV", "type": "SMART_TV", "room": "LivingRoom" },
+    { "id": "d18", "name": "Multiroom Audio", "type": "MULTIROOM_AUDIO", "room": "LivingRoom" },
+    { "id": "d19", "name": "Smart Mirror", "type": "SMART_MIRROR", "room": "Bathroom" },
+
+    { "id": "d20", "name": "Irrigation", "type": "IRRIGATION_SYSTEM", "room": "Garden" },
+    { "id": "d21", "name": "Pet Feeder", "type": "PET_FEEDER", "room": "Kitchen" },
+    { "id": "d22", "name": "Blinds Living", "type": "SMART_BLINDS", "room": "LivingRoom" }
+  ],
+  "sports": [
+    { "id": "s1", "type": "TREADMILL", "room": "Garage" },
+    { "id": "s2", "type": "BIKE", "room": "Garage" },
+    { "id": "s3", "type": "SMITH_MACHINE", "room": "Garage" },
+    { "id": "s4", "type": "POOL", "room": "Garden" },
+    { "id": "s5", "type": "SCALE", "room": "Bathroom" }
+  ]
+}

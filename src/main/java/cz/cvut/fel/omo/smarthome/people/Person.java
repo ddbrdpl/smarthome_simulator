@@ -1,8 +1,10 @@
 package cz.cvut.fel.omo.smarthome.people;
 
+import cz.cvut.fel.omo.smarthome.events.Event;
+import cz.cvut.fel.omo.smarthome.events.EventListener;
 import cz.cvut.fel.omo.smarthome.house.Room;
 
-public class Person {
+public class Person implements EventListener {
     private final String id;
     private final String name;
     private final Role role;
@@ -26,4 +28,10 @@ public class Person {
     public void setLocation(Room location) { this.location = location; }
 
     public PermissionSet getPermissions() { return permissions; }
+
+    @Override
+    public void onEvent(Event e) {
+
+        System.out.println("[" + role + "] received event: " + e.getType());
+    }
 }

@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.house;
 
 import cz.cvut.fel.omo.smarthome.config.*;
 import cz.cvut.fel.omo.smarthome.devices.Device;
+import cz.cvut.fel.omo.smarthome.events.*;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
@@ -14,9 +15,7 @@ public class SmartHomeContext {
     private final List<Floor> floors = new ArrayList<>();
     private final List<Person> residents = new ArrayList<>();
 
-    private final cz.cvut.fel.omo.smarthome.events.EventBus eventBus = new cz.cvut.fel.omo.smarthome.events.EventBus();
-    public cz.cvut.fel.omo.smarthome.events.EventBus getEventBus() { return eventBus; }
-
+    private final EventBus eventBus = new EventBus();
 
     private SmartHomeContext() {}
 
@@ -27,14 +26,26 @@ public class SmartHomeContext {
         return instance;
     }
 
-    public List<Floor> getFloors() { return Collections.unmodifiableList(floors); }
-    public List<Person> getResidents() { return Collections.unmodifiableList(residents); }
+    public EventBus getEventBus() {
+        return eventBus;
+    }
 
-    public void initialize(HomeDefinition def, DeviceFactory deviceFactory, PersonFactory personFactory) {
+    public List<Floor> getFloors() {
+        return Collections.unmodifiableList(floors);
+    }
+
+    public List<Person> getResidents() {
+        return Collections.unmodifiableList(residents);
+    }
+
+    public void initialize(HomeDefinition def,
+                           DeviceFactory deviceFactory,
+                           PersonFactory personFactory) {
+
         floors.clear();
         residents.clear();
 
-        // One-floor setup (can be extended later).
+        // ---------- FLOOR ----------
         Floor floor = new Floor("Main floor", 0);
 
         Map<String, Room> roomsByName = new HashMap<>();
@@ -44,14 +55,14 @@ public class SmartHomeContext {
             floor.addRoom(room);
         }
 
-        // Devices
+        // ---------- DEVICES ----------
         for (DeviceDefinition dd : def.devices) {
             Room room = requireRoom(roomsByName, dd.room, "Device " + dd.id);
             Device device = deviceFactory.createDevice(dd, room);
             room.addDevice(device);
         }
 
-        // Persons
+        // ---------- PERSONS ----------
         for (PersonDefinition pd : def.persons) {
             Room room = requireRoom(roomsByName, pd.room, "Person " + pd.id);
             Person person = personFactory.createPerson(pd, room);
@@ -59,7 +70,26 @@ public class SmartHomeContext {
             room.addPerson(person);
         }
 
-        // Sports
+        // Subscribe all persons
+        for (Person p : residents) {
+            eventBus.subscribe(p);
+        }
+
+        // ---------- EVENT HANDLER CHAIN ----------
+        EventHandler h1 = new FatherHandler();
+        EventHandler h2 = new MotherHandler();
+        EventHandler h3 = new DaughterHandler();
+        EventHandler h4 = new GrandfatherHandler();
+        EventHandler h5 = new FallbackHandler();
+
+        h1.setNext(h2);
+        h2.setNext(h3);
+        h3.setNext(h4);
+        h4.setNext(h5);
+
+        eventBus.subscribe(new SystemEventListener(h1));
+
+        // ---------- SPORTS ----------
         for (SportDefinition sd : def.sports) {
             Room room = requireRoom(roomsByName, sd.room, "Sport " + sd.id);
             SportEquipment se = new SportEquipment(sd.id, sd.type, room);
