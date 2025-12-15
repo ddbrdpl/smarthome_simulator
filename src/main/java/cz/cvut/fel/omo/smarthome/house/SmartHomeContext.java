@@ -59,7 +59,9 @@ public class SmartHomeContext {
         for (DeviceDefinition dd : def.devices) {
             Room room = requireRoom(roomsByName, dd.room, "Device " + dd.id);
             Device device = deviceFactory.createDevice(dd, room);
+            device.connectEventBus(eventBus);
             room.addDevice(device);
+
         }
 
         // ---------- PERSONS ----------

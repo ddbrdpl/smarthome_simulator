@@ -32,5 +32,12 @@ public class Main {
         ctx.getEventBus().publish(new Event(EventType.POOL_ALERT, "PoolSensor", null));
 
         System.out.println("SW3 OK");
+        ctx.getFloors().get(0).getRooms().get(0).getDevices().forEach(d -> {
+            d.turnOn();
+            d.tick();
+            System.out.println(d.getName() + " state=" + d.getStateName());
+        });
+
     }
+
 }
