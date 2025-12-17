@@ -32,5 +32,7 @@ public class SimulationEngine {
                 }
             }
         }
+        try { Thread.sleep(5); } catch (InterruptedException ignored) {}
+
     }
 }

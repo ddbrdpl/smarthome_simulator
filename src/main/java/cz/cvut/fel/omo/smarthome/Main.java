@@ -25,5 +25,10 @@ public class Main {
                 .generate("output/house_configuration_report.txt");
 
         System.out.println("Simulation finished, report generated.");
+
+        new cz.cvut.fel.omo.smarthome.reports.ActivityReportGenerator(
+                ctx.getActivityLog()
+        ).generate("output/activity_report.txt");
+
     }
 }

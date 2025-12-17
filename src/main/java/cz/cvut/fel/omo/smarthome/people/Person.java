@@ -46,6 +46,12 @@ public class Person implements EventListener {
     }
 
     public void performStep(SmartHomeContext ctx) {
+
+        if (this.role == Role.CAT) {
+            return;
+        }
+
+
         List<Device> allDevices = new ArrayList<>();
         for (Floor f : ctx.getFloors()) {
             for (Room r : f.getRooms()) {
@@ -63,13 +69,14 @@ public class Person implements EventListener {
         }
 
 
-        target.turnOn();
+        boolean on = RANDOM.nextBoolean();
+        if (on) {
+            target.turnOn();
+            ctx.getActivityLog().add(new ActivityEntry(this.id, this.name, "TURN_ON", target.getName(), LocalDateTime.now()));
+        } else {
+            target.turnOff();
+            ctx.getActivityLog().add(new ActivityEntry(this.id, this.name, "TURN_OFF", target.getName(), LocalDateTime.now()));
+        }
 
-        ctx.getActivityLog().add(new ActivityEntry(
-                this.id, this.name,
-                "TURN_ON",
-                target.getName(),
-                LocalDateTime.now()
-        ));
     }
 }

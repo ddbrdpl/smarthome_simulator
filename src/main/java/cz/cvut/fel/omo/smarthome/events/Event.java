@@ -8,6 +8,11 @@ public class Event {
     private final Object target;
     private final LocalDateTime createdAt;
 
+    private String handledBy;
+    public void setHandledBy(String h) { this.handledBy = h; }
+    public String getHandledBy() { return handledBy; }
+
+
     public Event(EventType type, Object source, Object target) {
         this.type = type;
         this.source = source;

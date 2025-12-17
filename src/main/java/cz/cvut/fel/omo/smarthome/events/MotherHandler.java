@@ -5,6 +5,7 @@ public class MotherHandler extends AbstractEventHandler {
     public boolean handle(Event e) {
         if (e.getType() == EventType.SMOKE_ALERT) {
             System.out.println("[MOTHER] handled " + e.getType());
+            e.setHandledBy("MOTHER");
             return true;
         }
         return next(e);

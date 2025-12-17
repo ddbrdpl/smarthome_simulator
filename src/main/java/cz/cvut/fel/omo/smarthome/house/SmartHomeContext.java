@@ -4,6 +4,7 @@ import cz.cvut.fel.omo.smarthome.config.*;
 import cz.cvut.fel.omo.smarthome.devices.Device;
 import cz.cvut.fel.omo.smarthome.events.*;
 import cz.cvut.fel.omo.smarthome.logs.ActivityLog;
+import cz.cvut.fel.omo.smarthome.logs.EventLog;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
@@ -19,6 +20,9 @@ public class SmartHomeContext {
     private final EventBus eventBus = new EventBus();
 
     private SmartHomeContext() {}
+
+    private final EventLog eventLog = new EventLog();
+    public EventLog getEventLog() { return eventLog; }
 
     private final ActivityLog activityLog = new ActivityLog();
     public ActivityLog getActivityLog() { return activityLog; }

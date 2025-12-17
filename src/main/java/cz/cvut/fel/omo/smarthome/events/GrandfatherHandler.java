@@ -5,6 +5,8 @@ public class GrandfatherHandler extends AbstractEventHandler {
     public boolean handle(Event e) {
         if (e.getType() == EventType.MOTION_DETECTED) {
             System.out.println("[GRANDFATHER] handled " + e.getType());
+            e.setHandledBy("GRANDFATHER");
+
             return true;
         }
         return next(e);
