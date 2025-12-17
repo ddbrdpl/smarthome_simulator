@@ -1,0 +1,65 @@
+=== HOUSE CONFIGURATION REPORT ===
+
+Floor: Main floor (level 0)
+  Room: Garage [GARAGE]
+    Devices:
+      - Garage Light (SMART_LIGHT)
+      - Garage Motion (MOTION_SENSOR)
+    Sports:
+      - TREADMILL
+      - BIKE
+      - SMITH_MACHINE
+    Persons:
+  Room: Garden [GARDEN]
+    Devices:
+      - Garden Light (GARDEN_LIGHT)
+      - Outdoor Camera (OUTDOOR_CAMERA)
+      - Irrigation (IRRIGATION_SYSTEM)
+    Sports:
+      - POOL
+    Persons:
+      - Kocka (CAT)
+  Room: SonRoom [CHILDREN_SON]
+    Devices:
+    Sports:
+    Persons:
+      - Syn (SON)
+  Room: DaughterRoom [CHILDREN_DAUGHTER]
+    Devices:
+    Sports:
+    Persons:
+      - Dcera (DAUGHTER)
+  Room: LivingRoom [LIVING]
+    Devices:
+      - Living Group Light (GROUP_LIGHT)
+      - Main Door Lock (SMART_LOCK)
+      - Door/Window Sensor (DOOR_WINDOW_SENSOR)
+      - Thermostat (THERMOSTAT)
+      - Humidifier/AC (HUMIDIFIER_AC)
+      - Air Quality Sensor (AIR_QUALITY_SENSOR)
+      - Smart TV (SMART_TV)
+      - Multiroom Audio (MULTIROOM_AUDIO)
+      - Blinds Living (SMART_BLINDS)
+    Sports:
+    Persons:
+      - Otec (FATHER)
+      - Ded (GRANDFATHER)
+  Room: Kitchen [KITCHEN]
+    Devices:
+      - Kitchen Light (SMART_LIGHT)
+      - Smoke/Gas Sensor (SMOKE_GAS_SENSOR)
+      - Coffee Machine (SMART_COFFEE_MACHINE)
+      - Pet Feeder (PET_FEEDER)
+    Sports:
+    Persons:
+      - Matka (MOTHER)
+  Room: Bathroom [BATHROOM]
+    Devices:
+      - Bathroom Light (SMART_LIGHT)
+      - Water Leak Sensor (WATER_LEAK_SENSOR)
+      - Washing Machine (SMART_WASHING_MACHINE)
+      - Smart Mirror (SMART_MIRROR)
+    Sports:
+      - SCALE
+    Persons:
+
