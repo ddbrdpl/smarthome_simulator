@@ -19,13 +19,10 @@ public class SmartHomeContext {
 
     private final EventBus eventBus = new EventBus();
 
-    private SmartHomeContext() {}
-
     private final EventLog eventLog = new EventLog();
-    public EventLog getEventLog() { return eventLog; }
-
     private final ActivityLog activityLog = new ActivityLog();
-    public ActivityLog getActivityLog() { return activityLog; }
+
+    private SmartHomeContext() {}
 
     public static SmartHomeContext getInstance() {
         if (instance == null) {
@@ -34,26 +31,20 @@ public class SmartHomeContext {
         return instance;
     }
 
-    public EventBus getEventBus() {
-        return eventBus;
-    }
+    public EventBus getEventBus() { return eventBus; }
+    public EventLog getEventLog() { return eventLog; }
+    public ActivityLog getActivityLog() { return activityLog; }
 
-    public List<Floor> getFloors() {
-        return Collections.unmodifiableList(floors);
-    }
+    public List<Floor> getFloors() { return Collections.unmodifiableList(floors); }
+    public List<Person> getResidents() { return Collections.unmodifiableList(residents); }
 
-    public List<Person> getResidents() {
-        return Collections.unmodifiableList(residents);
-    }
-
-    public void initialize(HomeDefinition def,
-                           DeviceFactory deviceFactory,
-                           PersonFactory personFactory) {
+    public void initialize(HomeDefinition def, DeviceFactory deviceFactory, PersonFactory personFactory) {
 
         floors.clear();
         residents.clear();
+        eventLog.clear();
+        activityLog.clear();
 
-        // ---------- FLOOR ----------
         Floor floor = new Floor("Main floor", 0);
 
         Map<String, Room> roomsByName = new HashMap<>();
@@ -63,16 +54,13 @@ public class SmartHomeContext {
             floor.addRoom(room);
         }
 
-        // ---------- DEVICES ----------
         for (DeviceDefinition dd : def.devices) {
             Room room = requireRoom(roomsByName, dd.room, "Device " + dd.id);
             Device device = deviceFactory.createDevice(dd, room);
             device.connectEventBus(eventBus);
             room.addDevice(device);
-
         }
 
-        // ---------- PERSONS ----------
         for (PersonDefinition pd : def.persons) {
             Room room = requireRoom(roomsByName, pd.room, "Person " + pd.id);
             Person person = personFactory.createPerson(pd, room);
@@ -80,12 +68,10 @@ public class SmartHomeContext {
             room.addPerson(person);
         }
 
-        // Subscribe all persons
         for (Person p : residents) {
             eventBus.subscribe(p);
         }
 
-        // ---------- EVENT HANDLER CHAIN ----------
         EventHandler h1 = new FatherHandler();
         EventHandler h2 = new MotherHandler();
         EventHandler h3 = new DaughterHandler();
@@ -97,9 +83,8 @@ public class SmartHomeContext {
         h3.setNext(h4);
         h4.setNext(h5);
 
-        eventBus.subscribe(new SystemEventListener(h1));
+        eventBus.subscribe(new SystemEventListener(h1, this));
 
-        // ---------- SPORTS ----------
         for (SportDefinition sd : def.sports) {
             Room room = requireRoom(roomsByName, sd.room, "Sport " + sd.id);
             SportEquipment se = new SportEquipment(sd.id, sd.type, room);

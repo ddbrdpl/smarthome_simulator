@@ -14,4 +14,7 @@ public class ActivityLog {
     public List<ActivityEntry> getEntries() {
         return Collections.unmodifiableList(entries);
     }
+
+    public void clear() { entries.clear(); }
+
 }

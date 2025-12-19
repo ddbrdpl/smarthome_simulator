@@ -1,32 +1,38 @@
 package cz.cvut.fel.omo.smarthome.events;
 
+import cz.cvut.fel.omo.smarthome.devices.Device;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.logs.EventEntry;
-
-import java.time.LocalDateTime;
 
 public class SystemEventListener implements EventListener {
 
     private final EventHandler chain;
+    private final SmartHomeContext ctx;
 
-    public SystemEventListener(EventHandler chain) {
+    public SystemEventListener(EventHandler chain, SmartHomeContext ctx) {
         this.chain = chain;
+        this.ctx = ctx;
     }
 
     @Override
     public void onEvent(Event e) {
         boolean handled = chain.handle(e);
 
-        SmartHomeContext ctx = SmartHomeContext.getInstance();
-
-        if (handled) {
-            ctx.getEventLog().add(
-                    new EventEntry(e.getType(), e.getHandledBy(), LocalDateTime.now())
-            );
-        } else {
-            ctx.getEventLog().add(
-                    new EventEntry(e.getType(), "SYSTEM (unhandled)", LocalDateTime.now())
-            );
+        String handledBy = e.getHandledBy();
+        if (handledBy == null) {
+            handledBy = handled ? "SYSTEM" : "SYSTEM (unhandled)";
         }
+
+        String deviceName = null;
+        if (e.getSource() instanceof Device d) {
+            deviceName = d.getName();
+        }
+
+        ctx.getEventLog().add(new EventEntry(
+                e.getCreatedAt(),
+                e.getType(),
+                handledBy,
+                deviceName
+        ));
     }
 }

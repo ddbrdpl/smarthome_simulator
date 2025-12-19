@@ -14,4 +14,7 @@ public class EventLog {
     public List<EventEntry> getEntries() {
         return Collections.unmodifiableList(entries);
     }
+
+    public void clear() { entries.clear(); }
+
 }

@@ -9,6 +9,8 @@ public class GrandfatherHandler extends AbstractEventHandler {
 
             return true;
         }
+
+
         return next(e);
     }
 }

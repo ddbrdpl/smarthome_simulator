@@ -27,9 +27,10 @@ public class OnState implements DeviceState {
         // small chance of breakdown
         if (RANDOM.nextInt(100) < 2) { // ~2% chance
             device.setState(new BrokenState());
-            device.getEventBus().publish(
+            device.publishEvent(
                     new Event(EventType.DEVICE_BROKEN, device, null)
             );
+
         }
     }
 

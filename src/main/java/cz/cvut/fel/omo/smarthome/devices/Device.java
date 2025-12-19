@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.devices;
 
 import cz.cvut.fel.omo.smarthome.devices.DeviceState;
 import cz.cvut.fel.omo.smarthome.devices.OffState;
+import cz.cvut.fel.omo.smarthome.events.Event;
 import cz.cvut.fel.omo.smarthome.events.EventBus;
 import cz.cvut.fel.omo.smarthome.house.Room;
 
@@ -50,6 +51,18 @@ public abstract class Device {
     public String getStateName() {
         return state.getName();
     }
+
+    public void repair() {
+        this.setState(new OffState());
+    }
+
+    public void publishEvent(Event e) {
+        if (eventBus != null) {
+            eventBus.publish(e);
+        }
+    }
+
+
 
     public String getId() { return id; }
     public String getName() { return name; }

@@ -21,5 +21,30 @@ public class PermissionSet {
             }
         }
         return false;
+    }public boolean canControl(Role role, DeviceType type) {
+        // CAT: no control
+        if (role == Role.CAT) return false;
+
+        // SON (<18): no locks, no washing machine
+        if (role == Role.SON) {
+            if (type == DeviceType.SMART_LOCK) return false;
+            if (type == DeviceType.SMART_WASHING_MACHINE) return false;
+            return true;
+        }
+
+
+        if (role == Role.DAUGHTER) {
+            return type != DeviceType.SMOKE_GAS_SENSOR && type != DeviceType.DOOR_WINDOW_SENSOR;
+        }
+
+
+        if (role == Role.GRANDFATHER) {
+            return true;
+        }
+
+        // FATHER / MOTHER default: full control
+        return true;
     }
+
+
 }

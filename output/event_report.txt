@@ -1,0 +1,6 @@
+=== EVENT REPORT ===
+
+2025-12-19T15:40:39.099510 | DEVICE_REPAIRED | device: Bathroom Light | handled by: SYSTEM
+2025-12-19T15:40:39.098505600 | DEVICE_BROKEN | device: Bathroom Light | handled by: FATHER
+2025-12-19T15:40:39.100767500 | DEVICE_REPAIRED | device: Smoke/Gas Sensor | handled by: SYSTEM
+2025-12-19T15:40:39.100767500 | DEVICE_BROKEN | device: Smoke/Gas Sensor | handled by: FATHER

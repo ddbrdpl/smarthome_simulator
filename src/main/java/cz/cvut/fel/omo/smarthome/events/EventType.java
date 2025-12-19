@@ -6,5 +6,6 @@ public enum EventType {
     MOTION_DETECTED,
     DEVICE_BROKEN,
     POOL_ALERT,
-    PET_OUTSIDE_LONG
+    PET_OUTSIDE_LONG,
+    DEVICE_REPAIRED
 }

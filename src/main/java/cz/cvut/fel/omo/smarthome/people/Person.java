@@ -31,14 +31,29 @@ public class Person implements EventListener {
         this.permissions = permissions;
     }
 
-    public String getId() { return id; }
-    public String getName() { return name; }
-    public Role getRole() { return role; }
+    public String getId() {
+        return id;
+    }
 
-    public Room getLocation() { return location; }
-    public void setLocation(Room location) { this.location = location; }
+    public String getName() {
+        return name;
+    }
 
-    public PermissionSet getPermissions() { return permissions; }
+    public Role getRole() {
+        return role;
+    }
+
+    public Room getLocation() {
+        return location;
+    }
+
+    public void setLocation(Room location) {
+        this.location = location;
+    }
+
+    public PermissionSet getPermissions() {
+        return permissions;
+    }
 
     @Override
     public void onEvent(Event e) {
@@ -63,11 +78,21 @@ public class Person implements EventListener {
         Device target = allDevices.get(RANDOM.nextInt(allDevices.size()));
         Room targetRoom = target.getLocation();
 
-
         if (this.location != targetRoom) {
             this.location = targetRoom;
         }
 
+// Permission check (role-based)
+        if (!permissions.canControl(this.role, target.getType())) {
+            ctx.getActivityLog().add(new ActivityEntry(
+                    this.id,
+                    this.name,
+                    "DENIED",
+                    target.getName(),
+                    LocalDateTime.now()
+            ));
+            return;
+        }
 
         boolean on = RANDOM.nextBoolean();
         if (on) {
@@ -77,6 +102,5 @@ public class Person implements EventListener {
             target.turnOff();
             ctx.getActivityLog().add(new ActivityEntry(this.id, this.name, "TURN_OFF", target.getName(), LocalDateTime.now()));
         }
-
     }
 }
