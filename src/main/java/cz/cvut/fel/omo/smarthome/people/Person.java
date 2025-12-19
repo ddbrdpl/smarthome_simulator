@@ -22,6 +22,7 @@ public class Person implements EventListener {
 
     private Room location;
     private final PermissionSet permissions;
+    boolean on = RANDOM.nextBoolean();
 
     public Person(String id, String name, Role role, Room location, PermissionSet permissions) {
         this.id = id;
@@ -83,16 +84,19 @@ public class Person implements EventListener {
         }
 
 // Permission check (role-based)
-        if (!permissions.canControl(this.role, target.getType())) {
+        DeviceAction action = on ? DeviceAction.TURN_ON : DeviceAction.TURN_OFF;
+
+        if (!permissions.canPerform(this, target, action)) {
             ctx.getActivityLog().add(new ActivityEntry(
                     this.id,
                     this.name,
-                    "DENIED",
+                    "DENIED_" + action,
                     target.getName(),
                     LocalDateTime.now()
             ));
             return;
         }
+
 
         boolean on = RANDOM.nextBoolean();
         if (on) {
