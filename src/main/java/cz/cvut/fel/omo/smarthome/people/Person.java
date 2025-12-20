@@ -23,6 +23,7 @@ public class Person implements EventListener {
     private Room location;
     private final PermissionSet permissions;
     boolean on = RANDOM.nextBoolean();
+    boolean chooseDevice = RANDOM.nextBoolean();
 
     public Person(String id, String name, Role role, Room location, PermissionSet permissions) {
         this.id = id;
@@ -67,6 +68,42 @@ public class Person implements EventListener {
             return;
         }
 
+        if (!chooseDevice) {
+            // ---- SPORT PATH ----
+            List<cz.cvut.fel.omo.smarthome.sports.SportEquipment> allSport = new ArrayList<>();
+            for (Floor f : ctx.getFloors()) {
+                for (Room r : f.getRooms()) {
+                    allSport.addAll(r.getSportEquipment());
+                }
+            }
+
+            if (allSport.isEmpty()) {
+                // if no sport exists, fallback to device
+                chooseDevice = true;
+            } else {
+                var targetSport = allSport.get(RANDOM.nextInt(allSport.size()));
+                Room targetRoom = targetSport.getLocation();
+
+                if (this.location != targetRoom) {
+                    this.location = targetRoom;
+                }
+
+                int duration = 2 + RANDOM.nextInt(3); // 2..4 steps
+                if (!targetSport.tryUse(this, duration)) {
+                    ctx.getActivityLog().add(new ActivityEntry(
+                            this.id, this.name, "WAIT_SPORT",
+                            targetSport.getType().toString(), LocalDateTime.now()
+                    ));
+                    return;
+                }
+
+                ctx.getActivityLog().add(new ActivityEntry(
+                        this.id, this.name, "USE_SPORT",
+                        targetSport.getType().toString(), LocalDateTime.now()
+                ));
+                return;
+            }
+        }
 
         List<Device> allDevices = new ArrayList<>();
         for (Floor f : ctx.getFloors()) {

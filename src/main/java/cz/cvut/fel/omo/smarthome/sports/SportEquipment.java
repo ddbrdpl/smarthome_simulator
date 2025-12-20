@@ -4,10 +4,13 @@ import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.people.Person;
 
 public class SportEquipment {
+
     private final String id;
     private final SportType type;
     private final Room location;
+
     private Person inUseBy;
+    private int busyStepsLeft = 0;
 
     public SportEquipment(String id, SportType type, Room location) {
         this.id = id;
@@ -20,5 +23,24 @@ public class SportEquipment {
     public Room getLocation() { return location; }
 
     public Person getInUseBy() { return inUseBy; }
-    public void setInUseBy(Person inUseBy) { this.inUseBy = inUseBy; }
+    public boolean isFree() { return inUseBy == null; }
+
+    // Occupy equipment for given number of steps
+    public boolean tryUse(Person p, int steps) {
+        if (!isFree()) return false;
+        this.inUseBy = p;
+        this.busyStepsLeft = Math.max(1, steps);
+        return true;
+    }
+
+    // Called each simulation step
+    public void tick() {
+        if (inUseBy == null) return;
+
+        busyStepsLeft--;
+        if (busyStepsLeft <= 0) {
+            inUseBy = null;
+            busyStepsLeft = 0;
+        }
+    }
 }

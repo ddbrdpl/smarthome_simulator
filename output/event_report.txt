@@ -1,14 +1,16 @@
 === EVENT REPORT ===
 
-2025-12-19T15:55:16.924235100 | DEVICE_REPAIRED | device: Smoke/Gas Sensor | handled by: SYSTEM
-2025-12-19T15:55:16.924235100 | DEVICE_BROKEN | device: Smoke/Gas Sensor | handled by: FATHER
-2025-12-19T15:55:16.926379100 | DEVICE_REPAIRED | device: Garage Light | handled by: SYSTEM
-2025-12-19T15:55:16.926379100 | DEVICE_BROKEN | device: Garage Light | handled by: FATHER
-2025-12-19T15:55:16.926379100 | DEVICE_REPAIRED | device: Living Group Light | handled by: SYSTEM
-2025-12-19T15:55:16.926379100 | DEVICE_BROKEN | device: Living Group Light | handled by: FATHER
-2025-12-19T15:55:16.926379100 | DEVICE_REPAIRED | device: Water Leak Sensor | handled by: SYSTEM
-2025-12-19T15:55:16.926379100 | DEVICE_BROKEN | device: Water Leak Sensor | handled by: FATHER
-2025-12-19T15:55:16.927410800 | DEVICE_REPAIRED | device: Air Quality Sensor | handled by: SYSTEM
-2025-12-19T15:55:16.927410800 | DEVICE_BROKEN | device: Air Quality Sensor | handled by: FATHER
-2025-12-19T15:55:16.928414600 | DEVICE_REPAIRED | device: Coffee Machine | handled by: SYSTEM
-2025-12-19T15:55:16.927410800 | DEVICE_BROKEN | device: Coffee Machine | handled by: FATHER
+2025-12-19T23:03:29.615594600 | DEVICE_REPAIRED | device: Door/Window Sensor | handled by: SYSTEM
+2025-12-19T23:03:29.614588800 | DEVICE_BROKEN | device: Door/Window Sensor | handled by: FATHER
+2025-12-19T23:03:29.650591 | DEVICE_REPAIRED | device: Air Quality Sensor | handled by: SYSTEM
+2025-12-19T23:03:29.650591 | DEVICE_BROKEN | device: Air Quality Sensor | handled by: FATHER
+2025-12-19T23:03:29.687074300 | DEVICE_REPAIRED | device: Water Leak Sensor | handled by: SYSTEM
+2025-12-19T23:03:29.687074300 | DEVICE_BROKEN | device: Water Leak Sensor | handled by: FATHER
+2025-12-19T23:03:29.717600200 | DEVICE_REPAIRED | device: Garden Light | handled by: SYSTEM
+2025-12-19T23:03:29.717600200 | DEVICE_BROKEN | device: Garden Light | handled by: FATHER
+2025-12-19T23:03:29.772271500 | DEVICE_REPAIRED | device: Smart TV | handled by: SYSTEM
+2025-12-19T23:03:29.772271500 | DEVICE_BROKEN | device: Smart TV | handled by: FATHER
+2025-12-19T23:03:29.862664300 | DEVICE_REPAIRED | device: Coffee Machine | handled by: SYSTEM
+2025-12-19T23:03:29.862664300 | DEVICE_BROKEN | device: Coffee Machine | handled by: FATHER
+2025-12-19T23:03:29.876046400 | DEVICE_REPAIRED | device: Living Group Light | handled by: SYSTEM
+2025-12-19T23:03:29.876046400 | DEVICE_BROKEN | device: Living Group Light | handled by: FATHER
