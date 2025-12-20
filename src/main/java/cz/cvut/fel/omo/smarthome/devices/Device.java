@@ -5,6 +5,8 @@ import cz.cvut.fel.omo.smarthome.devices.OffState;
 import cz.cvut.fel.omo.smarthome.events.Event;
 import cz.cvut.fel.omo.smarthome.events.EventBus;
 import cz.cvut.fel.omo.smarthome.house.Room;
+import cz.cvut.fel.omo.smarthome.consumption.ConsumptionProfile;
+
 
 public abstract class Device {
 
@@ -15,6 +17,8 @@ public abstract class Device {
 
     private DeviceState state;
     private EventBus eventBus;
+
+    private ConsumptionProfile consumptionProfile;
 
     protected Device(String id, String name, DeviceType type, Room location) {
         this.id = id;
@@ -62,6 +66,29 @@ public abstract class Device {
         }
     }
 
+    public void setConsumptionProfile(ConsumptionProfile profile) {
+        this.consumptionProfile = profile;
+    }
+
+    public ConsumptionProfile getConsumptionProfile() {
+        return consumptionProfile;
+    }
+
+    // called from Main each simulation step
+    public void accumulateConsumption(int stepMinutes, cz.cvut.fel.omo.smarthome.consumption.ConsumptionLog log) {
+        if (consumptionProfile == null) return;
+
+        // consume only when ON
+        if (!"ON".equals(getStateName())) return;
+
+        double hours = stepMinutes / 60.0;
+
+        double addPowerKWh = (consumptionProfile.getPowerW() * hours) / 1000.0;
+        double addWaterL = consumptionProfile.getWaterLPerHour() * hours;
+        double addGasM3 = consumptionProfile.getGasM3PerHour() * hours;
+
+        log.addUsage(getId(), getName(), addPowerKWh, addWaterL, addGasM3);
+    }
 
 
     public String getId() { return id; }

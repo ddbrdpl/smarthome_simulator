@@ -1,16 +1,6 @@
 === EVENT REPORT ===
 
-2025-12-19T23:03:29.615594600 | DEVICE_REPAIRED | device: Door/Window Sensor | handled by: SYSTEM
-2025-12-19T23:03:29.614588800 | DEVICE_BROKEN | device: Door/Window Sensor | handled by: FATHER
-2025-12-19T23:03:29.650591 | DEVICE_REPAIRED | device: Air Quality Sensor | handled by: SYSTEM
-2025-12-19T23:03:29.650591 | DEVICE_BROKEN | device: Air Quality Sensor | handled by: FATHER
-2025-12-19T23:03:29.687074300 | DEVICE_REPAIRED | device: Water Leak Sensor | handled by: SYSTEM
-2025-12-19T23:03:29.687074300 | DEVICE_BROKEN | device: Water Leak Sensor | handled by: FATHER
-2025-12-19T23:03:29.717600200 | DEVICE_REPAIRED | device: Garden Light | handled by: SYSTEM
-2025-12-19T23:03:29.717600200 | DEVICE_BROKEN | device: Garden Light | handled by: FATHER
-2025-12-19T23:03:29.772271500 | DEVICE_REPAIRED | device: Smart TV | handled by: SYSTEM
-2025-12-19T23:03:29.772271500 | DEVICE_BROKEN | device: Smart TV | handled by: FATHER
-2025-12-19T23:03:29.862664300 | DEVICE_REPAIRED | device: Coffee Machine | handled by: SYSTEM
-2025-12-19T23:03:29.862664300 | DEVICE_BROKEN | device: Coffee Machine | handled by: FATHER
-2025-12-19T23:03:29.876046400 | DEVICE_REPAIRED | device: Living Group Light | handled by: SYSTEM
-2025-12-19T23:03:29.876046400 | DEVICE_BROKEN | device: Living Group Light | handled by: FATHER
+2025-12-20T01:50:45.300879600 | DEVICE_REPAIRED | device: Door/Window Sensor | handled by: SYSTEM
+2025-12-20T01:50:45.299817600 | DEVICE_BROKEN | device: Door/Window Sensor | handled by: FATHER
+2025-12-20T01:50:45.449201400 | DEVICE_REPAIRED | device: Living Group Light | handled by: SYSTEM
+2025-12-20T01:50:45.449201400 | DEVICE_BROKEN | device: Living Group Light | handled by: FATHER

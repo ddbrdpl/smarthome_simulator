@@ -7,6 +7,7 @@ import cz.cvut.fel.omo.smarthome.logs.ActivityLog;
 import cz.cvut.fel.omo.smarthome.logs.EventLog;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
+import cz.cvut.fel.omo.smarthome.consumption.ConsumptionLog;
 
 import java.util.*;
 
@@ -22,6 +23,8 @@ public class SmartHomeContext {
     private final EventLog eventLog = new EventLog();
     private final ActivityLog activityLog = new ActivityLog();
 
+    private final ConsumptionLog consumptionLog = new ConsumptionLog();
+
     private SmartHomeContext() {}
 
     public static SmartHomeContext getInstance() {
@@ -30,6 +33,8 @@ public class SmartHomeContext {
         }
         return instance;
     }
+
+    public ConsumptionLog getConsumptionLog() { return consumptionLog; }
 
     public EventBus getEventBus() { return eventBus; }
     public EventLog getEventLog() { return eventLog; }

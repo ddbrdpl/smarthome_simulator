@@ -1,0 +1,20 @@
+=== CONSUMPTION REPORT ===
+
+Device | Power (kWh) | Water (L) | Gas (m3)
+------------------------------------------
+Pet Feeder | 0,0050 | 0,00 | 0,0000
+Blinds Living | 0,0048 | 0,00 | 0,0000
+Humidifier/AC | 2,4000 | 0,80 | 0,0000
+Washing Machine | 0,1667 | 5,00 | 0,0000
+Coffee Machine | 2,4000 | 1,50 | 0,0000
+Multiroom Audio | 0,0750 | 0,00 | 0,0000
+Smart TV | 0,6200 | 0,00 | 0,0000
+Garage Light | 0,0225 | 0,00 | 0,0000
+Garden Light | 0,0040 | 0,00 | 0,0000
+Living Group Light | 0,1867 | 0,00 | 0,0000
+Kitchen Light | 0,0120 | 0,00 | 0,0000
+Bathroom Light | 0,0090 | 0,00 | 0,0000
+Main Door Lock | 0,0013 | 0,00 | 0,0000
+Garage Motion | 0,0013 | 0,00 | 0,0000
+Door/Window Sensor | 0,0035 | 0,00 | 0,0000
+Smoke/Gas Sensor | 0,0030 | 0,00 | 0,0000
