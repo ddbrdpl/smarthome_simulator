@@ -1,6 +1,18 @@
 === EVENT REPORT ===
 
-2025-12-20T01:50:45.300879600 | DEVICE_REPAIRED | device: Door/Window Sensor | handled by: SYSTEM
-2025-12-20T01:50:45.299817600 | DEVICE_BROKEN | device: Door/Window Sensor | handled by: FATHER
-2025-12-20T01:50:45.449201400 | DEVICE_REPAIRED | device: Living Group Light | handled by: SYSTEM
-2025-12-20T01:50:45.449201400 | DEVICE_BROKEN | device: Living Group Light | handled by: FATHER
+2025-12-23T23:09:12.338884700 | DEVICE_REPAIRED | device: Living Group Light | handled by: FATHER
+2025-12-23T23:09:12.338884700 | DEVICE_BROKEN | device: Living Group Light | handled by: FATHER
+2025-12-23T23:09:12.354529900 | DEVICE_REPAIRED | device: Pet Feeder | handled by: FATHER
+2025-12-23T23:09:12.354529900 | DEVICE_BROKEN | device: Pet Feeder | handled by: FATHER
+2025-12-23T23:09:12.371059400 | DEVICE_REPAIRED | device: Garage Motion | handled by: FATHER
+2025-12-23T23:09:12.371059400 | DEVICE_BROKEN | device: Garage Motion | handled by: FATHER
+2025-12-23T23:09:12.389612800 | DEVICE_REPAIRED | device: Kitchen Light | handled by: FATHER
+2025-12-23T23:09:12.389612800 | DEVICE_BROKEN | device: Kitchen Light | handled by: FATHER
+2025-12-23T23:09:12.479207400 | DEVICE_REPAIRED | device: Garden Light | handled by: FATHER
+2025-12-23T23:09:12.479207400 | DEVICE_BROKEN | device: Garden Light | handled by: FATHER
+2025-12-23T23:09:12.526673 | DEVICE_REPAIRED | device: Living Group Light | handled by: FATHER
+2025-12-23T23:09:12.526673 | DEVICE_BROKEN | device: Living Group Light | handled by: FATHER
+2025-12-23T23:09:12.526673 | DEVICE_REPAIRED | device: Water Leak Sensor | handled by: FATHER
+2025-12-23T23:09:12.526673 | DEVICE_BROKEN | device: Water Leak Sensor | handled by: FATHER
+2025-12-23T23:09:12.540377900 | DEVICE_REPAIRED | device: Bathroom Light | handled by: FATHER
+2025-12-23T23:09:12.540377900 | DEVICE_BROKEN | device: Bathroom Light | handled by: FATHER

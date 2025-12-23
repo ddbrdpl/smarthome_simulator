@@ -6,7 +6,7 @@ import cz.cvut.fel.omo.smarthome.consumption.ConsumptionRecord;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
+import java.util.Comparator;
 
 public class ConsumptionReportGenerator {
 
@@ -22,18 +22,17 @@ public class ConsumptionReportGenerator {
         sb.append("Device | Power (kWh) | Water (L) | Gas (m3)\n");
         sb.append("------------------------------------------\n");
 
-        for (Map.Entry<String, ConsumptionRecord> e : log.getRecordsByDeviceId().entrySet()) {
-            ConsumptionRecord r = e.getValue();
-            sb.append(r.getDeviceName()).append(" | ")
-                    .append(String.format("%.4f", r.getPowerKWh())).append(" | ")
-                    .append(String.format("%.2f", r.getWaterL())).append(" | ")
-                    .append(String.format("%.4f", r.getGasM3()))
-                    .append("\n");
-        }
+        log.getRecordsByDeviceId().values().stream()
+                .sorted(Comparator.comparing(ConsumptionRecord::getDeviceName))
+                .forEach(r -> sb.append(r.getDeviceName()).append(" | ")
+                        .append(String.format("%.4f", r.getPowerKWh())).append(" | ")
+                        .append(String.format("%.2f", r.getWaterL())).append(" | ")
+                        .append(String.format("%.4f", r.getGasM3()))
+                        .append("\n"));
 
         try {
             Path p = Path.of(path);
-            Files.createDirectories(p.getParent());
+            if (p.getParent() != null) Files.createDirectories(p.getParent());
             Files.writeString(p, sb.toString());
         } catch (IOException ex) {
             throw new IllegalStateException("Failed to write consumption report", ex);
