@@ -1,12 +1,11 @@
 package cz.cvut.fel.omo.smarthome.devices;
 
-import cz.cvut.fel.omo.smarthome.devices.DeviceState;
-import cz.cvut.fel.omo.smarthome.devices.OffState;
+import cz.cvut.fel.omo.smarthome.consumption.ConsumptionLog;
+import cz.cvut.fel.omo.smarthome.consumption.ConsumptionProfile;
 import cz.cvut.fel.omo.smarthome.events.Event;
 import cz.cvut.fel.omo.smarthome.events.EventBus;
 import cz.cvut.fel.omo.smarthome.house.Room;
-import cz.cvut.fel.omo.smarthome.consumption.ConsumptionProfile;
-
+import cz.cvut.fel.omo.smarthome.people.Person;
 
 public abstract class Device {
 
@@ -19,6 +18,9 @@ public abstract class Device {
     private EventBus eventBus;
 
     private ConsumptionProfile consumptionProfile;
+
+    // NEW: who last interacted with the device (used for "who broke it")
+    private Person lastUsedBy;
 
     protected Device(String id, String name, DeviceType type, Room location) {
         this.id = id;
@@ -75,7 +77,7 @@ public abstract class Device {
     }
 
     // called from Main each simulation step
-    public void accumulateConsumption(int stepMinutes, cz.cvut.fel.omo.smarthome.consumption.ConsumptionLog log) {
+    public void accumulateConsumption(int stepMinutes, ConsumptionLog log) {
         if (consumptionProfile == null) return;
 
         // consume only when ON
@@ -90,6 +92,14 @@ public abstract class Device {
         log.addUsage(getId(), getName(), addPowerKWh, addWaterL, addGasM3);
     }
 
+    // NEW: mark who used device last
+    public void markUsedBy(Person p) {
+        this.lastUsedBy = p;
+    }
+
+    public Person getLastUsedBy() {
+        return lastUsedBy;
+    }
 
     public String getId() { return id; }
     public String getName() { return name; }

@@ -27,6 +27,10 @@ public class EventReportGenerator {
                 sb.append("device: ").append(e.getDeviceName()).append(" | ");
             }
 
+            if (e.getCausedBy() != null) {
+                sb.append("caused by: ").append(e.getCausedBy()).append(" | ");
+            }
+
             sb.append("handled by: ").append(e.getHandledBy())
                     .append("\n");
         }
