@@ -1,7 +1,7 @@
-// src/main/java/cz/cvut/fel/omo/smarthome/people/Person.java
 package cz.cvut.fel.omo.smarthome.people;
 
 import cz.cvut.fel.omo.smarthome.devices.Device;
+import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.events.Event;
 import cz.cvut.fel.omo.smarthome.events.EventListener;
 import cz.cvut.fel.omo.smarthome.house.Floor;
@@ -52,14 +52,37 @@ public class Person implements EventListener {
             return;
         }
 
+        // ------- ORIGINAL: collect all devices -------
         List<Device> allDevices = new ArrayList<>();
         for (Floor f : ctx.getFloors()) {
             for (Room r : f.getRooms()) {
                 allDevices.addAll(r.getDevices());
             }
         }
+
+        // ------- NEW: sometimes "want a specific device type" -> buy if missing -------
+        // Does NOT break original behavior; it only adds devices before picking random target.
+        if (RANDOM.nextInt(100) < 15) { // ~15% of steps try "demand-based purchase"
+            DeviceType desiredType = DeviceType.values()[RANDOM.nextInt(DeviceType.values().length)];
+
+            if (!existsDeviceType(allDevices, desiredType)) {
+                // buy ONLY when someone needs it
+                ctx.getAutoBuyer().buyDevice(ctx, desiredType);
+
+                // refresh list after purchase
+                allDevices.clear();
+                for (Floor f : ctx.getFloors()) {
+                    for (Room r : f.getRooms()) {
+                        allDevices.addAll(r.getDevices());
+                    }
+                }
+            }
+        }
+
+        // ------- ORIGINAL: if still empty -> return -------
         if (allDevices.isEmpty()) return;
 
+        // ------- ORIGINAL: choose random device -------
         Device target = allDevices.get(RANDOM.nextInt(allDevices.size()));
         Room targetRoom = target.getLocation();
 
@@ -81,7 +104,7 @@ public class Person implements EventListener {
             return;
         }
 
-        // NEW: remember who interacted with the device
+        // ORIGINAL (your "NEW"): remember who interacted with the device
         target.markUsedBy(this);
 
         if (on) {
@@ -91,5 +114,12 @@ public class Person implements EventListener {
             target.turnOff();
             ctx.getActivityLog().add(new ActivityEntry(this.id, this.name, "TURN_OFF", target.getName(), LocalDateTime.now()));
         }
+    }
+
+    private boolean existsDeviceType(List<Device> devices, DeviceType type) {
+        for (Device d : devices) {
+            if (d.getType() == type) return true;
+        }
+        return false;
     }
 }

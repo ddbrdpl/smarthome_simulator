@@ -28,7 +28,7 @@
     { "id": "d8",  "name": "Door/Window Sensor", "type": "DOOR_WINDOW_SENSOR", "room": "LivingRoom" },
     { "id": "d9",  "name": "Smoke/Gas Sensor", "type": "SMOKE_GAS_SENSOR", "room": "Kitchen" },
     { "id": "d10", "name": "Water Leak Sensor", "type": "WATER_LEAK_SENSOR", "room": "Bathroom" },
-    { "id": "d11", "name": "Outdoor Camera", "type": "OUTDOOR_CAMERA", "room": "Garden" },
+
 
     { "id": "d12", "name": "Thermostat", "type": "THERMOSTAT", "room": "LivingRoom" },
     { "id": "d13", "name": "Humidifier/AC", "type": "HUMIDIFIER_AC", "room": "LivingRoom" },

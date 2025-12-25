@@ -25,6 +25,11 @@ public class SmartHomeContext {
 
     private final ConsumptionLog consumptionLog = new ConsumptionLog();
 
+    private final cz.cvut.fel.omo.smarthome.shop.AutoBuyer autoBuyer = new cz.cvut.fel.omo.smarthome.shop.AutoBuyer();
+    public cz.cvut.fel.omo.smarthome.shop.AutoBuyer getAutoBuyer() { return autoBuyer; }
+
+
+
     private SmartHomeContext() {}
 
     public static SmartHomeContext getInstance() {

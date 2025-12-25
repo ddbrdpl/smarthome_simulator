@@ -1,32 +1,20 @@
 === EVENT REPORT ===
 
-2025-12-24T00:38:33.054744400 | DEVICE_REPAIRED | device: Water Leak Sensor | handled by: FATHER
-2025-12-24T00:38:33.053700200 | DEVICE_BROKEN | device: Water Leak Sensor | caused by: GRANDFATHER (Ded) | handled by: FATHER
-2025-12-24T00:38:33.102260900 | DEVICE_REPAIRED | device: Kitchen Light | handled by: FATHER
-2025-12-24T00:38:33.102260900 | DEVICE_BROKEN | device: Kitchen Light | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.148600500 | DEVICE_REPAIRED | device: Washing Machine | handled by: FATHER
-2025-12-24T00:38:33.148600500 | DEVICE_BROKEN | device: Washing Machine | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.155076600 | DEVICE_REPAIRED | device: Smart Mirror | handled by: FATHER
-2025-12-24T00:38:33.155076600 | DEVICE_BROKEN | device: Smart Mirror | caused by: DAUGHTER (Dcera) | handled by: FATHER
-2025-12-24T00:38:33.167111900 | DEVICE_REPAIRED | device: Bathroom Light | handled by: FATHER
-2025-12-24T00:38:33.167111900 | DEVICE_BROKEN | device: Bathroom Light | caused by: GRANDFATHER (Ded) | handled by: FATHER
-2025-12-24T00:38:33.173270200 | DEVICE_REPAIRED | device: Outdoor Camera | handled by: FATHER
-2025-12-24T00:38:33.173270200 | DEVICE_BROKEN | device: Outdoor Camera | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.203934700 | DEVICE_REPAIRED | device: Bathroom Light | handled by: FATHER
-2025-12-24T00:38:33.203934700 | DEVICE_BROKEN | device: Bathroom Light | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.215121900 | DEVICE_REPAIRED | device: Living Group Light | handled by: FATHER
-2025-12-24T00:38:33.215121900 | DEVICE_BROKEN | device: Living Group Light | caused by: SON (Syn) | handled by: FATHER
-2025-12-24T00:38:33.221508100 | DEVICE_REPAIRED | device: Irrigation | handled by: FATHER
-2025-12-24T00:38:33.221508100 | DEVICE_BROKEN | device: Irrigation | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.270443500 | DEVICE_REPAIRED | device: Thermostat | handled by: FATHER
-2025-12-24T00:38:33.270443500 | DEVICE_BROKEN | device: Thermostat | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.287688700 | DEVICE_REPAIRED | device: Irrigation | handled by: FATHER
-2025-12-24T00:38:33.287688700 | DEVICE_BROKEN | device: Irrigation | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.287688700 | DEVICE_REPAIRED | device: Blinds Living | handled by: FATHER
-2025-12-24T00:38:33.287688700 | DEVICE_BROKEN | device: Blinds Living | caused by: GRANDFATHER (Ded) | handled by: FATHER
-2025-12-24T00:38:33.288688400 | DEVICE_REPAIRED | device: Washing Machine | handled by: FATHER
-2025-12-24T00:38:33.287688700 | DEVICE_BROKEN | device: Washing Machine | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.294669100 | DEVICE_REPAIRED | device: Humidifier/AC | handled by: FATHER
-2025-12-24T00:38:33.294669100 | DEVICE_BROKEN | device: Humidifier/AC | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-24T00:38:33.306805 | DEVICE_REPAIRED | device: Pet Feeder | handled by: FATHER
-2025-12-24T00:38:33.306805 | DEVICE_BROKEN | device: Pet Feeder | caused by: FATHER (Otec) | handled by: FATHER
+2025-12-25T17:57:12.405548 | DEVICE_REPAIRED | device: Irrigation | handled by: FATHER
+2025-12-25T17:57:12.405045300 | DEVICE_BROKEN | device: Irrigation | caused by: GRANDFATHER (Ded) | handled by: FATHER
+2025-12-25T17:57:12.422034900 | DEVICE_REPAIRED | device: Water Leak Sensor | handled by: FATHER
+2025-12-25T17:57:12.422034900 | DEVICE_BROKEN | device: Water Leak Sensor | caused by: MOTHER (Matka) | handled by: FATHER
+2025-12-25T17:57:12.474961800 | DEVICE_REPAIRED | device: Coffee Machine | handled by: FATHER
+2025-12-25T17:57:12.474961800 | DEVICE_BROKEN | device: Coffee Machine | caused by: MOTHER (Matka) | handled by: FATHER
+2025-12-25T17:57:12.494041300 | DEVICE_REPAIRED | device: Main Door Lock | handled by: FATHER
+2025-12-25T17:57:12.494041300 | DEVICE_BROKEN | device: Main Door Lock | caused by: GRANDFATHER (Ded) | handled by: FATHER
+2025-12-25T17:57:12.519674400 | DEVICE_REPAIRED | device: Air Quality Sensor | handled by: FATHER
+2025-12-25T17:57:12.519674400 | DEVICE_BROKEN | device: Air Quality Sensor | caused by: GRANDFATHER (Ded) | handled by: FATHER
+2025-12-25T17:57:12.526565900 | DEVICE_REPAIRED | device: Garden Light | handled by: FATHER
+2025-12-25T17:57:12.526565900 | DEVICE_BROKEN | device: Garden Light | caused by: FATHER (Otec) | handled by: FATHER
+2025-12-25T17:57:12.551082700 | DEVICE_REPAIRED | device: Smart Mirror | handled by: FATHER
+2025-12-25T17:57:12.551082700 | DEVICE_BROKEN | device: Smart Mirror | caused by: MOTHER (Matka) | handled by: FATHER
+2025-12-25T17:57:12.563926100 | DEVICE_REPAIRED | device: Garage Light | handled by: FATHER
+2025-12-25T17:57:12.563926100 | DEVICE_BROKEN | device: Garage Light | caused by: SON (Syn) | handled by: FATHER
+2025-12-25T17:57:12.595636800 | DEVICE_REPAIRED | device: Humidifier/AC | handled by: FATHER
+2025-12-25T17:57:12.595636800 | DEVICE_BROKEN | device: Humidifier/AC | caused by: GRANDFATHER (Ded) | handled by: FATHER

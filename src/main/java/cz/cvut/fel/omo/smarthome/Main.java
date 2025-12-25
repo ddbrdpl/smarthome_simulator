@@ -10,9 +10,10 @@ import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.reports.ActivityReportGenerator;
+import cz.cvut.fel.omo.smarthome.reports.ConsumptionReportGenerator;
 import cz.cvut.fel.omo.smarthome.reports.EventReportGenerator;
 import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReportGenerator;
-import cz.cvut.fel.omo.smarthome.reports.ConsumptionReportGenerator;
+import cz.cvut.fel.omo.smarthome.shop.AutoBuyer;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
 public class Main {
@@ -27,6 +28,8 @@ public class Main {
         SmartHomeContext ctx = SmartHomeContext.getInstance();
         ctx.initialize(def, new DeviceFactory(), new PersonFactory());
 
+        AutoBuyer autoBuyer = new AutoBuyer();
+
         System.out.println("Rooms loaded: " + ctx.getFloors().get(0).getRooms().size());
         System.out.println("Residents loaded: " + ctx.getResidents().size());
 
@@ -35,6 +38,7 @@ public class Main {
         int stepMinutes = 10; // one simulation step = 10 minutes
 
         for (int step = 0; step < steps; step++) {
+
 
             // ---- PEOPLE ACTIONS ----
             for (Person p : ctx.getResidents()) {

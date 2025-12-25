@@ -13,8 +13,8 @@ Floor: Main floor (level 0)
   Room: Garden [GARDEN]
     Devices:
       - Garden Light (GARDEN_LIGHT)
-      - Outdoor Camera (OUTDOOR_CAMERA)
       - Irrigation (IRRIGATION_SYSTEM)
+      - Outdoor Camera (NEW) (OUTDOOR_CAMERA)
     Sports:
       - POOL
     Persons:
