@@ -16,8 +16,32 @@ import cz.cvut.fel.omo.smarthome.reports.HouseConfigurationReportGenerator;
 import cz.cvut.fel.omo.smarthome.shop.AutoBuyer;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
+/**
+ * Application entry point.
+ *
+ * <p>Responsibilities:</p>
+ * <ul>
+ *   <li>Load house configuration from {@code house.json}.</li>
+ *   <li>Initialize {@link SmartHomeContext} with devices and people factories.</li>
+ *   <li>Run a simple time-stepped simulation (people actions, device ticks, sport equipment ticks).</li>
+ *   <li>Generate output reports: configuration, activity, event and consumption.</li>
+ * </ul>
+ *
+ * <p>Simulation model:</p>
+ * <ul>
+ *   <li>One iteration of the loop represents {@code stepMinutes} minutes.</li>
+ *   <li>People choose random devices and attempt actions (permission check is inside {@link Person}).</li>
+ *   <li>Devices tick their internal state machine and may publish events.</li>
+ *   <li>Devices accumulate consumption while they are in {@code ON} state.</li>
+ * </ul>
+ */
 public class Main {
 
+    /**
+     * Starts the SmartHome simulation.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
 
         // ---------- LOAD CONFIG ----------
@@ -28,6 +52,7 @@ public class Main {
         SmartHomeContext ctx = SmartHomeContext.getInstance();
         ctx.initialize(def, new DeviceFactory(), new PersonFactory());
 
+        // Bonus feature: automatic purchasing (currently created here, actual usage may be triggered elsewhere).
         AutoBuyer autoBuyer = new AutoBuyer();
 
         System.out.println("Rooms loaded: " + ctx.getFloors().get(0).getRooms().size());
@@ -38,7 +63,6 @@ public class Main {
         int stepMinutes = 10; // one simulation step = 10 minutes
 
         for (int step = 0; step < steps; step++) {
-
 
             // ---- PEOPLE ACTIONS ----
             for (Person p : ctx.getResidents()) {
