@@ -6,18 +6,49 @@ import cz.cvut.fel.omo.smarthome.people.*;
 
 import java.util.EnumSet;
 
+/**
+ * Factory responsible for creating {@link Person} instances from configuration definitions.
+ *
+ * <p>This class converts {@link PersonDefinition} (loaded from JSON) into runtime {@link Person} objects
+ * placed into a starting {@link Room}.</p>
+ *
+ * <p>During creation it also builds a {@link PermissionSet} describing what actions
+ * a role is allowed to perform on specific device types.</p>
+ */
 public class PersonFactory {
 
+    /**
+     * Creates a runtime person instance using configuration definition and initial location.
+     *
+     * @param def configuration definition of the person (id, name, role, room reference)
+     * @param location starting room of the person
+     * @return created person with permission set based on role
+     */
     public Person createPerson(PersonDefinition def, Room location) {
         PermissionSet ps = buildPermissions(def.role);
         return new Person(def.id, def.name, def.role, location, ps);
     }
 
+    /**
+     * Builds permissions for the given role.
+     *
+     * <p>The permission model is role-based:</p>
+     * <ul>
+     *   <li>{@link Role#CAT} has no permissions.</li>
+     *   <li>{@link Role#FATHER} has full permissions for all device types.</li>
+     *   <li>{@link Role#MOTHER} can control most devices, but not repair.</li>
+     *   <li>{@link Role#GRANDFATHER} has limited controls (on/off + selected actions).</li>
+     *   <li>{@link Role#DAUGHTER} can control common household and media devices.</li>
+     *   <li>{@link Role#SON} has limited access (mainly lights and entertainment).</li>
+     * </ul>
+     *
+     * <p>This method returns a new {@link PermissionSet} instance each time it is called.</p>
+     *
+     * @param role role for which permissions should be built
+     * @return permission set describing allowed actions for the role
+     */
     private PermissionSet buildPermissions(Role role) {
         PermissionSet ps = new PermissionSet();
-
-        // English comments only.
-        // Default rules: CAT has none, FATHER has almost all, others limited.
 
         if (role == Role.CAT) {
             return ps;
@@ -41,7 +72,6 @@ public class PersonFactory {
         }
 
         if (role == Role.MOTHER) {
-            // Most devices except REPAIR.
             for (DeviceType t : DeviceType.values()) {
                 ps.addRule(new PermissionRule(role, t, EnumSet.of(
                         DeviceAction.TURN_ON, DeviceAction.TURN_OFF,
@@ -57,7 +87,6 @@ public class PersonFactory {
         }
 
         if (role == Role.DAUGHTER) {
-            // Common devices, media, blinds, coffee, washer.
             ps.addRule(new PermissionRule(role, DeviceType.SMART_LIGHT, EnumSet.of(DeviceAction.TURN_ON, DeviceAction.TURN_OFF)));
             ps.addRule(new PermissionRule(role, DeviceType.GROUP_LIGHT, EnumSet.of(DeviceAction.TURN_ON, DeviceAction.TURN_OFF)));
             ps.addRule(new PermissionRule(role, DeviceType.SMART_BLINDS, EnumSet.of(DeviceAction.OPEN, DeviceAction.CLOSE)));
@@ -70,7 +99,6 @@ public class PersonFactory {
         }
 
         if (role == Role.SON) {
-            // Limited: lights + TV + audio.
             ps.addRule(new PermissionRule(role, DeviceType.SMART_LIGHT, EnumSet.of(DeviceAction.TURN_ON, DeviceAction.TURN_OFF)));
             ps.addRule(new PermissionRule(role, DeviceType.GROUP_LIGHT, EnumSet.of(DeviceAction.TURN_ON, DeviceAction.TURN_OFF)));
             ps.addRule(new PermissionRule(role, DeviceType.SMART_TV, EnumSet.of(DeviceAction.TURN_ON, DeviceAction.TURN_OFF)));

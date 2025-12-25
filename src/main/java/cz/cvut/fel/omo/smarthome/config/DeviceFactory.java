@@ -2,12 +2,31 @@ package cz.cvut.fel.omo.smarthome.config;
 
 import cz.cvut.fel.omo.smarthome.consumption.ConsumptionProfile;
 import cz.cvut.fel.omo.smarthome.devices.Device;
-import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.devices.GenericDevice;
 import cz.cvut.fel.omo.smarthome.house.Room;
 
+/**
+ * Factory responsible for creating {@link Device} instances from configuration definitions.
+ *
+ * <p>This class converts {@link DeviceDefinition} (loaded from JSON) into runtime devices
+ * placed into a specific {@link Room}.</p>
+ *
+ * <p>Besides creating the device itself, it also assigns a {@link ConsumptionProfile}
+ * depending on the device type. The consumption model is intentionally simple:
+ * all values are defined per hour and are later accumulated in simulation steps.</p>
+ */
 public class DeviceFactory {
 
+    /**
+     * Creates a new runtime device instance based on configuration data.
+     *
+     * <p>The device is created as a {@link GenericDevice} and is associated with the given room.</p>
+     * <p>After creation, a {@link ConsumptionProfile} is assigned based on the device type.</p>
+     *
+     * @param def configuration definition of the device (id, name, type, room reference)
+     * @param location runtime room where the device will be installed
+     * @return created device with consumption profile set
+     */
     public Device createDevice(DeviceDefinition def, Room location) {
 
         Device device = new GenericDevice(

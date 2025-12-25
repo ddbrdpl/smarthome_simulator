@@ -1,6 +1,22 @@
 package cz.cvut.fel.omo.smarthome.devices;
 
+/**
+ * Enumeration of all supported smart home device types.
+ *
+ * <p>This enum defines the category of each {@link Device} in the system.
+ * Device types are used for:</p>
+ * <ul>
+ *   <li>permission checks</li>
+ *   <li>automatic device purchasing</li>
+ *   <li>assignment of consumption profiles</li>
+ *   <li>logical grouping of devices</li>
+ * </ul>
+ *
+ * <p>The enum covers sensors, actuators, multimedia devices,
+ * appliances, and infrastructure components.</p>
+ */
 public enum DeviceType {
+
     SMART_LIGHT,
     GROUP_LIGHT,
     SMART_BLINDS,
