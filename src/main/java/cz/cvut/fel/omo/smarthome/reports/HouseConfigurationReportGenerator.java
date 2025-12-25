@@ -11,13 +11,41 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Generates a static report describing the current configuration of the smart home.
+ *
+ * <p>The report includes:
+ * <ul>
+ *   <li>Floors and their levels</li>
+ *   <li>Rooms with types</li>
+ *   <li>Devices located in each room</li>
+ *   <li>Sport equipment located in each room</li>
+ *   <li>People currently present in each room</li>
+ * </ul>
+ * </p>
+ *
+ * <p>This report is typically produced at the end of the simulation run.</p>
+ */
 public class HouseConfigurationReportGenerator {
+
+    /** Context holding floors, rooms, devices, sport equipment, and residents. */
     private final SmartHomeContext ctx;
 
+    /**
+     * Creates a new configuration report generator.
+     *
+     * @param ctx smart home context
+     */
     public HouseConfigurationReportGenerator(SmartHomeContext ctx) {
         this.ctx = ctx;
     }
 
+    /**
+     * Writes the configuration report into a text file.
+     *
+     * @param outputPath target output path (directories are created automatically)
+     * @throws IllegalStateException if the report cannot be written
+     */
     public void generate(String outputPath) {
         StringBuilder sb = new StringBuilder();
 
