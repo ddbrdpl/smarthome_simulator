@@ -18,7 +18,7 @@ import java.util.*;
  * objects (floors, rooms, people, devices) and shared infrastructure (event bus, logs,
  * consumption tracking and optional bonus components such as auto-buyer).</p>
  *
- * <h3>Key responsibilities</h3>
+ * Key responsibilities
  * <ul>
  *   <li>Hold immutable views of the loaded house structure ({@link #getFloors()}, {@link #getResidents()}).</li>
  *   <li>Provide shared services: {@link EventBus}, {@link EventLog}, {@link ActivityLog}, {@link ConsumptionLog}.</li>

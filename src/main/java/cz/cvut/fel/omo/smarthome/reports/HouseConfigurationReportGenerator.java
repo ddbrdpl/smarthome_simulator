@@ -14,7 +14,7 @@ import java.nio.file.Path;
 /**
  * Generates a static report describing the current configuration of the smart home.
  *
- * <p>The report includes:
+ * The report includes:
  * <ul>
  *   <li>Floors and their levels</li>
  *   <li>Rooms with types</li>
@@ -22,9 +22,9 @@ import java.nio.file.Path;
  *   <li>Sport equipment located in each room</li>
  *   <li>People currently present in each room</li>
  * </ul>
- * </p>
  *
- * <p>This report is typically produced at the end of the simulation run.</p>
+ *
+ * This report is typically produced at the end of the simulation run.
  */
 public class HouseConfigurationReportGenerator {
 

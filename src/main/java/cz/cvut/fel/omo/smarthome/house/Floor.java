@@ -11,7 +11,7 @@ import java.util.List;
  * element of the house model. In the current implementation, the simulation
  * typically uses a single floor, but the design supports multiple floors.</p>
  *
- * <h3>Responsibilities</h3>
+ * Responsibilities
  * <ul>
  *   <li>Store basic metadata about the floor (name, level).</li>
  *   <li>Maintain a list of rooms located on this floor.</li>
