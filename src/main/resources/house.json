@@ -18,7 +18,7 @@
   ],
   "devices": [
     { "id": "d1",  "name": "Garage Light", "type": "SMART_LIGHT", "room": "Garage" },
-    { "id": "d2",  "name": "Garden Light", "type": "GARDEN_LIGHT", "room": "Garden" },
+
     { "id": "d3",  "name": "Living Group Light", "type": "GROUP_LIGHT", "room": "LivingRoom" },
     { "id": "d4",  "name": "Kitchen Light", "type": "SMART_LIGHT", "room": "Kitchen" },
     { "id": "d5",  "name": "Bathroom Light", "type": "SMART_LIGHT", "room": "Bathroom" },
@@ -34,10 +34,8 @@
     { "id": "d13", "name": "Humidifier/AC", "type": "HUMIDIFIER_AC", "room": "LivingRoom" },
     { "id": "d14", "name": "Air Quality Sensor", "type": "AIR_QUALITY_SENSOR", "room": "LivingRoom" },
 
-    { "id": "d15", "name": "Coffee Machine", "type": "SMART_COFFEE_MACHINE", "room": "Kitchen" },
     { "id": "d16", "name": "Washing Machine", "type": "SMART_WASHING_MACHINE", "room": "Bathroom" },
 
-    { "id": "d17", "name": "Smart TV", "type": "SMART_TV", "room": "LivingRoom" },
     { "id": "d18", "name": "Multiroom Audio", "type": "MULTIROOM_AUDIO", "room": "LivingRoom" },
     { "id": "d19", "name": "Smart Mirror", "type": "SMART_MIRROR", "room": "Bathroom" },
 

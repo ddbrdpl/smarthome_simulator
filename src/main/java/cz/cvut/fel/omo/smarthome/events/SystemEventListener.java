@@ -5,53 +5,27 @@ import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.logs.EventEntry;
 import cz.cvut.fel.omo.smarthome.people.Person;
 
-/**
- * Central system-level event listener.
- *
- * <p>This listener receives all events from {@link EventBus},
- * processes them through a chain of {@link EventHandler}s,
- * and records the result into the system {@link cz.cvut.fel.omo.smarthome.logs.EventLog}.</p>
- *
- * <p>Acts as a bridge between the event system and persistent event logging.</p>
- */
+// Bridges the EventBus and the Logging system.
 public class SystemEventListener implements EventListener {
 
-    /** Root handler of the event handling chain */
     private final EventHandler chain;
-
-    /** Smart home context for logging and system access */
     private final SmartHomeContext ctx;
 
-    /**
-     * Creates a new system event listener.
-     *
-     * @param chain root of the event handler chain
-     * @param ctx   smart home context
-     */
     public SystemEventListener(EventHandler chain, SmartHomeContext ctx) {
         this.chain = chain;
         this.ctx = ctx;
     }
 
-    /**
-     * Processes an incoming event, delegates handling,
-     * and stores the event into the event log.
-     *
-     * @param e received event
-     */
     @Override
     public void onEvent(Event e) {
+        // 1. Process via Chain of Responsibility
         boolean handled = chain.handle(e);
 
-        String handledBy = e.getHandledBy();
-        if (handledBy == null) {
-            handledBy = handled ? "SYSTEM" : "SYSTEM (unhandled)";
-        }
+        // 2. Log result
+        String handledBy = (e.getHandledBy() != null) ? e.getHandledBy()
+                : (handled ? "SYSTEM" : "UNHANDLED");
 
-        String deviceName = null;
-        if (e.getSource() instanceof Device d) {
-            deviceName = d.getName();
-        }
+        String deviceName = (e.getSource() instanceof Device d) ? d.getName() : null;
 
         String causedBy = null;
         if (e.getTarget() instanceof Person p) {
@@ -59,11 +33,7 @@ public class SystemEventListener implements EventListener {
         }
 
         ctx.getEventLog().add(new EventEntry(
-                e.getCreatedAt(),
-                e.getType(),
-                handledBy,
-                deviceName,
-                causedBy
+                e.getCreatedAt(), e.getType(), handledBy, deviceName, causedBy
         ));
     }
 }

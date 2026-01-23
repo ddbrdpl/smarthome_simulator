@@ -1,65 +1,59 @@
-=== HOUSE CONFIGURATION REPORT ===
+=== HOUSE CONFIGURATION ===
 
-Floor: Main floor (level 0)
-  Room: Garage [GARAGE]
+Floor: Main floor
+  [Room] Garage (GARAGE)
     Devices:
-      - Garage Light (SMART_LIGHT)
-      - Garage Motion (MOTION_SENSOR)
+      - Garage Light
+      - Garage Motion
     Sports:
       - TREADMILL
       - BIKE
       - SMITH_MACHINE
-    Persons:
-  Room: Garden [GARDEN]
+
+  [Room] Garden (GARDEN)
     Devices:
-      - Garden Light (GARDEN_LIGHT)
-      - Irrigation (IRRIGATION_SYSTEM)
-      - Outdoor Camera (NEW) (OUTDOOR_CAMERA)
+      - Irrigation
     Sports:
       - POOL
-    Persons:
-      - Kocka (CAT)
-  Room: SonRoom [CHILDREN_SON]
+    People:
+      - Kocka
+
+  [Room] SonRoom (CHILDREN_SON)
+    People:
+      - Syn
+
+  [Room] DaughterRoom (CHILDREN_DAUGHTER)
+    People:
+      - Dcera
+
+  [Room] LivingRoom (LIVING)
     Devices:
-    Sports:
-    Persons:
-      - Syn (SON)
-  Room: DaughterRoom [CHILDREN_DAUGHTER]
+      - Living Group Light
+      - Main Door Lock
+      - Door/Window Sensor
+      - Thermostat
+      - Humidifier/AC
+      - Air Quality Sensor
+      - Multiroom Audio
+      - Blinds Living
+    People:
+      - Otec
+      - Ded
+
+  [Room] Kitchen (KITCHEN)
     Devices:
-    Sports:
-    Persons:
-      - Dcera (DAUGHTER)
-  Room: LivingRoom [LIVING]
+      - Kitchen Light
+      - Smoke/Gas Sensor
+      - Pet Feeder
+    People:
+      - Matka
+
+  [Room] Bathroom (BATHROOM)
     Devices:
-      - Living Group Light (GROUP_LIGHT)
-      - Main Door Lock (SMART_LOCK)
-      - Door/Window Sensor (DOOR_WINDOW_SENSOR)
-      - Thermostat (THERMOSTAT)
-      - Humidifier/AC (HUMIDIFIER_AC)
-      - Air Quality Sensor (AIR_QUALITY_SENSOR)
-      - Smart TV (SMART_TV)
-      - Multiroom Audio (MULTIROOM_AUDIO)
-      - Blinds Living (SMART_BLINDS)
-    Sports:
-    Persons:
-      - Otec (FATHER)
-      - Ded (GRANDFATHER)
-  Room: Kitchen [KITCHEN]
-    Devices:
-      - Kitchen Light (SMART_LIGHT)
-      - Smoke/Gas Sensor (SMOKE_GAS_SENSOR)
-      - Coffee Machine (SMART_COFFEE_MACHINE)
-      - Pet Feeder (PET_FEEDER)
-    Sports:
-    Persons:
-      - Matka (MOTHER)
-  Room: Bathroom [BATHROOM]
-    Devices:
-      - Bathroom Light (SMART_LIGHT)
-      - Water Leak Sensor (WATER_LEAK_SENSOR)
-      - Washing Machine (SMART_WASHING_MACHINE)
-      - Smart Mirror (SMART_MIRROR)
+      - Bathroom Light
+      - Water Leak Sensor
+      - Washing Machine
+      - Smart Mirror
     Sports:
       - SCALE
-    Persons:
 

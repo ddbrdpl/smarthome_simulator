@@ -6,9 +6,8 @@ import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.people.Person;
 
-import java.util.List;
-
 public class SimulationEngine {
+
     private final SmartHomeContext ctx;
 
     public SimulationEngine(SmartHomeContext ctx) {
@@ -16,23 +15,35 @@ public class SimulationEngine {
     }
 
     public void run(int steps) {
+        System.out.println("Starting simulation for " + steps + " steps...");
+
+        // Define step duration (e.g. 15 minutes per loop iteration)
+        int stepDurationMinutes = 15;
+
         for (int i = 0; i < steps; i++) {
-            // persons do something
+
+            // >>> ADVANCE TIME <<<
+            ctx.advanceTime(stepDurationMinutes);
+
+            // 1. People act
             for (Person p : ctx.getResidents()) {
                 p.performStep(ctx);
             }
+            // 2. Devices tick and accumulate consumption
 
-            // devices tick
-            List<Floor> floors = ctx.getFloors();
-            for (Floor f : floors) {
+
+            for (Floor f : ctx.getFloors()) {
                 for (Room r : f.getRooms()) {
                     for (Device d : r.getDevices()) {
                         d.tick();
+                        d.accumulateConsumption(stepDurationMinutes, ctx.getConsumptionLog());
                     }
+                    // Sports equipment tick (cooldowns etc)
+                    r.getSportEquipment().forEach(cz.cvut.fel.omo.smarthome.sports.SportEquipment::tick);
                 }
             }
         }
-        try { Thread.sleep(5); } catch (InterruptedException ignored) {}
 
+        System.out.println("Simulation finished.");
     }
 }

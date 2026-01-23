@@ -1,7 +1,6 @@
 package cz.cvut.fel.omo.smarthome.consumption;
 
 public class ConsumptionRecord {
-
     private final String deviceId;
     private final String deviceName;
 
@@ -20,7 +19,6 @@ public class ConsumptionRecord {
         this.gasM3 += addGasM3;
     }
 
-    public String getDeviceId() { return deviceId; }
     public String getDeviceName() { return deviceName; }
     public double getPowerKWh() { return powerKWh; }
     public double getWaterL() { return waterL; }

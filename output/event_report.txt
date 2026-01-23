@@ -1,20 +1,40 @@
 === EVENT REPORT ===
 
-2025-12-25T17:57:12.405548 | DEVICE_REPAIRED | device: Irrigation | handled by: FATHER
-2025-12-25T17:57:12.405045300 | DEVICE_BROKEN | device: Irrigation | caused by: GRANDFATHER (Ded) | handled by: FATHER
-2025-12-25T17:57:12.422034900 | DEVICE_REPAIRED | device: Water Leak Sensor | handled by: FATHER
-2025-12-25T17:57:12.422034900 | DEVICE_BROKEN | device: Water Leak Sensor | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-25T17:57:12.474961800 | DEVICE_REPAIRED | device: Coffee Machine | handled by: FATHER
-2025-12-25T17:57:12.474961800 | DEVICE_BROKEN | device: Coffee Machine | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-25T17:57:12.494041300 | DEVICE_REPAIRED | device: Main Door Lock | handled by: FATHER
-2025-12-25T17:57:12.494041300 | DEVICE_BROKEN | device: Main Door Lock | caused by: GRANDFATHER (Ded) | handled by: FATHER
-2025-12-25T17:57:12.519674400 | DEVICE_REPAIRED | device: Air Quality Sensor | handled by: FATHER
-2025-12-25T17:57:12.519674400 | DEVICE_BROKEN | device: Air Quality Sensor | caused by: GRANDFATHER (Ded) | handled by: FATHER
-2025-12-25T17:57:12.526565900 | DEVICE_REPAIRED | device: Garden Light | handled by: FATHER
-2025-12-25T17:57:12.526565900 | DEVICE_BROKEN | device: Garden Light | caused by: FATHER (Otec) | handled by: FATHER
-2025-12-25T17:57:12.551082700 | DEVICE_REPAIRED | device: Smart Mirror | handled by: FATHER
-2025-12-25T17:57:12.551082700 | DEVICE_BROKEN | device: Smart Mirror | caused by: MOTHER (Matka) | handled by: FATHER
-2025-12-25T17:57:12.563926100 | DEVICE_REPAIRED | device: Garage Light | handled by: FATHER
-2025-12-25T17:57:12.563926100 | DEVICE_BROKEN | device: Garage Light | caused by: SON (Syn) | handled by: FATHER
-2025-12-25T17:57:12.595636800 | DEVICE_REPAIRED | device: Humidifier/AC | handled by: FATHER
-2025-12-25T17:57:12.595636800 | DEVICE_BROKEN | device: Humidifier/AC | caused by: GRANDFATHER (Ded) | handled by: FATHER
+2026-01-01T08:30 | DEVICE_BROKEN | Dev: Garage Light | Caused: DAUGHTER (Dcera) | Handled: FATHER (Notified)
+2026-01-01T08:45 | DEVICE_REPAIRED | Dev: Garage Light | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T09:00 | DEVICE_BROKEN | Dev: Living Group Light | Caused: DAUGHTER (Dcera) | Handled: FATHER (Notified)
+2026-01-01T09:00 | DEVICE_BROKEN | Dev: Kitchen Light | Caused: DAUGHTER (Dcera) | Handled: FATHER (Notified)
+2026-01-01T09:15 | DEVICE_REPAIRED | Dev: Living Group Light | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T09:30 | DEVICE_REPAIRED | Dev: Kitchen Light | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T09:45 | DEVICE_BROKEN | Dev: Multiroom Audio | Caused: SON (Syn) | Handled: FATHER (Notified)
+2026-01-01T10:00 | DEVICE_REPAIRED | Dev: Multiroom Audio | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T10:30 | DEVICE_BROKEN | Dev: Kitchen Light | Caused: GRANDFATHER (Ded) | Handled: FATHER (Notified)
+2026-01-01T10:45 | DEVICE_REPAIRED | Dev: Kitchen Light | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T10:45 | DEVICE_BROKEN | Dev: Thermostat | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
+2026-01-01T10:45 | DEVICE_BROKEN | Dev: Smart Mirror | Caused: DAUGHTER (Dcera) | Handled: FATHER (Notified)
+2026-01-01T11:00 | DEVICE_REPAIRED | Dev: Thermostat | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T11:15 | DEVICE_REPAIRED | Dev: Smart Mirror | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T13:30 | DEVICE_BROKEN | Dev: Bathroom Light | Caused: FATHER (Otec) | Handled: FATHER (Notified)
+2026-01-01T13:45 | DEVICE_REPAIRED | Dev: Bathroom Light | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T15:00 | DEVICE_BROKEN | Dev: Pet Feeder | Caused: GRANDFATHER (Ded) | Handled: FATHER (Notified)
+2026-01-01T15:15 | DEVICE_REPAIRED | Dev: Pet Feeder | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T15:15 | DEVICE_BROKEN | Dev: Kitchen Light | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
+2026-01-01T15:15 | DEVICE_BROKEN | Dev: Smart Mirror | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
+2026-01-01T15:30 | DEVICE_REPAIRED | Dev: Kitchen Light | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T15:45 | DEVICE_REPAIRED | Dev: Smart Mirror | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T15:45 | DEVICE_BROKEN | Dev: Multiroom Audio | Caused: FATHER (Otec) | Handled: FATHER (Notified)
+2026-01-01T16:00 | DEVICE_REPAIRED | Dev: Multiroom Audio | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T16:00 | DEVICE_BROKEN | Dev: Washing Machine | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
+2026-01-01T16:15 | DEVICE_REPAIRED | Dev: Washing Machine | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T16:30 | DEVICE_BROKEN | Dev: Thermostat | Caused: GRANDFATHER (Ded) | Handled: FATHER (Notified)
+2026-01-01T16:30 | DEVICE_BROKEN | Dev: Bathroom Light | Caused: SON (Syn) | Handled: FATHER (Notified)
+2026-01-01T16:45 | DEVICE_REPAIRED | Dev: Thermostat | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T16:45 | DEVICE_BROKEN | Dev: Irrigation | Caused: FATHER (Otec) | Handled: FATHER (Notified)
+2026-01-01T17:00 | DEVICE_REPAIRED | Dev: Irrigation | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T17:00 | DEVICE_BROKEN | Dev: Blinds Living | Caused: FATHER (Otec) | Handled: FATHER (Notified)
+2026-01-01T17:15 | DEVICE_REPAIRED | Dev: Blinds Living | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T17:15 | DEVICE_BROKEN | Dev: Washing Machine | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
+2026-01-01T17:30 | DEVICE_REPAIRED | Dev: Bathroom Light | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T17:45 | DEVICE_REPAIRED | Dev: Washing Machine | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T18:30 | DEVICE_BROKEN | Dev: Bathroom Light | Caused: DAUGHTER (Dcera) | Handled: FATHER (Notified)
+2026-01-01T18:45 | DEVICE_REPAIRED | Dev: Bathroom Light | Caused: FATHER (Otec) | Handled: Otec
