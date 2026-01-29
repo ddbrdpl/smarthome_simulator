@@ -1,23 +1,57 @@
 package cz.cvut.fel.omo.smarthome.config;
 
+import cz.cvut.fel.omo.smarthome.people.DeviceAction;
 import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.people.*;
+
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 
 public class PersonFactory {
 
     public Person createPerson(PersonDefinition def, Room location) {
+        // 1. Build Permissions based on Role
         PermissionSet ps = buildPermissions(def.role);
-        return new Person(def.id, def.name, def.role, location, ps);
+
+        // 2. Create Specific Class based on Role (Polymorphism)
+        // This ensures Father has repair logic, Son has TV logic, etc.
+        Person person = switch (def.role) {
+            case FATHER -> new Father(def.id, def.name, def.role, location, ps);
+            case SON -> new Son(def.id, def.name, def.role, location, ps);
+            default -> new StandardPerson(def.id, def.name, def.role, location, ps);
+        };
+
+        // 3. Assign Desires (Wishlist for AutoBuyer)
+        // These are the items specific roles will ask to buy if missing
+        List<DeviceType> desires = new ArrayList<>();
+
+        if (def.role == Role.SON) {
+            desires.add(DeviceType.SMART_TV);
+            desires.add(DeviceType.MULTIROOM_AUDIO);
+        } else if (def.role == Role.DAUGHTER) {
+            desires.add(DeviceType.SMART_MIRROR);
+            desires.add(DeviceType.SMART_BLINDS);
+        } else if (def.role == Role.MOTHER) {
+            desires.add(DeviceType.SMART_COFFEE_MACHINE);
+        } else if (def.role == Role.GRANDFATHER) {
+            desires.add(DeviceType.THERMOSTAT);
+        }
+
+        person.setDesires(desires);
+        return person;
     }
 
+    /**
+     * Define detailed permissions for each role using DeviceAction enum.
+     */
     private PermissionSet buildPermissions(Role role) {
         PermissionSet ps = new PermissionSet();
 
         if (role == Role.CAT) return ps; // Cat has no power here
 
-        // Father has full access
+        // Father has full access to everything
         if (role == Role.FATHER) {
             for (DeviceType t : DeviceType.values()) {
                 ps.addRule(new PermissionRule(role, t, EnumSet.allOf(DeviceAction.class)));
@@ -25,7 +59,7 @@ public class PersonFactory {
             return ps;
         }
 
-        // Mother: almost everything, except repairing (?)
+        // Mother: almost everything
         if (role == Role.MOTHER) {
             for (DeviceType t : DeviceType.values()) {
                 ps.addRule(new PermissionRule(role, t, EnumSet.of(

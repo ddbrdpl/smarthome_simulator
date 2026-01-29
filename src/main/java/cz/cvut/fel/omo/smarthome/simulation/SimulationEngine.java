@@ -5,6 +5,7 @@ import cz.cvut.fel.omo.smarthome.house.Floor;
 import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.people.Person;
+import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
 public class SimulationEngine {
 
@@ -15,35 +16,32 @@ public class SimulationEngine {
     }
 
     public void run(int steps) {
-        System.out.println("Starting simulation for " + steps + " steps...");
-
-        // Define step duration (e.g. 15 minutes per loop iteration)
-        int stepDurationMinutes = 15;
-
         for (int i = 0; i < steps; i++) {
+            // Print current step info
+            System.out.println("--- Step " + (i + 1) + " / " + steps + " --- Time: " + ctx.getCurrentTime());
 
-            // >>> ADVANCE TIME <<<
-            ctx.advanceTime(stepDurationMinutes);
+            // 1. Advance simulation time by 15 minutes
+            ctx.advanceTime(15);
 
-            // 1. People act
+            // 2. Residents perform their actions (decide between sport, devices, or shopping)
             for (Person p : ctx.getResidents()) {
                 p.performStep(ctx);
             }
-            // 2. Devices tick and accumulate consumption
 
+            // 3. Devices consume resources and update state (may break down here)
+            for (Device d : ctx.getAllDevices()) {
+                d.tick();
+            }
 
+            // 4. Update sport equipment timers (free up equipment if usage time is over)
             for (Floor f : ctx.getFloors()) {
                 for (Room r : f.getRooms()) {
-                    for (Device d : r.getDevices()) {
-                        d.tick();
-                        d.accumulateConsumption(stepDurationMinutes, ctx.getConsumptionLog());
+                    for (SportEquipment s : r.getSportEquipment()) {
+                        s.tick();
                     }
-                    // Sports equipment tick (cooldowns etc)
-                    r.getSportEquipment().forEach(cz.cvut.fel.omo.smarthome.sports.SportEquipment::tick);
                 }
+                System.out.println("Simulation finished.");
             }
         }
-
-        System.out.println("Simulation finished.");
     }
 }

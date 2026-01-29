@@ -113,6 +113,15 @@ public class SmartHomeContext {
         this.currentSimulationTime = currentSimulationTime.plusMinutes(minutes);
     }
 
+    public List<Device> getAllDevices() {
+        List<Device> all = new ArrayList<>();
+        for (Floor f : floors) {
+            for (Room r : f.getRooms()) {
+                all.addAll(r.getDevices());
+            }
+        }
+        return all;
+    }
     // Getters
     public List<Floor> getFloors() { return Collections.unmodifiableList(floors); }
     public List<Person> getResidents() { return Collections.unmodifiableList(residents); }

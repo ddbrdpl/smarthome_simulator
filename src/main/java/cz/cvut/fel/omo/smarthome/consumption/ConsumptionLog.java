@@ -1,5 +1,7 @@
 package cz.cvut.fel.omo.smarthome.consumption;
 
+import cz.cvut.fel.omo.smarthome.devices.Device;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,5 +20,20 @@ public class ConsumptionLog {
 
     public void clear() {
         records.clear();
+    }
+
+    public double getPower(Device d) {
+        ConsumptionRecord r = records.get(d.getId());
+        return r == null ? 0.0 : r.getPowerKWh();
+    }
+
+    public double getWater(Device d) {
+        ConsumptionRecord r = records.get(d.getId());
+        return r == null ? 0.0 : r.getWaterL();
+    }
+
+    public double getGas(Device d) {
+        ConsumptionRecord r = records.get(d.getId());
+        return r == null ? 0.0 : r.getGasM3();
     }
 }

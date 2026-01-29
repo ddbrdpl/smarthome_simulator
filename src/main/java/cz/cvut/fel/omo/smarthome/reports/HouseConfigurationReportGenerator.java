@@ -7,11 +7,7 @@ import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-public class HouseConfigurationReportGenerator {
+public class HouseConfigurationReportGenerator extends AbstractReportGenerator {
 
     private final SmartHomeContext ctx;
 
@@ -19,6 +15,7 @@ public class HouseConfigurationReportGenerator {
         this.ctx = ctx;
     }
 
+    @Override
     public void generate(String outputPath) {
         StringBuilder sb = new StringBuilder();
         sb.append("=== HOUSE CONFIGURATION ===\n\n");
@@ -47,12 +44,6 @@ public class HouseConfigurationReportGenerator {
             }
         }
 
-        try {
-            Path p = Path.of(outputPath);
-            if (p.getParent() != null) Files.createDirectories(p.getParent());
-            Files.writeString(p, sb.toString());
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to write config report", e);
-        }
+        writeToFile(outputPath, sb.toString());
     }
 }

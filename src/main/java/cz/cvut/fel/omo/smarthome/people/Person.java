@@ -1,6 +1,7 @@
 package cz.cvut.fel.omo.smarthome.people;
 
 import cz.cvut.fel.omo.smarthome.devices.Device;
+import cz.cvut.fel.omo.smarthome.people.DeviceAction;
 import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.events.Event;
 import cz.cvut.fel.omo.smarthome.events.EventListener;
@@ -8,22 +9,24 @@ import cz.cvut.fel.omo.smarthome.house.Floor;
 import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.logs.ActivityEntry;
+import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Person implements EventListener {
+public abstract class Person implements EventListener {
 
-    private static final Random RANDOM = new Random();
+    protected static final Random RANDOM = new Random();
 
-    private final String id;
-    private final String name;
-    private final Role role;
-    private final PermissionSet permissions;
+    protected final String id;
+    protected final String name;
+    protected final Role role;
+    protected final PermissionSet permissions;
+    protected Room location;
+    protected List<DeviceType> desires = new ArrayList<>();
 
-    private Room location;
+    protected SportEquipment currentSport = null;
 
     public Person(String id, String name, Role role, Room location, PermissionSet permissions) {
         this.id = id;
@@ -33,145 +36,156 @@ public class Person implements EventListener {
         this.permissions = permissions;
     }
 
-    @Override
-    public void onEvent(Event e) {
-        // Simple console reaction
-        System.out.println(" [" + role + " " + name + "] saw event: " + e.getType());
-    }
-
-    public void performStep(SmartHomeContext ctx) {
-        if (role == Role.CAT) return;
-
-        // 1. Priority for FATHER: Check for broken devices and repair them
-        if (role == Role.FATHER) {
-            if (tryRepair(ctx)) return; // If repaired, skip other actions this turn
+    /**
+     * Main step logic.
+     */
+    public void performStep(SmartHomeContext ctx){
+        if (currentSport != null) {
+            if (currentSport.isFree() || currentSport.getInUseBy() != this) {
+                logActivity(ctx, "FINISHED_SPORT", currentSport.getType().toString());
+                currentSport = null; // Стал свободен
+            } else {
+                return;
+            }
         }
 
+        if (RANDOM.nextInt(100) < 30) {
+            if (tryFindAndUseSport(ctx)) {
+                return;
+            }
+            System.out.println(" [" + name + "] Wanted sport, but everything is busy. Waiting...");
+            return;
+        }
 
+        performDeviceLogic(ctx);
 
-        // 3. Interact with devices (Watch TV, Turn on lights, etc.)
-        interactWithDevice(ctx);
-    }
+    };
 
-    /**
-     * Finds a broken device, moves to it, and repairs it.
-     * @return true if a repair action was performed
-     */
-    private boolean tryRepair(SmartHomeContext ctx) {
-        List<Device> allDevices = collectAllDevices(ctx);
+    protected abstract void performDeviceLogic(SmartHomeContext ctx);
 
-        for (Device d : allDevices) {
-            if ("BROKEN".equals(d.getStateName())) {
-                // Move to the room
-                if (this.location != d.getLocation()) {
-                    this.location = d.getLocation();
+    private boolean tryFindAndUseSport(SmartHomeContext ctx) {
+        List<SportEquipment> allSports = new ArrayList<>();
+        for (Floor f : ctx.getFloors()) {
+            for (Room r : f.getRooms()) {
+                allSports.addAll(r.getSportEquipment());
+            }
+        }
+
+        if (allSports.isEmpty()) return false;
+
+        for (SportEquipment s : allSports) {
+            if (s.isFree()) {
+                if (this.location != s.getLocation()) {
+                    this.location = s.getLocation();
                 }
+                int duration = 2 + RANDOM.nextInt(4);
+                boolean success = s.tryUse(this, duration);
 
-                // Repair
-                d.repair();
-
-                // Create an event about the repair
-                Event fixed = new Event(cz.cvut.fel.omo.smarthome.events.EventType.DEVICE_REPAIRED, d, this);
-                fixed.setHandledBy(this.name); // Father himself handled it
-                d.publishEvent(fixed);
-
-                // Log activity
-                ctx.getActivityLog().add(new ActivityEntry(
-                        id, name, "REPAIRED", d.getName(),
-                        ctx.getCurrentTime()
-                ));
-
-                System.out.println(" [" + role + " " + name + "] repaired " + d.getName());
-                return true; // Used this turn for repair
+                if (success) {
+                    this.currentSport = s;
+                    logActivity(ctx, "STARTED_SPORT", s.getType().toString() + " (" + duration + " steps)");
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    private void interactWithDevice(SmartHomeContext ctx) {
+    // --- SHARED TOOLS ---
+
+    protected void checkAndBuyDesires(SmartHomeContext ctx) {
+        if (RANDOM.nextInt(100) > 30) return;
+
+        for (DeviceType wantedType : desires) {
+            if (findDeviceByType(ctx, wantedType) == null) {
+                System.out.println(" [" + name + "] I want " + wantedType + "! Asking to buy...");
+
+
+                ctx.getAutoBuyer().buyDevice(ctx, wantedType, "Desire of " + name);
+
+                break;
+            }
+        }
+    }
+
+    protected void interactWithDevice(SmartHomeContext ctx) {
         List<Device> allDevices = collectAllDevices(ctx);
         if (allDevices.isEmpty()) return;
 
-        // Try 3 times to find a suitable device (to avoid infinite loops if only sensors exist)
         Device target = null;
         for (int i = 0; i < 3; i++) {
             Device candidate = allDevices.get(RANDOM.nextInt(allDevices.size()));
-            // Only interact with things humans actually touch (Lights, TV, etc.)
             if (isInteractive(candidate.getType())) {
                 target = candidate;
                 break;
             }
         }
+        if (target == null) return;
 
-        if (target == null) return; // Didn't find anything interesting to touch
-
-        // Move to device room
         if (this.location != target.getLocation()) {
             this.location = target.getLocation();
         }
 
-        // Decide action
-        boolean turnOn = RANDOM.nextBoolean();
+        String state = target.getStateName();
+        if ("BROKEN".equals(state)) return;
 
-        // SMART CHECK: Don't turn ON what is already ON, don't turn OFF what is already OFF
-        String currentState = target.getStateName();
-        if (turnOn && "ON".equals(currentState)) return;   // Skip
-        if (!turnOn && "OFF".equals(currentState)) return; // Skip
-        if ("BROKEN".equals(currentState)) return;         // Can't use broken stuff
+        boolean turnOn = RANDOM.nextBoolean();
+        if (turnOn && "ON".equals(state)) return;
+        if (!turnOn && "OFF".equals(state)) return;
 
         DeviceAction action = turnOn ? DeviceAction.TURN_ON : DeviceAction.TURN_OFF;
 
-        // Check Permissions
         if (permissions.canPerform(this, target, action)) {
             if (turnOn) target.turnOn(); else target.turnOff();
             target.markUsedBy(this);
             logActivity(ctx, action.name(), target.getName());
         } else {
-            // Log Denial
             logActivity(ctx, "DENIED_" + action, target.getName());
         }
     }
 
-    /**
-     * Determines if a device is meant for manual human interaction.
-     */
-    private boolean isInteractive(DeviceType type) {
-        return switch (type) {
-            case SMOKE_GAS_SENSOR, WATER_LEAK_SENSOR,
-                 MOTION_SENSOR, DOOR_WINDOW_SENSOR,
-                 AIR_QUALITY_SENSOR, OUTDOOR_CAMERA -> false;
-            default -> true;
-        };
+    protected void tryGeneralShop(SmartHomeContext ctx, int chance) {
+        if (RANDOM.nextInt(100) < chance) {
+            DeviceType[] types = DeviceType.values();
+            DeviceType randomType = types[RANDOM.nextInt(types.length)];
+
+            ctx.getAutoBuyer().buyDevice(ctx, randomType, "Impulse by " + name);
+        }
     }
 
-    private List<Device> collectAllDevices(SmartHomeContext ctx) {
+    // --- HELPERS ---
+
+    @Override
+    public void onEvent(Event e) {}
+
+    protected List<Device> collectAllDevices(SmartHomeContext ctx) {
         List<Device> list = new ArrayList<>();
         for (Floor f : ctx.getFloors()) {
-            for (Room r : f.getRooms()) {
-                list.addAll(r.getDevices());
-            }
+            for (Room r : f.getRooms()) list.addAll(r.getDevices());
         }
         return list;
     }
 
-    private void logActivity(SmartHomeContext ctx, String action, String target) {
-        ctx.getActivityLog().add(new ActivityEntry(
-                id, name, action, target,
-                ctx.getCurrentTime()
-        ));
-    }
-    private void tryShop(SmartHomeContext ctx) {
-        // FORCE SHOPPING: 100% chance (всегда пробуем купить)
-        if (RANDOM.nextInt(100) < 100) {
-            DeviceType[] types = DeviceType.values();
-            DeviceType wanted = types[RANDOM.nextInt(types.length)];
-
-            ctx.getAutoBuyer().buyDevice(ctx, wanted);
+    protected Device findDeviceByType(SmartHomeContext ctx, DeviceType type) {
+        for (Device d : collectAllDevices(ctx)) {
+            if (d.getType() == type) return d;
         }
+        return null;
     }
 
-    // Getters
-    public String getId() { return id; }
+    protected void logActivity(SmartHomeContext ctx, String action, String target) {
+        ctx.getActivityLog().add(new ActivityEntry(id, name, action, target, ctx.getCurrentTime()));
+    }
+
+    private boolean isInteractive(DeviceType type) {
+        return switch (type) {
+            case SMOKE_GAS_SENSOR, WATER_LEAK_SENSOR, MOTION_SENSOR,
+                 DOOR_WINDOW_SENSOR, AIR_QUALITY_SENSOR, OUTDOOR_CAMERA -> false;
+            default -> true;
+        };
+    }
+
+    public void setDesires(List<DeviceType> desires) { this.desires = desires; }
     public String getName() { return name; }
     public Role getRole() { return role; }
     public Room getLocation() { return location; }

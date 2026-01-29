@@ -17,7 +17,7 @@ public class Main {
         Configuration cfg = new Configuration("house.json");
         HomeDefinition def = cfg.load();
 
-        // 2. Initialize System
+        // 2. Initialize System (House, Residents, Devices)
         SmartHomeContext ctx = SmartHomeContext.getInstance();
         ctx.initialize(def, new DeviceFactory(), new PersonFactory());
 
@@ -25,25 +25,31 @@ public class Main {
                 + ctx.getFloors().get(0).getRooms().size() + " rooms.");
 
         // 3. Run Simulation
-        // We delegate the logic to the Engine to keep Main clean.
-        // Let's run for 50 steps.
         SimulationEngine engine = new SimulationEngine(ctx);
+        // Run for 50 steps (approx. 12.5 hours of in-game time)
         engine.run(50);
 
         // 4. Generate Reports
         System.out.println("Generating reports...");
 
-        new HouseConfigurationReportGenerator(ctx)
-                .generate("output/house_configuration_report.txt");
+        // Using the ReportGenerator interface for consistency (Polymorphism)
 
-        new ActivityReportGenerator(ctx.getActivityLog())
-                .generate("output/activity_report.txt");
+        // House Configuration Report
+        ReportGenerator configRep = new HouseConfigurationReportGenerator(ctx);
+        configRep.generate("output/house_configuration_report.txt");
 
-        new EventReportGenerator(ctx.getEventLog())
-                .generate("output/event_report.txt");
+        // Activity Report (Who turned on/bought what)
+        ReportGenerator activityRep = new ActivityReportGenerator(ctx.getActivityLog());
+        activityRep.generate("output/activity_report.txt");
 
-        new ConsumptionReportGenerator(ctx.getConsumptionLog())
-                .generate("output/consumption_report.txt");
+        // Event Report (Breakdowns, Repairs, Handling)
+        ReportGenerator eventRep = new EventReportGenerator(ctx.getEventLog());
+        eventRep.generate("output/event_report.txt");
+
+        // Consumption & Billing Report
+        // Note: passing 'ctx' because this generator calculates costs based on usage
+        ReportGenerator consumptionRep = new ConsumptionReportGenerator(ctx);
+        consumptionRep.generate("output/consumption_report.txt");
 
         System.out.println("Done. Check 'output' folder.");
     }

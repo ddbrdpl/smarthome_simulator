@@ -14,7 +14,7 @@ import java.util.UUID;
 public class AutoBuyer {
 
     // Buy a device only if it's completely missing from the house
-    public void buyDevice(SmartHomeContext ctx, DeviceType type) {
+    public void buyDevice(SmartHomeContext ctx, DeviceType type, String requester) {
         int count = countDevices(ctx, type);
 
         if (count >= 10) {
@@ -23,21 +23,29 @@ public class AutoBuyer {
         }
 
         Room targetRoom = findBestRoom(ctx, type);
-        if (targetRoom == null) return;
+        if (targetRoom == null) targetRoom = ctx.getFloors().get(0).getRooms().get(0);
+
 
         String name = type.toString() + " #" + (count + 1) + " (NEW)";
-        Device device = new GenericDevice("buy-" + UUID.randomUUID(), name, type, targetRoom);
 
+        // Создаем устройство
+        Device device = new GenericDevice("buy-" + UUID.randomUUID(), name, type, targetRoom);
         device.connectEventBus(ctx.getEventBus());
         targetRoom.addDevice(device);
 
-        // LOG
+        // === ГЛАВНОЕ ИЗМЕНЕНИЕ В ЛОГЕ ===
+        // Теперь в название устройства мы дописываем, для кого оно куплено
+        String logTarget = device.getName() + " (for " + requester + ")";
+
         ctx.getActivityLog().add(new ActivityEntry(
-                "SYSTEM", "AutoBuyer", "BOUGHT_DEVICE", device.getName(),
-                ctx.getCurrentTime()
+                "SYSTEM",          // 1. ID
+                "AutoBuyer",       // 2. Name (Actor)
+                "BOUGHT_DEVICE",   // 3. Action
+                logTarget,         // 4. Target
+                ctx.getCurrentTime() // 5. Time
         ));
 
-        System.out.println(" [SHOP] $$$ BOUGHT: " + name);
+        System.out.println(" [SHOP] Bought " + name + " for " + requester);
     }
     private int countDevices(SmartHomeContext ctx, DeviceType type) {
         int count = 0;
