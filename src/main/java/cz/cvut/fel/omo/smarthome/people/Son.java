@@ -5,7 +5,7 @@ import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 
-public class Son extends StandardPerson {
+public class Son extends Person {
 
     public Son(String id, String name, Role role, Room location, PermissionSet permissions) {
         super(id, name, role, location, permissions);
@@ -20,9 +20,9 @@ public class Son extends StandardPerson {
         if (tv != null && RANDOM.nextInt(100) < 50) {
             // If TV exists, 50% chance he ignores everything else and watches it
             if (this.location != tv.getLocation()) {
-                this.location = tv.getLocation();
+                moveTo(tv.getLocation());
             }
-            if ("OFF".equals(tv.getStateName())) {
+            if (tv.isOff()) {
                 tv.turnOn();
                 tv.markUsedBy(this);
                 logActivity(ctx, "TURN_ON", tv.getName());
@@ -32,6 +32,6 @@ public class Son extends StandardPerson {
 
         // 2. If not watching TV -> Standard Behavior
         // (This includes checking desires, so if TV is missing, he will ask to buy it here)
-        super.performStep(ctx);
+        super.performDeviceLogic(ctx);
     }
 }

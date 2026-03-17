@@ -13,19 +13,18 @@ Floor: Main floor
   [Room] Garden (GARDEN)
     Devices:
       - Irrigation
-      - OUTDOOR_CAMERA #1 (NEW)
     Sports:
       - POOL
-    People:
-      - Kocka
 
   [Room] SonRoom (CHILDREN_SON)
-    People:
-      - Syn
+    Devices:
+      - Son TV
+      - Son Light
 
   [Room] DaughterRoom (CHILDREN_DAUGHTER)
-    People:
-      - Dcera
+    Devices:
+      - Daughter Mirror
+      - Daughter Light
 
   [Room] LivingRoom (LIVING)
     Devices:
@@ -38,21 +37,22 @@ Floor: Main floor
       - Multiroom Audio
       - Blinds Living
       - SMART_COFFEE_MACHINE #1 (NEW)
-      - SMOKE_GAS_SENSOR #2 (NEW)
-      - SMART_WASHING_MACHINE #2 (NEW)
+      - HUMIDIFIER_AC #2 (NEW)
+      - SMART_TV #2 (NEW)
+      - PET_FEEDER #2 (NEW)
+      - SMART_LOCK #2 (NEW)
       - SMART_COFFEE_MACHINE #2 (NEW)
-      - DOOR_WINDOW_SENSOR #2 (NEW)
-    People:
-      - Otec
-      - Ded
+      - SMART_MIRROR #3 (NEW)
+      - SMOKE_GAS_SENSOR #2 (NEW)
+      - SMART_LIGHT #6 (NEW)
+      - GROUP_LIGHT #2 (NEW)
+      - FRIDGE #1 (NEW)
 
   [Room] Kitchen (KITCHEN)
     Devices:
       - Kitchen Light
       - Smoke/Gas Sensor
       - Pet Feeder
-    People:
-      - Matka
 
   [Room] Bathroom (BATHROOM)
     Devices:
@@ -63,3 +63,10 @@ Floor: Main floor
     Sports:
       - SCALE
 
+Residents:
+  - Otec (FATHER) → Garden
+  - Matka (MOTHER) → Garage
+  - Syn (SON) → Garage
+  - Dcera (DAUGHTER) → Bathroom
+  - Ded (GRANDFATHER) → Bathroom
+  - Kocka (CAT) → Garage

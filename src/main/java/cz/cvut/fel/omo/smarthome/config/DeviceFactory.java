@@ -2,6 +2,8 @@ package cz.cvut.fel.omo.smarthome.config;
 
 import cz.cvut.fel.omo.smarthome.consumption.ConsumptionProfile;
 import cz.cvut.fel.omo.smarthome.devices.Device;
+import cz.cvut.fel.omo.smarthome.devices.DeviceType;
+import cz.cvut.fel.omo.smarthome.devices.Fridge;
 import cz.cvut.fel.omo.smarthome.devices.GenericDevice;
 import cz.cvut.fel.omo.smarthome.house.Room;
 
@@ -9,7 +11,12 @@ public class DeviceFactory {
 
     // Creates a device and assigns a consumption profile based on its type.
     public Device createDevice(DeviceDefinition def, Room location) {
-        Device device = new GenericDevice(def.id, def.name, def.type, location);
+        Device device;
+        if (def.type == DeviceType.FRIDGE) {
+            device = new Fridge(def.id , def.name, location);
+        } else {
+            device = new GenericDevice(def.id, def.name, def.type, location);
+        }
 
         // Define simplified consumption (Watts, Water L/h, Gas m3/h)
         ConsumptionProfile profile = switch (device.getType()) {
@@ -17,6 +24,8 @@ public class DeviceFactory {
             case GROUP_LIGHT -> new ConsumptionProfile(40, 0, 0);
             case SMART_TV -> new ConsumptionProfile(120, 0, 0);
             case MULTIROOM_AUDIO -> new ConsumptionProfile(30, 0, 0);
+
+            case FRIDGE -> new ConsumptionProfile(150, 0, 0);
 
             // Heavy appliances
             case HUMIDIFIER_AC -> new ConsumptionProfile(600, 0.2, 0);

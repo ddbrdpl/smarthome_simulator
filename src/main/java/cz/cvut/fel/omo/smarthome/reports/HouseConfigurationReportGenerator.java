@@ -36,12 +36,15 @@ public class HouseConfigurationReportGenerator extends AbstractReportGenerator {
                     for (SportEquipment s : r.getSportEquipment()) sb.append("      - ").append(s.getType()).append("\n");
                 }
 
-                if (!r.getPersonsPresent().isEmpty()) {
-                    sb.append("    People:\n");
-                    for (Person p : r.getPersonsPresent()) sb.append("      - ").append(p.getName()).append("\n");
-                }
                 sb.append("\n");
             }
+        }
+
+        sb.append("Residents:\n");
+        for (Person p : ctx.getResidents()) {
+            sb.append("  - ").append(p.getName())
+                    .append(" (").append(p.getRole()).append(")")
+                    .append(" → ").append(p.getLocation().getName()).append("\n");
         }
 
         writeToFile(outputPath, sb.toString());

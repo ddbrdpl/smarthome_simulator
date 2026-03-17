@@ -20,7 +20,7 @@ public class PersonFactory {
         Person person = switch (def.role) {
             case FATHER -> new Father(def.id, def.name, def.role, location, ps);
             case SON -> new Son(def.id, def.name, def.role, location, ps);
-            default -> new StandardPerson(def.id, def.name, def.role, location, ps);
+            default -> new Person(def.id, def.name, def.role, location, ps);
         };
 
         // 3. Assign Desires (Wishlist for AutoBuyer)

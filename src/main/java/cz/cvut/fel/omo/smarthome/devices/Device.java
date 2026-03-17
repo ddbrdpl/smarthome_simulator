@@ -50,14 +50,15 @@ public abstract class Device {
         this.state = newState;
     }
 
-    public String getStateName() {
-        return state.getName();
-    }
+    public boolean isOn()     { return state instanceof OnState; }
+    public boolean isOff()    { return state instanceof OffState; }
+    public boolean isBroken() { return state instanceof BrokenState; }
+
 
     // --- Simulation Logic ---
 
     public void accumulateConsumption(int stepMinutes, ConsumptionLog log) {
-        if (consumptionProfile == null || !"ON".equals(getStateName())) return;
+        if (consumptionProfile == null || !isOn()) return;
 
         double hours = stepMinutes / 60.0;
         double kwh = (consumptionProfile.getPowerW() * hours) / 1000.0;

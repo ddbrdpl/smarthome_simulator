@@ -23,6 +23,7 @@ public class Room {
 
     public void addDevice(Device d) { devices.add(d); }
     public void addPerson(Person p) { personsPresent.add(p); }
+    public void removePerson(Person p) { personsPresent.remove(p); }
     public void addSportEquipment(SportEquipment s) { sportEquipment.add(s); }
 
     public List<Device> getDevices() { return Collections.unmodifiableList(devices); }

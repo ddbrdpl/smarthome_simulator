@@ -16,6 +16,5 @@ public class OffState implements DeviceState {
         // idle
     }
 
-    @Override
-    public String getName() { return "OFF"; }
+
 }

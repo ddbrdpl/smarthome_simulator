@@ -20,5 +20,6 @@ public enum DeviceType {
     MULTIROOM_AUDIO,
     SMART_MIRROR,
     IRRIGATION_SYSTEM,
-    PET_FEEDER
+    PET_FEEDER,
+    FRIDGE
 }

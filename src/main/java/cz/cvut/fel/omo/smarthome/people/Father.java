@@ -7,7 +7,7 @@ import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import java.util.List;
 
-public class Father extends StandardPerson {
+public class Father extends Person {
 
     public Father(String id, String name, Role role, Room location, PermissionSet permissions) {
         super(id, name, role, location, permissions);
@@ -21,14 +21,14 @@ public class Father extends StandardPerson {
         }
 
         // 2. Standard Behavior (Desires, Shopping, Interaction)
-        super.performStep(ctx);
+        super.performDeviceLogic(ctx);
     }
 
     private boolean tryRepair(SmartHomeContext ctx) {
         List<Device> allDevices = collectAllDevices(ctx);
         for (Device d : allDevices) {
-            if ("BROKEN".equals(d.getStateName())) {
-                if (this.location != d.getLocation()) this.location = d.getLocation();
+            if (d.isBroken()) {
+                if (this.location != d.getLocation()) moveTo(d.getLocation());
                 d.repair();
 
                 Event fixed = new Event(EventType.DEVICE_REPAIRED, d, this);

@@ -41,7 +41,11 @@
 
     { "id": "d20", "name": "Irrigation", "type": "IRRIGATION_SYSTEM", "room": "Garden" },
     { "id": "d21", "name": "Pet Feeder", "type": "PET_FEEDER", "room": "Kitchen" },
-    { "id": "d22", "name": "Blinds Living", "type": "SMART_BLINDS", "room": "LivingRoom" }
+    { "id": "d22", "name": "Blinds Living", "type": "SMART_BLINDS", "room": "LivingRoom" },
+    { "id": "d23", "name": "Son TV", "type": "SMART_TV", "room": "SonRoom" },
+    { "id": "d24", "name": "Son Light", "type": "SMART_LIGHT", "room": "SonRoom" },
+    { "id": "d25", "name": "Daughter Mirror", "type": "SMART_MIRROR", "room": "DaughterRoom" },
+    { "id": "d26", "name": "Daughter Light", "type": "SMART_LIGHT", "room": "DaughterRoom" }
   ],
   "sports": [
     { "id": "s1", "type": "TREADMILL", "room": "Garage" },

@@ -17,5 +17,5 @@ public class BrokenState implements DeviceState {
     }
 
     @Override
-    public String getName() { return "BROKEN"; }
+    public String toString() { return "BROKEN"; }
 }

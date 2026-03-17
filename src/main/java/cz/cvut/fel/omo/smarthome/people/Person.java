@@ -5,7 +5,6 @@ import cz.cvut.fel.omo.smarthome.people.DeviceAction;
 import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.events.Event;
 import cz.cvut.fel.omo.smarthome.events.EventListener;
-import cz.cvut.fel.omo.smarthome.house.Floor;
 import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.logs.ActivityEntry;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Person implements EventListener {
+public class Person implements EventListener {
 
     protected static final Random RANDOM = new Random();
 
@@ -61,22 +60,35 @@ public abstract class Person implements EventListener {
 
     };
 
-    protected abstract void performDeviceLogic(SmartHomeContext ctx);
+    protected void moveTo(Room target) {
+        if (this.location == target) return;
+        this.location.removePerson(this);
+        this.location = target;
+        this.location.addPerson(this);
+    }
+
+    protected void performDeviceLogic(SmartHomeContext ctx) {
+        if (role == Role.CAT) return;
+
+        // 1. Check Desires (Wishlist)
+        checkAndBuyDesires(ctx);
+
+        // 2. Maybe random shop (10% chance)
+        tryGeneralShop(ctx, 10);
+
+        // 3. Interact with devices
+        interactWithDevice(ctx);
+    }
 
     private boolean tryFindAndUseSport(SmartHomeContext ctx) {
-        List<SportEquipment> allSports = new ArrayList<>();
-        for (Floor f : ctx.getFloors()) {
-            for (Room r : f.getRooms()) {
-                allSports.addAll(r.getSportEquipment());
-            }
-        }
+        List<SportEquipment> allSports = ctx.getAllSportEquipment();
 
         if (allSports.isEmpty()) return false;
 
         for (SportEquipment s : allSports) {
             if (s.isFree()) {
                 if (this.location != s.getLocation()) {
-                    this.location = s.getLocation();
+                    moveTo(s.getLocation());
                 }
                 int duration = 2 + RANDOM.nextInt(4);
                 boolean success = s.tryUse(this, duration);
@@ -123,15 +135,14 @@ public abstract class Person implements EventListener {
         if (target == null) return;
 
         if (this.location != target.getLocation()) {
-            this.location = target.getLocation();
+            moveTo(target.getLocation());
         }
 
-        String state = target.getStateName();
-        if ("BROKEN".equals(state)) return;
+        if (target.isBroken()) return;
 
         boolean turnOn = RANDOM.nextBoolean();
-        if (turnOn && "ON".equals(state)) return;
-        if (!turnOn && "OFF".equals(state)) return;
+        if (turnOn && target.isOn()) return;
+        if (!turnOn && target.isOff()) return;
 
         DeviceAction action = turnOn ? DeviceAction.TURN_ON : DeviceAction.TURN_OFF;
 
@@ -159,11 +170,7 @@ public abstract class Person implements EventListener {
     public void onEvent(Event e) {}
 
     protected List<Device> collectAllDevices(SmartHomeContext ctx) {
-        List<Device> list = new ArrayList<>();
-        for (Floor f : ctx.getFloors()) {
-            for (Room r : f.getRooms()) list.addAll(r.getDevices());
-        }
-        return list;
+        return ctx.getAllDevices();
     }
 
     protected Device findDeviceByType(SmartHomeContext ctx, DeviceType type) {

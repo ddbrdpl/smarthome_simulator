@@ -7,8 +7,8 @@ public class Fridge extends Device {
     private int foodCount;
 
 
-    public Fridge(String name, Room room) {
-        super(name, room);
+    public Fridge(String id, String name, Room location) {
+        super(id, name, DeviceType.FRIDGE, location);
         this.foodCount = 0;
     }
 

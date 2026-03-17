@@ -8,13 +8,14 @@ import cz.cvut.fel.omo.smarthome.logs.ActivityLog;
 import cz.cvut.fel.omo.smarthome.logs.EventLog;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.shop.AutoBuyer;
+import cz.cvut.fel.omo.smarthome.shop.ShopContext;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 // Singleton Context: Holds the state of the entire simulation.
-public class SmartHomeContext {
+public class SmartHomeContext implements ShopContext {
 
     private static SmartHomeContext instance;
 
@@ -118,6 +119,16 @@ public class SmartHomeContext {
         for (Floor f : floors) {
             for (Room r : f.getRooms()) {
                 all.addAll(r.getDevices());
+            }
+        }
+        return all;
+    }
+
+    public List<SportEquipment> getAllSportEquipment() {
+        List<SportEquipment> all = new ArrayList<>();
+        for (Floor f : floors) {
+            for (Room r : f.getRooms()) {
+                all.addAll(r.getSportEquipment());
             }
         }
         return all;

@@ -41,5 +41,5 @@ public class OnState implements DeviceState {
     }
 
     @Override
-    public String getName() { return "ON"; }
+    public String toString() { return "ON"; }
 }

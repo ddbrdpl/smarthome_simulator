@@ -1,17 +1,6 @@
-=== CONSUMPTION REPORT ===
+=== CONSUMPTION & BILLING REPORT ===
 
-Device | Power (kWh) | Water (L) | Gas (m3)
-------------------------------------------
-Bathroom Light | 0,0540 | 0,00 | 0,0000
-Blinds Living | 0,0023 | 0,00 | 0,0000
-Garage Light | 0,0247 | 0,00 | 0,0000
-Humidifier/AC | 4,2000 | 1,40 | 0,0000
-Irrigation | 0,0175 | 105,00 | 0,0000
-Kitchen Light | 0,0202 | 0,00 | 0,0000
-Living Group Light | 0,2000 | 0,00 | 0,0000
-Main Door Lock | 0,0040 | 0,00 | 0,0000
-Multiroom Audio | 0,1725 | 0,00 | 0,0000
-Pet Feeder | 0,0550 | 0,00 | 0,0000
-Smart Mirror | 0,3250 | 0,00 | 0,0000
-Thermostat | 0,0135 | 0,00 | 0,0000
-Washing Machine | 1,0000 | 30,00 | 0,0000
+Device                    | Power (kWh)  | Water (L)  | Gas (m3)   | Cost (CZK)
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+TOTALS                    | 0,0000       | 0,00       | 0,0000     | 0,00      
