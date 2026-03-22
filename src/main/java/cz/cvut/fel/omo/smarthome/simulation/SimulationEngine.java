@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.simulation;
 
 import cz.cvut.fel.omo.smarthome.devices.Device;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
+import cz.cvut.fel.omo.smarthome.people.Animal;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
@@ -13,31 +14,33 @@ public class SimulationEngine {
         this.ctx = ctx;
     }
 
+    public void runStep() {
+        ctx.advanceTime(15);
+
+        for (Person p : ctx.getResidents()) {
+            p.performStep(ctx);
+        }
+
+        for (Animal a : ctx.getAnimals()) {
+            a.performStep(ctx);
+        }
+
+        for (Device d : ctx.getAllDevices()) {
+            d.tick();
+            d.accumulateConsumption(15, ctx.getConsumptionLog());
+        }
+
+        for (SportEquipment s : ctx.getAllSportEquipment()) {
+            s.tick();
+        }
+    }
+
     public void run(int steps) {
         for (int i = 0; i < steps; i++) {
-            // Print current step info
-            System.out.println("--- Step " + (i + 1) + " / " + steps + " --- Time: " + ctx.getCurrentTime());
-
-            // 1. Advance simulation time by 15 minutes
-            ctx.advanceTime(15);
-
-            // 2. Residents perform their actions (decide between sport, devices, or shopping)
-            for (Person p : ctx.getResidents()) {
-                p.performStep(ctx);
-            }
-
-            // 3. Devices consume resources and update state (may break down here)
-            for (Device d : ctx.getAllDevices()) {
-                d.tick();
-                d.accumulateConsumption(15, ctx.getConsumptionLog());
-            }
-
-            // 4. Update sport equipment timers (free up equipment if usage time is over)
-            for (SportEquipment s : ctx.getAllSportEquipment()) {
-                s.tick();
-            }
-
-            System.out.println("Simulation finished.");
+            System.out.println("--- Step " + (i + 1) + " / " + steps
+                    + " --- Time: " + ctx.getCurrentTime());
+            runStep();
         }
+        System.out.println("Simulation finished.");
     }
 }

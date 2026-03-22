@@ -36,17 +36,18 @@ Floor: Main floor
       - Air Quality Sensor
       - Multiroom Audio
       - Blinds Living
-      - SMART_COFFEE_MACHINE #1 (NEW)
-      - HUMIDIFIER_AC #2 (NEW)
-      - SMART_TV #2 (NEW)
-      - PET_FEEDER #2 (NEW)
-      - SMART_LOCK #2 (NEW)
-      - SMART_COFFEE_MACHINE #2 (NEW)
       - SMART_MIRROR #3 (NEW)
-      - SMOKE_GAS_SENSOR #2 (NEW)
-      - SMART_LIGHT #6 (NEW)
+      - SMART_COFFEE_MACHINE #1 (NEW)
+      - SMART_MIRROR #4 (NEW)
       - GROUP_LIGHT #2 (NEW)
+      - SMART_WASHING_MACHINE #2 (NEW)
+      - SMART_TV #2 (NEW)
+      - SMART_COFFEE_MACHINE #2 (NEW)
+      - SMART_MIRROR #5 (NEW)
+      - MOTION_SENSOR #2 (NEW)
       - FRIDGE #1 (NEW)
+      - GARDEN_LIGHT #1 (NEW)
+      - IRRIGATION_SYSTEM #2 (NEW)
 
   [Room] Kitchen (KITCHEN)
     Devices:
@@ -67,6 +68,6 @@ Residents:
   - Otec (FATHER) → Garden
   - Matka (MOTHER) → Garage
   - Syn (SON) → Garage
-  - Dcera (DAUGHTER) → Bathroom
-  - Ded (GRANDFATHER) → Bathroom
-  - Kocka (CAT) → Garage
+  - Dcera (DAUGHTER) → LivingRoom
+  - Ded (GRANDFATHER) → Garage
+  - Kocka (CAT) → Bathroom

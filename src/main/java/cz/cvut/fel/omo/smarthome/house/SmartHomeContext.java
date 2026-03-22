@@ -6,7 +6,10 @@ import cz.cvut.fel.omo.smarthome.devices.Device;
 import cz.cvut.fel.omo.smarthome.events.*;
 import cz.cvut.fel.omo.smarthome.logs.ActivityLog;
 import cz.cvut.fel.omo.smarthome.logs.EventLog;
+import cz.cvut.fel.omo.smarthome.people.Animal;
+import cz.cvut.fel.omo.smarthome.people.Cat;
 import cz.cvut.fel.omo.smarthome.people.Person;
+import cz.cvut.fel.omo.smarthome.people.Role;
 import cz.cvut.fel.omo.smarthome.shop.AutoBuyer;
 import cz.cvut.fel.omo.smarthome.shop.ShopContext;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
@@ -22,6 +25,7 @@ public class SmartHomeContext implements ShopContext {
     // Data Holders
     private final List<Floor> floors = new ArrayList<>();
     private final List<Person> residents = new ArrayList<>();
+    private final List<Animal> animals = new ArrayList<>();
 
     private LocalDateTime currentSimulationTime = LocalDateTime.of(2026, 1, 1, 8, 0);
 
@@ -43,6 +47,7 @@ public class SmartHomeContext implements ShopContext {
         // Reset state
         floors.clear();
         residents.clear();
+        animals.clear();
         eventLog.clear();
         activityLog.clear();
         consumptionLog.clear();
@@ -66,13 +71,19 @@ public class SmartHomeContext implements ShopContext {
             room.addDevice(device);
         }
 
-        // 3. Add People
+        // 3. Add People and Animals
         for (PersonDefinition pd : def.persons) {
             Room room = requireRoom(roomMap, pd.room);
-            Person person = personFactory.createPerson(pd, room);
-            residents.add(person);
-            room.addPerson(person);
-            eventBus.subscribe(person); // People listen to events
+            if (pd.role == Role.CAT) {
+                Cat cat = new Cat(pd.id, pd.name, room);
+                animals.add(cat);
+                room.addAnimal(cat);
+            } else {
+                Person person = personFactory.createPerson(pd, room);
+                residents.add(person);
+                room.addPerson(person);
+                eventBus.subscribe(person);
+            }
         }
 
         // 4. Add Sport Equipment
@@ -124,6 +135,14 @@ public class SmartHomeContext implements ShopContext {
         return all;
     }
 
+    public List<Room> getAllRooms() {
+        List<Room> all = new ArrayList<>();
+        for (Floor f : floors) {
+            all.addAll(f.getRooms());
+        }
+        return all;
+    }
+
     public List<SportEquipment> getAllSportEquipment() {
         List<SportEquipment> all = new ArrayList<>();
         for (Floor f : floors) {
@@ -134,8 +153,9 @@ public class SmartHomeContext implements ShopContext {
         return all;
     }
     // Getters
-    public List<Floor> getFloors() { return Collections.unmodifiableList(floors); }
-    public List<Person> getResidents() { return Collections.unmodifiableList(residents); }
+    public List<Floor> getFloors()      { return Collections.unmodifiableList(floors); }
+    public List<Person> getResidents()  { return Collections.unmodifiableList(residents); }
+    public List<Animal> getAnimals()    { return Collections.unmodifiableList(animals); }
     public EventBus getEventBus() { return eventBus; }
     public EventLog getEventLog() { return eventLog; }
     public ActivityLog getActivityLog() { return activityLog; }

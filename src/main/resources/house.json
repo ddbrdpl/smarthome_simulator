@@ -45,7 +45,8 @@
     { "id": "d23", "name": "Son TV", "type": "SMART_TV", "room": "SonRoom" },
     { "id": "d24", "name": "Son Light", "type": "SMART_LIGHT", "room": "SonRoom" },
     { "id": "d25", "name": "Daughter Mirror", "type": "SMART_MIRROR", "room": "DaughterRoom" },
-    { "id": "d26", "name": "Daughter Light", "type": "SMART_LIGHT", "room": "DaughterRoom" }
+    { "id": "d26", "name": "Daughter Light", "type": "SMART_LIGHT", "room": "DaughterRoom" },
+    { "id": "d27", "name": "Kitchen Fridge", "type": "FRIDGE", "room": "Kitchen" }
   ],
   "sports": [
     { "id": "s1", "type": "TREADMILL", "room": "Garage" },

@@ -21,16 +21,18 @@ public class OnState implements DeviceState {
 
     @Override
     public void tick(Device device) {
-        // Reduced breakdown chance: 0.2% base
-        // 10000 bound: < 20 is 0.2%
-        int chance = 500;
+        // Breakdown chance per tick (out of 10000):
+        // base  = 20  → 0.20%
+        // son   = 50  → 0.50%
+        // daughter = 35 → 0.35%
+        int chance = 20;
 
         Person user = device.getLastUsedBy();
         if (user != null) {
             chance = switch (user.getRole()) {
-                case SON -> 1000;       // 0.6%
-                case DAUGHTER -> 700;  // 0.3%
-                default -> 500;        // 0.2%
+                case SON      -> 50;
+                case DAUGHTER -> 35;
+                default       -> 20;
             };
         }
 

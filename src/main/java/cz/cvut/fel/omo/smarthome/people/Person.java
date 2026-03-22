@@ -68,8 +68,6 @@ public class Person implements EventListener {
     }
 
     protected void performDeviceLogic(SmartHomeContext ctx) {
-        if (role == Role.CAT) return;
-
         // 1. Check Desires (Wishlist)
         checkAndBuyDesires(ctx);
 
@@ -121,12 +119,17 @@ public class Person implements EventListener {
     }
 
     protected void interactWithDevice(SmartHomeContext ctx) {
-        List<Device> allDevices = collectAllDevices(ctx);
-        if (allDevices.isEmpty()) return;
+        // 70% — prefer devices in current room, 30% — go elsewhere
+        List<Device> candidates = (!location.getDevices().isEmpty() && RANDOM.nextInt(100) < 70)
+                ? new ArrayList<>(location.getDevices())
+                : collectAllDevices(ctx);
+
+        if (candidates.isEmpty()) candidates = collectAllDevices(ctx);
+        if (candidates.isEmpty()) return;
 
         Device target = null;
-        for (int i = 0; i < 3; i++) {
-            Device candidate = allDevices.get(RANDOM.nextInt(allDevices.size()));
+        for (int i = 0; i < 5; i++) {
+            Device candidate = candidates.get(RANDOM.nextInt(candidates.size()));
             if (isInteractive(candidate.getType())) {
                 target = candidate;
                 break;
@@ -157,10 +160,7 @@ public class Person implements EventListener {
 
     protected void tryGeneralShop(SmartHomeContext ctx, int chance) {
         if (RANDOM.nextInt(100) < chance) {
-            DeviceType[] types = DeviceType.values();
-            DeviceType randomType = types[RANDOM.nextInt(types.length)];
-
-            ctx.getAutoBuyer().buyDevice(ctx, randomType, "Impulse by " + name);
+            ctx.getAutoBuyer().buyImpulseDevice(ctx, name);
         }
     }
 
