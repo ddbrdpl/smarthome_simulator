@@ -27,7 +27,7 @@ public class SmartHomeContext implements ShopContext {
     private final List<Person> residents = new ArrayList<>();
     private final List<Animal> animals = new ArrayList<>();
 
-    private LocalDateTime currentSimulationTime = LocalDateTime.of(2026, 1, 1, 8, 0);
+    private LocalDateTime currentSimulationTime = LocalDateTime.of(2026, 1, 1, 6, 30);
 
     // Services
     private final EventBus eventBus = new EventBus();

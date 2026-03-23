@@ -19,17 +19,20 @@ public class Mother extends Person {
     }
 
     @Override
-    public void performDeviceLogic(SmartHomeContext ctx) {
+    public void performStep(SmartHomeContext ctx) {
+        // Check mealtime BEFORE sport — cooking has higher priority
         MealTime current = MealTime.current(ctx.getCurrentTime());
-
-        // Only cook during mealtime and only once per meal
         if (current != MealTime.NONE && current != lastCookedMeal) {
             if (tryCook(ctx, current)) {
                 lastCookedMeal = current;
                 return;
             }
         }
+        super.performStep(ctx);
+    }
 
+    @Override
+    public void performDeviceLogic(SmartHomeContext ctx) {
         super.performDeviceLogic(ctx);
     }
 

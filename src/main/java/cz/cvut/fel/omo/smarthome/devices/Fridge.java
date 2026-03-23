@@ -10,20 +10,31 @@ public class Fridge extends Device {
 
     // Maximum stock per food type
     public static final Map<FoodType, Integer> MAX_STOCK;
+    // Initial stock (~1.5 days) — enough to trigger Father's shopping trip
+    public static final Map<FoodType, Integer> INITIAL_STOCK;
+
     static {
-        Map<FoodType, Integer> m = new EnumMap<>(FoodType.class);
-        m.put(FoodType.EGGS,    8);
-        m.put(FoodType.OATMEAL, 6);
-        m.put(FoodType.SOUP,    4);
-        m.put(FoodType.STEAK,   4);
-        MAX_STOCK = Collections.unmodifiableMap(m);
+        Map<FoodType, Integer> max = new EnumMap<>(FoodType.class);
+        max.put(FoodType.EGGS,    8);
+        max.put(FoodType.OATMEAL, 6);
+        max.put(FoodType.SOUP,    4);
+        max.put(FoodType.STEAK,   4);
+        MAX_STOCK = Collections.unmodifiableMap(max);
+
+        // ~1 day minus one ingredient — Father will shop before dinner
+        Map<FoodType, Integer> init = new EnumMap<>(FoodType.class);
+        init.put(FoodType.EGGS,    4); // enough for breakfast
+        init.put(FoodType.OATMEAL, 2); // enough for breakfast
+        init.put(FoodType.SOUP,    2); // enough for lunch
+        init.put(FoodType.STEAK,   1); // NOT enough for dinner → Father shops at 17:30
+        INITIAL_STOCK = Collections.unmodifiableMap(init);
     }
 
     private final Map<FoodType, Integer> stock = new EnumMap<>(FoodType.class);
 
     public Fridge(String id, String name, Room location) {
         super(id, name, DeviceType.FRIDGE, location);
-        restockFull();
+        stock.putAll(INITIAL_STOCK); // start with limited supply
     }
 
     // Fill everything to maximum

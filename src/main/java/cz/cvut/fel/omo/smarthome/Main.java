@@ -21,7 +21,7 @@ public class Main {
         System.out.println("Loaded: " + ctx.getResidents().size() + " residents, "
                 + ctx.getFloors().get(0).getRooms().size() + " rooms.");
 
-        // Launch visual replay — 50 steps, controlled by UI
-        SimulationVisualizer.show(ctx, 50);
+        // Launch visual replay — 60 steps, controlled by UI
+        SimulationVisualizer.show(ctx, 60);
     }
 }

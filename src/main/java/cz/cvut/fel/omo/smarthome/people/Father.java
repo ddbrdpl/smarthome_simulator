@@ -31,12 +31,8 @@ public class Father extends Person {
             if (shoppingTicks <= 0) returnFromShopping(ctx);
             return;
         }
-        super.performStep(ctx);
-    }
 
-    @Override
-    public void performDeviceLogic(SmartHomeContext ctx) {
-        // 1. Check fridge before upcoming meal
+        // Check fridge BEFORE sport — shopping has highest priority
         MealTime upcoming = MealTime.checkTime(ctx.getCurrentTime());
         if (upcoming != MealTime.NONE) {
             Fridge fridge = findFridge(ctx);
@@ -46,10 +42,15 @@ public class Father extends Person {
             }
         }
 
-        // 2. Repair broken devices
+        super.performStep(ctx);
+    }
+
+    @Override
+    public void performDeviceLogic(SmartHomeContext ctx) {
+        // 1. Repair broken devices
         if (tryRepair(ctx)) return;
 
-        // 3. Standard behaviour
+        // 2. Standard behaviour
         super.performDeviceLogic(ctx);
     }
 
