@@ -8,7 +8,11 @@ import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 
 public class Mother extends Person {
 
-    private static final int FOOD_PER_MEAL = 3;
+    private static final int FOOD_PER_MEAL    = 3;
+    private static final int COOKING_CHANCE   = 20;  // 20% per tick when cooldown is 0
+    private static final int COOKING_COOLDOWN = 8;   // ticks between meals (~2 hours)
+
+    private int cookingCooldown = 0;
 
     public Mother(String id, String name, Role role, Room location, PermissionSet permissions) {
         super(id, name, role, location, permissions);
@@ -16,9 +20,17 @@ public class Mother extends Person {
 
     @Override
     public void performDeviceLogic(SmartHomeContext ctx) {
-        // 40% chance Mother tries to cook
-        if (RANDOM.nextInt(100) < 40) {
-            if (tryCook(ctx)) return;
+        // Tick down cooldown
+        if (cookingCooldown > 0) {
+            cookingCooldown--;
+        }
+
+        // Try to cook only when cooldown is up
+        if (cookingCooldown == 0 && RANDOM.nextInt(100) < COOKING_CHANCE) {
+            if (tryCook(ctx)) {
+                cookingCooldown = COOKING_COOLDOWN;
+                return;
+            }
         }
 
         // Otherwise standard behaviour

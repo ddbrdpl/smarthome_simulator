@@ -119,12 +119,24 @@ public class Person implements EventListener {
     }
 
     protected void interactWithDevice(SmartHomeContext ctx) {
-        // 70% — prefer devices in current room, 30% — go elsewhere
-        List<Device> candidates = (!location.getDevices().isEmpty() && RANDOM.nextInt(100) < 70)
-                ? new ArrayList<>(location.getDevices())
-                : collectAllDevices(ctx);
+        boolean stayLocal = !location.getDevices().isEmpty() && RANDOM.nextInt(100) < 70;
 
-        if (candidates.isEmpty()) candidates = collectAllDevices(ctx);
+        List<Device> candidates;
+        if (stayLocal) {
+            candidates = new ArrayList<>(location.getDevices());
+        } else {
+            // When roaming — only pick devices this person has at least one action permitted on
+            candidates = new ArrayList<>();
+            for (Device d : collectAllDevices(ctx)) {
+                if (isInteractive(d.getType())
+                        && (permissions.canPerform(this, d, DeviceAction.TURN_ON)
+                        || permissions.canPerform(this, d, DeviceAction.TURN_OFF))) {
+                    candidates.add(d);
+                }
+            }
+        }
+
+        if (candidates.isEmpty()) candidates = new ArrayList<>(location.getDevices());
         if (candidates.isEmpty()) return;
 
         Device target = null;
@@ -187,7 +199,8 @@ public class Person implements EventListener {
     private boolean isInteractive(DeviceType type) {
         return switch (type) {
             case SMOKE_GAS_SENSOR, WATER_LEAK_SENSOR, MOTION_SENSOR,
-                 DOOR_WINDOW_SENSOR, AIR_QUALITY_SENSOR, OUTDOOR_CAMERA -> false;
+                 DOOR_WINDOW_SENSOR, AIR_QUALITY_SENSOR, OUTDOOR_CAMERA,
+                 FRIDGE, THERMOSTAT, IRRIGATION_SYSTEM -> false;
             default -> true;
         };
     }

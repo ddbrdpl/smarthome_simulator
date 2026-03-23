@@ -93,18 +93,29 @@ public class AutoBuyer {
     }
 
     private Room findBestRoom(ShopContext ctx, DeviceType type) {
+        String target = switch (type) {
+            case SMART_LIGHT, GROUP_LIGHT, SMART_LOCK,
+                 DOOR_WINDOW_SENSOR, MULTIROOM_AUDIO,
+                 SMART_TV, SMART_BLINDS, THERMOSTAT,
+                 HUMIDIFIER_AC, AIR_QUALITY_SENSOR    -> "living";
+            case SMOKE_GAS_SENSOR, SMART_COFFEE_MACHINE,
+                 PET_FEEDER, FRIDGE                   -> "kitchen";
+            case WATER_LEAK_SENSOR, SMART_WASHING_MACHINE,
+                 SMART_MIRROR                         -> "bath";
+            case OUTDOOR_CAMERA, IRRIGATION_SYSTEM,
+                 GARDEN_LIGHT                         -> "garden";
+            case MOTION_SENSOR                        -> "garage";
+            default                                   -> "living";
+        };
+
+        // First pass — exact match
         for (Floor f : ctx.getFloors()) {
             for (Room r : f.getRooms()) {
-                String rn = r.getName().toLowerCase();
-
-                if (type == DeviceType.OUTDOOR_CAMERA && rn.contains("garden")) return r;
-                if (type == DeviceType.SMART_LOCK && rn.contains("hall")) return r;
-                if (type == DeviceType.SMOKE_GAS_SENSOR && rn.contains("kitchen")) return r;
-                if (type == DeviceType.WATER_LEAK_SENSOR && rn.contains("bath")) return r;
-
-                if (rn.contains("living")) return r;
+                if (r.getName().toLowerCase().contains(target)) return r;
             }
         }
+
+        // Fallback — first room
         if (!ctx.getFloors().isEmpty() && !ctx.getFloors().get(0).getRooms().isEmpty()) {
             return ctx.getFloors().get(0).getRooms().get(0);
         }
