@@ -3,16 +3,16 @@ package cz.cvut.fel.omo.smarthome.people;
 import cz.cvut.fel.omo.smarthome.devices.Device;
 import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.devices.Fridge;
+import cz.cvut.fel.omo.smarthome.devices.FoodType;
 import cz.cvut.fel.omo.smarthome.house.Room;
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
+import cz.cvut.fel.omo.smarthome.simulation.MealTime;
+
+import java.util.Map;
 
 public class Mother extends Person {
 
-    private static final int FOOD_PER_MEAL    = 3;
-    private static final int COOKING_CHANCE   = 20;  // 20% per tick when cooldown is 0
-    private static final int COOKING_COOLDOWN = 8;   // ticks between meals (~2 hours)
-
-    private int cookingCooldown = 0;
+    private MealTime lastCookedMeal = null; // avoid cooking same meal twice
 
     public Mother(String id, String name, Role role, Room location, PermissionSet permissions) {
         super(id, name, role, location, permissions);
@@ -20,53 +20,57 @@ public class Mother extends Person {
 
     @Override
     public void performDeviceLogic(SmartHomeContext ctx) {
-        // Tick down cooldown
-        if (cookingCooldown > 0) {
-            cookingCooldown--;
-        }
+        MealTime current = MealTime.current(ctx.getCurrentTime());
 
-        // Try to cook only when cooldown is up
-        if (cookingCooldown == 0 && RANDOM.nextInt(100) < COOKING_CHANCE) {
-            if (tryCook(ctx)) {
-                cookingCooldown = COOKING_COOLDOWN;
+        // Only cook during mealtime and only once per meal
+        if (current != MealTime.NONE && current != lastCookedMeal) {
+            if (tryCook(ctx, current)) {
+                lastCookedMeal = current;
                 return;
             }
         }
 
-        // Otherwise standard behaviour
         super.performDeviceLogic(ctx);
     }
 
-    private boolean tryCook(SmartHomeContext ctx) {
-        // Find fridge anywhere in the house
+    private boolean tryCook(SmartHomeContext ctx, MealTime meal) {
         Fridge fridge = findFridge(ctx);
         if (fridge == null) {
-            System.out.println(" [" + name + "] Wanted to cook but no fridge found!");
+            System.out.println(" [" + name + "] No fridge found!");
             return false;
         }
 
-        // Go to fridge location
+        Map<FoodType, Integer> cost = meal.getCost();
+
         if (this.location != fridge.getLocation()) {
             moveTo(fridge.getLocation());
         }
 
-        // Try to take food
-        if (fridge.takeFood(FOOD_PER_MEAL)) {
-            logActivity(ctx, "COOKING", "Used " + FOOD_PER_MEAL + " food from " + fridge.getName()
-                    + " (left: " + fridge.getFoodCount() + ")");
-            System.out.println(" [" + name + "] Cooking! Food left in fridge: " + fridge.getFoodCount());
-
-            // Also turn on kitchen light if it's off
+        if (fridge.takeFood(cost)) {
+            String ingredients = formatCost(cost);
+            logActivity(ctx, "COOKING",
+                    meal.getDisplayName() + " (" + ingredients + ") — fridge: " + fridge.getFoodCount() + " total");
+            System.out.println(" [" + name + "] Cooking " + meal.getDisplayName()
+                    + "! Fridge total left: " + fridge.getFoodCount());
             turnOnKitchenLight(ctx);
             return true;
         } else {
-            logActivity(ctx, "FRIDGE_EMPTY", fridge.getName());
-            System.out.println(" [" + name + "] Fridge is empty! Need to restock.");
+            logActivity(ctx, "NO_INGREDIENTS", meal.getDisplayName() + " — waiting for restock");
+            System.out.println(" [" + name + "] Not enough ingredients for " + meal.getDisplayName());
             return false;
         }
     }
 
-    private Fridge findFridge(SmartHomeContext ctx) {
+    private String formatCost(Map<FoodType, Integer> cost) {
+        StringBuilder sb = new StringBuilder();
+        cost.forEach((type, amt) -> {
+            if (sb.length() > 0) sb.append(", ");
+            sb.append(type.name().toLowerCase()).append(" x").append(amt);
+        });
+        return sb.toString();
+    }
+
+    public Fridge findFridge(SmartHomeContext ctx) {
         for (Device d : ctx.getAllDevices()) {
             if (d instanceof Fridge f) return f;
         }

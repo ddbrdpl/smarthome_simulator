@@ -61,8 +61,8 @@ public class Person implements EventListener {
     };
 
     protected void moveTo(Room target) {
-        if (this.location == target) return;
-        this.location.removePerson(this);
+        if (target == null || this.location == target) return;
+        if (this.location != null) this.location.removePerson(this);
         this.location = target;
         this.location.addPerson(this);
     }

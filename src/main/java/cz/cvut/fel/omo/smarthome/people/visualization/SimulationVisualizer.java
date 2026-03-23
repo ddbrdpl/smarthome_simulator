@@ -2,6 +2,7 @@ package cz.cvut.fel.omo.smarthome.people.visualization;
 
 import cz.cvut.fel.omo.smarthome.house.SmartHomeContext;
 import cz.cvut.fel.omo.smarthome.house.Room;
+import cz.cvut.fel.omo.smarthome.people.Animal;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.devices.Device;
 import cz.cvut.fel.omo.smarthome.logs.ActivityEntry;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.List;
 
 public class SimulationVisualizer extends JFrame {
 
@@ -82,6 +83,28 @@ public class SimulationVisualizer extends JFrame {
     private final SimulationEngine engine;
     private final List<ActivityEntry> activityHistory = new ArrayList<>();
 
+    // ── Snapshot system for rewind ────────────────────────────────────────
+    private static class Snapshot {
+        final Map<String, String> personRooms;   // name → room name
+        final Map<String, String> personActions; // name → last action text
+        final String simTime;
+        final int step;
+        final List<String> logLines;
+
+        Snapshot(Map<String, String> rooms, Map<String, String> actions,
+                 String time, int step, List<String> log) {
+            this.personRooms   = new LinkedHashMap<>(rooms);
+            this.personActions = new LinkedHashMap<>(actions);
+            this.simTime  = time;
+            this.step     = step;
+            this.logLines = new ArrayList<>(log);
+        }
+    }
+
+    private final List<Snapshot>        snapshots    = new ArrayList<>();
+    private final Map<String, String>   lastActions  = new LinkedHashMap<>();
+    private final List<String>          logLines     = new ArrayList<>();
+
     // Per-person animated position (pixel coords, centre of sprite)
     private final Map<String, float[]> personPos   = new LinkedHashMap<>(); // name → [x, y]
     private final Map<String, float[]> personTarget = new LinkedHashMap<>();
@@ -115,6 +138,7 @@ public class SimulationVisualizer extends JFrame {
         loadFont();
         initPersonPositions();
         buildUI();
+        setupFridgeClick();
         startAnimLoop();
     }
 
@@ -134,13 +158,19 @@ public class SimulationVisualizer extends JFrame {
     private void initPersonPositions() {
         for (Person p : ctx.getResidents()) {
             float[] pos = roomCentre(p.getLocation().getName());
-            // Offset slightly so people in the same room don't overlap
             personPos.put(p.getName(),    pos.clone());
             personTarget.put(p.getName(), pos.clone());
             personBubble.put(p.getName(), "");
             bubbleTimer.put(p.getName(),  0);
         }
-        // Spread people in the same room
+        // Animals
+        for (var a : ctx.getAnimals()) {
+            float[] pos = roomCentre(a.getLocation().getName());
+            personPos.put(a.getName(),    pos.clone());
+            personTarget.put(a.getName(), pos.clone());
+            personBubble.put(a.getName(), "");
+            bubbleTimer.put(a.getName(),  0);
+        }
         spreadInRoom();
     }
 
@@ -276,7 +306,7 @@ public class SimulationVisualizer extends JFrame {
         // Wire buttons
         btnPlay.addActionListener(e -> togglePlay());
         btnNext.addActionListener(e -> { stopPlay(); doStep(); });
-        btnBack.addActionListener(e -> { /* replay not supported, just notify */ });
+        btnBack.addActionListener(e -> { stopPlay(); stepBack(); });
         btnReset.addActionListener(e -> { stopPlay(); resetSim(); });
 
         return bar;
@@ -319,29 +349,50 @@ public class SimulationVisualizer extends JFrame {
             return;
         }
 
+        // Save snapshot BEFORE running the step so we can go back
+        saveSnapshot();
+
         int logBefore = ctx.getActivityLog().getEntries().size();
-        engine.runStep(); // ← we call a single-step method (see below)
+        engine.runStep();
         currentStep++;
 
         // Collect new log entries
         List<ActivityEntry> entries = ctx.getActivityLog().getEntries();
         List<ActivityEntry> newEntries = entries.subList(logBefore, entries.size());
 
-        // Move persons & show bubbles
+        // Move persons (skip Father if shopping — location is null)
         for (Person p : ctx.getResidents()) {
+            if (p.getLocation() == null) continue;
             String roomName = p.getLocation().getName();
             float[] centre  = roomCentre(roomName);
-            // Add small random offset so people in same room spread
             centre[0] += (float)(Math.random() * 40 - 20);
             centre[1] += (float)(Math.random() * 30 - 15);
             personTarget.put(p.getName(), centre);
         }
 
+        // Move animals
+        for (var a : ctx.getAnimals()) {
+            if (a.getLocation() == null) continue;
+            float[] centre = roomCentre(a.getLocation().getName());
+            centre[0] += (float)(Math.random() * 30 - 15);
+            centre[1] += (float)(Math.random() * 20 - 10);
+            personTarget.put(a.getName(), centre);
+        }
+
         // Show action bubbles from log
         for (ActivityEntry e : newEntries) {
-            personBubble.put(e.getPersonName(), e.getAction() + ": " + e.getTargetName());
-            bubbleTimer.put(e.getPersonName(), 60); // ~1.8s at 30fps
-            appendLog(e);
+            String actionText = e.getAction() + ": " + e.getTargetName();
+            personBubble.put(e.getPersonName(), actionText);
+            bubbleTimer.put(e.getPersonName(), 60);
+            lastActions.put(e.getPersonName(), actionText);
+            String line = "[" + e.getTime().format(DateTimeFormatter.ofPattern("HH:mm")) + "] "
+                    + e.getPersonName() + " → " + e.getAction()
+                    + (e.getTargetName() != null ? ": " + e.getTargetName() : "") + "\n";
+            logLines.add(line);
+            SwingUtilities.invokeLater(() -> {
+                logArea.append(line);
+                logArea.setCaretPosition(logArea.getDocument().getLength());
+            });
         }
 
         // Update labels
@@ -350,15 +401,58 @@ public class SimulationVisualizer extends JFrame {
                 .format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
-    private void appendLog(ActivityEntry e) {
-        String time = e.getTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-        String line = "[" + time + "] " + e.getPersonName()
-                + " → " + e.getAction()
-                + (e.getTargetName() != null ? ": " + e.getTargetName() : "") + "\n";
+    // ── Snapshot ──────────────────────────────────────────────────────────
+    private void saveSnapshot() {
+        Map<String, String> rooms = new LinkedHashMap<>();
+        for (Person p : ctx.getResidents()) {
+            rooms.put(p.getName(), p.getLocation().getName());
+        }
+        // Also save animals
+        for (var a : ctx.getAnimals()) {
+            rooms.put(a.getName(), a.getLocation().getName());
+        }
+
+        String time = ctx.getCurrentTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+        snapshots.add(new Snapshot(rooms, new LinkedHashMap<>(lastActions),
+                time, currentStep, new ArrayList<>(logLines)));
+    }
+
+    private void stepBack() {
+        if (snapshots.isEmpty()) return;
+
+        // Pop last snapshot
+        Snapshot snap = snapshots.remove(snapshots.size() - 1);
+        currentStep = snap.step;
+
+        // Restore person targets to snapshot positions
+        for (Map.Entry<String, String> e : snap.personRooms.entrySet()) {
+            String personName = e.getKey();
+            String roomName   = e.getValue();
+            float[] centre = roomCentre(roomName);
+            centre[0] += (float)(Math.random() * 40 - 20);
+            centre[1] += (float)(Math.random() * 30 - 15);
+            personTarget.put(personName, centre);
+            // Show last action bubble
+            String action = snap.personActions.getOrDefault(personName, "");
+            if (!action.isEmpty()) {
+                personBubble.put(personName, action);
+                bubbleTimer.put(personName, 60);
+            }
+        }
+
+        // Restore log display
+        lastActions.clear();
+        lastActions.putAll(snap.personActions);
+        logLines.clear();
+        logLines.addAll(snap.logLines);
         SwingUtilities.invokeLater(() -> {
-            logArea.append(line);
+            logArea.setText(String.join("", logLines));
             logArea.setCaretPosition(logArea.getDocument().getLength());
         });
+
+        // Update labels
+        stepLabel.setText("Step: " + currentStep + " / " + totalSteps);
+        timeLabel.setText("Time: " + snap.simTime);
     }
 
     // ── Play/Stop ─────────────────────────────────────────────────────────
@@ -407,11 +501,58 @@ public class SimulationVisualizer extends JFrame {
                 drawRoom(g2, entry.getKey(), entry.getValue());
             }
 
-            // Draw persons
+            // Draw fridge icon in Kitchen
+            drawFridgeIndicator(g2);
+
+            // Draw persons (skip if location is null — e.g. Father shopping)
             int idx = 0;
             for (Person p : ctx.getResidents()) {
-                drawPerson(g2, p, idx++);
+                if (p.getLocation() != null) {
+                    drawPerson(g2, p, idx);
+                } else {
+                    drawShoppingIndicator(g2, p);
+                }
+                idx++;
             }
+
+            // Draw animals
+            for (var a : ctx.getAnimals()) {
+                if (a.getLocation() != null) drawAnimal(g2, a);
+            }
+        }
+
+        private void drawFridgeIndicator(Graphics2D g2) {
+            int[] rc = ROOM_GRID.get("Kitchen");
+            if (rc == null) return;
+            int x = rc[1] * CELL_W + CELL_W - 50;
+            int y = rc[0] * CELL_H + 24;
+
+            // Find fridge
+            cz.cvut.fel.omo.smarthome.devices.Fridge fridge = null;
+            for (Device d : ctx.getAllDevices()) {
+                if (d instanceof cz.cvut.fel.omo.smarthome.devices.Fridge f) { fridge = f; break; }
+            }
+            if (fridge == null) return;
+
+            int total = fridge.getFoodCount();
+            int max   = 8 + 6 + 4 + 4; // sum of all max stocks
+            Color col = total > 10 ? new Color(0x50fa7b)
+                    : total > 5  ? new Color(0xf1fa8c)
+                    : new Color(0xff5555);
+
+            g2.setColor(col);
+            g2.setFont(pixelFontSm);
+            g2.drawString("F:" + total, x, y);
+        }
+
+        private void drawShoppingIndicator(Graphics2D g2, Person p) {
+            // Show "SHOPPING" text at top-right corner
+            Color col = ROLE_COLOR.getOrDefault(p.getRole().name(), Color.WHITE);
+            g2.setFont(pixelFontSm);
+            g2.setColor(col);
+            String text = p.getName() + ": SHOPPING";
+            int tw = g2.getFontMetrics().stringWidth(text);
+            g2.drawString(text, PANEL_W - tw - 6, 14 + ctx.getResidents().indexOf(p) * 14);
         }
 
         private void drawRoom(Graphics2D g2, String name, int[] rc) {
@@ -533,6 +674,34 @@ public class SimulationVisualizer extends JFrame {
             g2.drawString(display, bx + 5, by + fm.getAscent() + 2);
         }
 
+        private void drawAnimal(Graphics2D g2, Animal a) {
+            if (a.getLocation() == null) return;
+            float[] pos = personPos.get(a.getName());
+            if (pos == null) return;
+
+            int px = (int) pos[0];
+            int py = (int) pos[1];
+
+            Color col = new Color(0xf1fa8c);
+            g2.setColor(col);
+            g2.fillRect(px - 10, py - 10, 20, 20);
+            g2.setColor(col.darker());
+            g2.fillRect(px - 6, py - 6, 12, 12);
+            g2.setFont(pixelFontSm);
+            g2.setColor(Color.WHITE);
+            FontMetrics fm = g2.getFontMetrics();
+            g2.drawString("KK", px - fm.stringWidth("KK") / 2, py + fm.getAscent() / 2 - 1);
+            g2.setColor(col);
+            int nw = fm.stringWidth(a.getName());
+            g2.drawString(a.getName(), px - nw / 2, py + 20);
+
+            String bubble = personBubble.getOrDefault(a.getName(), "");
+            int bt = bubbleTimer.getOrDefault(a.getName(), 0);
+            if (bubble != null && !bubble.isEmpty() && bt > 0) {
+                drawBubble(g2, px, py - 16, bubble, col);
+            }
+        }
+
         private Room findRoom(String name) {
             for (var floor : ctx.getFloors()) {
                 for (Room r : floor.getRooms()) {
@@ -541,6 +710,50 @@ public class SimulationVisualizer extends JFrame {
             }
             return null;
         }
+    }
+
+    // ── Fridge popup on Kitchen click ─────────────────────────────────────
+    private void setupFridgeClick() {
+        gamePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int[] rc = ROOM_GRID.get("Kitchen");
+                if (rc == null) return;
+                int rx = rc[1] * CELL_W;
+                int ry = rc[0] * CELL_H;
+                if (e.getX() >= rx && e.getX() <= rx + CELL_W
+                        && e.getY() >= ry && e.getY() <= ry + CELL_H) {
+                    showFridgePopup();
+                }
+            }
+        });
+    }
+
+    private void showFridgePopup() {
+        cz.cvut.fel.omo.smarthome.devices.Fridge fridge = null;
+        for (Device d : ctx.getAllDevices()) {
+            if (d instanceof cz.cvut.fel.omo.smarthome.devices.Fridge f) { fridge = f; break; }
+        }
+        if (fridge == null) {
+            JOptionPane.showMessageDialog(this, "No fridge found!", "Fridge", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Kitchen Fridge\n");
+        sb.append("──────────────────\n");
+        for (var entry : fridge.getAllStock().entrySet()) {
+            var max = cz.cvut.fel.omo.smarthome.devices.Fridge.MAX_STOCK.get(entry.getKey());
+            sb.append(String.format("%-10s %d / %d\n",
+                    entry.getKey().name().charAt(0)
+                            + entry.getKey().name().substring(1).toLowerCase() + ":",
+                    entry.getValue(), max));
+        }
+        sb.append("──────────────────\n");
+        sb.append(String.format("Total: %d items", fridge.getFoodCount()));
+
+        JOptionPane.showMessageDialog(this, sb.toString(), "Fridge Status",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     // ── Entry point ───────────────────────────────────────────────────────
