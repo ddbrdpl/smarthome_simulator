@@ -18,6 +18,16 @@ public class Person implements EventListener {
 
     protected static final Random RANDOM = new Random();
 
+    // ── Energy system ─────────────────────────────────────────────────────
+    private static final int ENERGY_DRAIN_SPORT   = 15; // per sport tick
+    private static final int ENERGY_RESTORE_REST  = 10; // per rest tick
+    private static final int ENERGY_TIRED_THRESH  = 30; // go rest below this
+    private static final int ENERGY_READY_THRESH  = 70; // can sport above this
+
+    protected final int maxEnergy;
+    protected int energy;
+    protected Room homeRoom; // room to rest in
+
     protected final String id;
     protected final String name;
     protected final Role role;
@@ -33,23 +43,56 @@ public class Person implements EventListener {
         this.role = role;
         this.location = location;
         this.permissions = permissions;
+        this.homeRoom  = location; // default home room = starting room
+        this.maxEnergy = switch (role) {
+            case GRANDFATHER -> 60;
+            case MOTHER      -> 90;
+            case SON         -> 120;
+            case DAUGHTER    -> 110;
+            default          -> 100; // FATHER
+        };
+        this.energy = maxEnergy;
     }
 
     /**
      * Main step logic.
      */
-    public void performStep(SmartHomeContext ctx){
+    public void performStep(SmartHomeContext ctx) {
+        // ── Resting ──────────────────────────────────────────────────────
+        if (energy < ENERGY_TIRED_THRESH) {
+            // Stop sport if currently doing it
+            if (currentSport != null) {
+                currentSport = null;
+            }
+            // Go home to rest
+            if (homeRoom != null && this.location != homeRoom) {
+                moveTo(homeRoom);
+            }
+            energy = Math.min(maxEnergy, energy + ENERGY_RESTORE_REST);
+            logActivity(ctx, "RESTING", "energy: " + energy + "/" + maxEnergy);
+            return;
+        }
+
+        // ── Restore energy passively when not doing sport ─────────────
+        if (currentSport == null) {
+            energy = Math.min(maxEnergy, energy + 3);
+        }
+
+        // ── Sport tick ───────────────────────────────────────────────────
         if (currentSport != null) {
             if (currentSport.isFree() || currentSport.getInUseBy() != this) {
                 logActivity(ctx, "FINISHED_SPORT", currentSport.getType().toString());
-                currentSport = null; // Стал свободен
+                currentSport = null;
             } else {
+                energy = Math.max(0, energy - ENERGY_DRAIN_SPORT);
                 return;
             }
         }
 
-        if (RANDOM.nextInt(100) < 30) {
+        // ── Try sport only if enough energy ──────────────────────────────
+        if (energy >= ENERGY_READY_THRESH && RANDOM.nextInt(100) < 30) {
             if (tryFindAndUseSport(ctx)) {
+                energy = Math.max(0, energy - ENERGY_DRAIN_SPORT);
                 return;
             }
             System.out.println(" [" + name + "] Wanted sport, but everything is busy. Waiting...");
@@ -57,8 +100,7 @@ public class Person implements EventListener {
         }
 
         performDeviceLogic(ctx);
-
-    };
+    }
 
     protected void moveTo(Room target) {
         if (target == null || this.location == target) return;
@@ -206,8 +248,11 @@ public class Person implements EventListener {
     }
 
     public void setDesires(List<DeviceType> desires) { this.desires = desires; }
-    public String getName() { return name; }
-    public Role getRole() { return role; }
-    public Room getLocation() { return location; }
+    public String getName()             { return name; }
+    public Role getRole()               { return role; }
+    public Room getLocation()           { return location; }
     public PermissionSet getPermissions() { return permissions; }
+    public int getEnergy()              { return energy; }
+    public int getMaxEnergy()           { return maxEnergy; }
+    public boolean isTired()            { return energy < ENERGY_TIRED_THRESH; }
 }

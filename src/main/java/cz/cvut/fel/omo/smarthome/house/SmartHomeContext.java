@@ -11,6 +11,7 @@ import cz.cvut.fel.omo.smarthome.people.Cat;
 import cz.cvut.fel.omo.smarthome.people.Person;
 import cz.cvut.fel.omo.smarthome.people.Role;
 import cz.cvut.fel.omo.smarthome.shop.AutoBuyer;
+import cz.cvut.fel.omo.smarthome.simulation.WeatherService;
 import cz.cvut.fel.omo.smarthome.shop.ShopContext;
 import cz.cvut.fel.omo.smarthome.sports.SportEquipment;
 
@@ -35,6 +36,7 @@ public class SmartHomeContext implements ShopContext {
     private final ActivityLog activityLog = new ActivityLog();
     private final ConsumptionLog consumptionLog = new ConsumptionLog();
     private final AutoBuyer autoBuyer = new AutoBuyer();
+    private final WeatherService weatherService = new WeatherService();
 
     private SmartHomeContext() {}
 
@@ -160,5 +162,6 @@ public class SmartHomeContext implements ShopContext {
     public EventLog getEventLog() { return eventLog; }
     public ActivityLog getActivityLog() { return activityLog; }
     public ConsumptionLog getConsumptionLog() { return consumptionLog; }
-    public AutoBuyer getAutoBuyer() { return autoBuyer; }
+    public AutoBuyer getAutoBuyer()         { return autoBuyer; }
+    public WeatherService getWeatherService() { return weatherService; }
 }

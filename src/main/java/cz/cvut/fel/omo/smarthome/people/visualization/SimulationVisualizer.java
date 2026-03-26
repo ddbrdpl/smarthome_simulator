@@ -124,6 +124,7 @@ public class SimulationVisualizer extends JFrame {
     private JLabel    timeLabel;
     private JButton   btnPlay;
     private JSlider   speedSlider;
+    private JLabel    weatherLabel;
 
     // ── Font ─────────────────────────────────────────────────────────────
     private Font pixelFont;
@@ -267,6 +268,10 @@ public class SimulationVisualizer extends JFrame {
         timeLabel.setFont(pixelFont);
         timeLabel.setForeground(new Color(0xf1fa8c));
 
+        weatherLabel = new JLabel("Weather: --");
+        weatherLabel.setFont(pixelFont);
+        weatherLabel.setForeground(new Color(0x8be9fd));
+
         // Buttons
         JButton btnBack = makeBtn("◀ Prev");
         btnPlay         = makeBtn("▶ Play");
@@ -286,6 +291,8 @@ public class SimulationVisualizer extends JFrame {
         bar.add(stepLabel);
         bar.add(Box.createHorizontalStrut(10));
         bar.add(timeLabel);
+        bar.add(Box.createHorizontalStrut(10));
+        bar.add(weatherLabel);
         bar.add(Box.createHorizontalStrut(20));
         bar.add(btnBack);
         bar.add(btnPlay);
@@ -399,6 +406,22 @@ public class SimulationVisualizer extends JFrame {
         stepLabel.setText("Step: " + currentStep + " / " + totalSteps);
         timeLabel.setText("Time: " + ctx.getCurrentTime()
                 .format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        // Update weather label with icon
+        var weather = ctx.getWeatherService().getCurrent();
+        String icon = switch (weather) {
+            case SUNNY  -> "☀";
+            case CLOUDY -> "☁";
+            case RAINY  -> "☂";
+            case COLD   -> "❄";
+        };
+        weatherLabel.setText(icon + " " + weather.getDisplayName());
+        weatherLabel.setForeground(switch (weather) {
+            case SUNNY  -> new Color(0xf1fa8c);
+            case CLOUDY -> new Color(0xaaaaaa);
+            case RAINY  -> new Color(0x8be9fd);
+            case COLD   -> new Color(0xbd93f9);
+        });
     }
 
     // ── Snapshot ──────────────────────────────────────────────────────────
@@ -605,11 +628,15 @@ public class SimulationVisualizer extends JFrame {
             Color col = ROLE_COLOR.getOrDefault(p.getRole().name(), Color.WHITE);
             String icon = ROLE_ICON.getOrDefault(p.getRole().name(), "??");
 
+            // Tired → draw semi-transparent
+            float alpha = p.isTired() ? 0.45f : 1.0f;
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+
             // Shadow
             g2.setColor(new Color(0, 0, 0, 80));
             g2.fillRect(px - 13, py - 11, 28, 28);
 
-            // Body — pixel sprite (16×16)
+            // Body — pixel sprite
             g2.setColor(col);
             g2.fillRect(px - 12, py - 12, 26, 26);
 
@@ -617,11 +644,21 @@ public class SimulationVisualizer extends JFrame {
             g2.setColor(col.darker());
             g2.fillRect(px - 8, py - 8, 18, 18);
 
+            // Resting indicator — small "Z" in corner
+            if (p.isTired()) {
+                g2.setFont(pixelFontSm);
+                g2.setColor(new Color(0xf1fa8c));
+                g2.drawString("z", px + 6, py - 6);
+            }
+
             // Icon text
             g2.setFont(pixelFontSm);
             g2.setColor(Color.WHITE);
             FontMetrics fm = g2.getFontMetrics();
             g2.drawString(icon, px - fm.stringWidth(icon) / 2, py + fm.getAscent() / 2 - 1);
+
+            // Reset alpha
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 
             // Name below
             g2.setFont(pixelFontSm);
@@ -629,6 +666,20 @@ public class SimulationVisualizer extends JFrame {
             String name = p.getName();
             int nw = g2.getFontMetrics().stringWidth(name);
             g2.drawString(name, px - nw / 2, py + 24);
+
+            // Energy bar (24px wide, 3px tall)
+            int barW = 24;
+            int barX = px - barW / 2;
+            int barY = py + 28;
+            float pct = (float) p.getEnergy() / p.getMaxEnergy();
+            Color barCol = pct > 0.6f ? new Color(0x50fa7b)
+                    : pct > 0.3f ? new Color(0xf1fa8c)
+                    :               new Color(0xff5555);
+
+            g2.setColor(new Color(0x0f1425));
+            g2.fillRect(barX - 1, barY - 1, barW + 2, 5);
+            g2.setColor(barCol);
+            g2.fillRect(barX, barY, (int)(barW * pct), 3);
 
             // Speech bubble
             String bubble = personBubble.getOrDefault(p.getName(), "");

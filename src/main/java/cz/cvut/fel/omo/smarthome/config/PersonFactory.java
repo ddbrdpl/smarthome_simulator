@@ -3,7 +3,6 @@ package cz.cvut.fel.omo.smarthome.config;
 import cz.cvut.fel.omo.smarthome.people.DeviceAction;
 import cz.cvut.fel.omo.smarthome.devices.DeviceType;
 import cz.cvut.fel.omo.smarthome.house.Room;
-import cz.cvut.fel.omo.smarthome.people.Mother;
 import cz.cvut.fel.omo.smarthome.people.*;
 
 import java.util.ArrayList;
@@ -19,10 +18,11 @@ public class PersonFactory {
         // 2. Create Specific Class based on Role (Polymorphism)
         // This ensures Father has repair logic, Son has TV logic, etc.
         Person person = switch (def.role) {
-            case FATHER  -> new Father(def.id, def.name, def.role, location, ps);
-            case SON     -> new Son(def.id, def.name, def.role, location, ps);
-            case MOTHER  -> new Mother(def.id, def.name, def.role, location, ps);
-            default      -> new Person(def.id, def.name, def.role, location, ps);
+            case FATHER      -> new Father(def.id, def.name, def.role, location, ps);
+            case SON         -> new Son(def.id, def.name, def.role, location, ps);
+            case MOTHER      -> new Mother(def.id, def.name, def.role, location, ps);
+            case GRANDFATHER -> new Grandfather(def.id, def.name, def.role, location, ps);
+            default          -> new Person(def.id, def.name, def.role, location, ps);
         };
 
         // 3. Assign Desires (Wishlist for AutoBuyer)

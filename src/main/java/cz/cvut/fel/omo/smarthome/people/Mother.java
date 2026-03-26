@@ -20,12 +20,15 @@ public class Mother extends Person {
 
     @Override
     public void performStep(SmartHomeContext ctx) {
-        // Check mealtime BEFORE sport — cooking has higher priority
-        MealTime current = MealTime.current(ctx.getCurrentTime());
-        if (current != MealTime.NONE && current != lastCookedMeal) {
-            if (tryCook(ctx, current)) {
-                lastCookedMeal = current;
-                return;
+        // Cooking has priority over sport AND rest
+        // but only if not critically tired (energy > 20)
+        if (energy > 20) {
+            MealTime current = MealTime.current(ctx.getCurrentTime());
+            if (current != MealTime.NONE && current != lastCookedMeal) {
+                if (tryCook(ctx, current)) {
+                    lastCookedMeal = current;
+                    return;
+                }
             }
         }
         super.performStep(ctx);
@@ -33,7 +36,27 @@ public class Mother extends Person {
 
     @Override
     public void performDeviceLogic(SmartHomeContext ctx) {
+        // Sunny weather → water the plants
+        if (ctx.getWeatherService().getCurrent() == cz.cvut.fel.omo.smarthome.simulation.Weather.SUNNY) {
+            if (RANDOM.nextInt(100) < 25 && tryWaterPlants(ctx)) return;
+        }
+
         super.performDeviceLogic(ctx);
+    }
+
+    private boolean tryWaterPlants(SmartHomeContext ctx) {
+        for (Device d : ctx.getAllDevices()) {
+            if (d.getType() == DeviceType.IRRIGATION_SYSTEM && d.isOff()) {
+                moveTo(d.getLocation());
+                d.turnOn();
+                d.markUsedBy(this);
+                logActivity(ctx, "WATERING_PLANTS",
+                        d.getName() + " (sunny day)");
+                System.out.println(" [" + name + "] Watering plants — sunny day!");
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean tryCook(SmartHomeContext ctx, MealTime meal) {
