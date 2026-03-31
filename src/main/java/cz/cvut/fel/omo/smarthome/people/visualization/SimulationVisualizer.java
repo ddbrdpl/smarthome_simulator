@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.List;
 
+
 public class SimulationVisualizer extends JFrame {
 
     // ── Layout ──────────────────────────────────────────────────────────
@@ -428,11 +429,14 @@ public class SimulationVisualizer extends JFrame {
     private void saveSnapshot() {
         Map<String, String> rooms = new LinkedHashMap<>();
         for (Person p : ctx.getResidents()) {
-            rooms.put(p.getName(), p.getLocation().getName());
+            // Father may be shopping — location is null
+            String roomName = p.getLocation() != null ? p.getLocation().getName() : "OUTSIDE";
+            rooms.put(p.getName(), roomName);
         }
         // Also save animals
         for (var a : ctx.getAnimals()) {
-            rooms.put(a.getName(), a.getLocation().getName());
+            String roomName = a.getLocation() != null ? a.getLocation().getName() : "OUTSIDE";
+            rooms.put(a.getName(), roomName);
         }
 
         String time = ctx.getCurrentTime().format(DateTimeFormatter.ofPattern("HH:mm"));
@@ -451,6 +455,7 @@ public class SimulationVisualizer extends JFrame {
         for (Map.Entry<String, String> e : snap.personRooms.entrySet()) {
             String personName = e.getKey();
             String roomName   = e.getValue();
+            if ("OUTSIDE".equals(roomName)) continue; // skip — person was shopping
             float[] centre = roomCentre(roomName);
             centre[0] += (float)(Math.random() * 40 - 20);
             centre[1] += (float)(Math.random() * 30 - 15);
