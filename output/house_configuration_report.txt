@@ -13,6 +13,8 @@ Floor: Main floor
   [Room] Garden (GARDEN)
     Devices:
       - Irrigation
+      - Outdoor camera
+      - Outdoor camera #2
     Sports:
       - POOL
 
@@ -36,24 +38,15 @@ Floor: Main floor
       - Air Quality Sensor
       - Multiroom Audio
       - Blinds Living
-      - SMART_MIRROR #3 (NEW)
-      - SMART_COFFEE_MACHINE #1 (NEW)
-      - SMART_MIRROR #4 (NEW)
-      - GROUP_LIGHT #2 (NEW)
-      - SMART_WASHING_MACHINE #2 (NEW)
-      - SMART_TV #2 (NEW)
-      - SMART_COFFEE_MACHINE #2 (NEW)
-      - SMART_MIRROR #5 (NEW)
-      - MOTION_SENSOR #2 (NEW)
-      - FRIDGE #1 (NEW)
-      - GARDEN_LIGHT #1 (NEW)
-      - IRRIGATION_SYSTEM #2 (NEW)
+      - Smart light #6
+      - Door window sensor #2
 
   [Room] Kitchen (KITCHEN)
     Devices:
       - Kitchen Light
       - Smoke/Gas Sensor
       - Pet Feeder
+      - Kitchen Fridge
 
   [Room] Bathroom (BATHROOM)
     Devices:
@@ -65,9 +58,8 @@ Floor: Main floor
       - SCALE
 
 Residents:
-  - Otec (FATHER) → Garden
-  - Matka (MOTHER) → Garage
-  - Syn (SON) → Garage
-  - Dcera (DAUGHTER) → LivingRoom
-  - Ded (GRANDFATHER) → Garage
-  - Kocka (CAT) → Bathroom
+  - Otec (FATHER) → DaughterRoom
+  - Matka (MOTHER) → Kitchen
+  - Syn (SON) → SonRoom
+  - Dcera (DAUGHTER) → Bathroom
+  - Ded (GRANDFATHER) → LivingRoom

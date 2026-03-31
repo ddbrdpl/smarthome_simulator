@@ -1,23 +1,2 @@
 === EVENT REPORT ===
 
-2026-01-01T10:15 | DEVICE_BROKEN | Dev: Son Light | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
-2026-01-01T10:45 | DEVICE_REPAIRED | Dev: Son Light | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T11:00 | DEVICE_BROKEN | Dev: Daughter Light | Caused: FATHER (Otec) | Handled: FATHER (Notified)
-2026-01-01T11:15 | DEVICE_REPAIRED | Dev: Daughter Light | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T11:45 | DEVICE_BROKEN | Dev: SMART_MIRROR #3 (NEW) | Caused: DAUGHTER (Dcera) | Handled: FATHER (Notified)
-2026-01-01T12:00 | DEVICE_REPAIRED | Dev: SMART_MIRROR #3 (NEW) | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T13:00 | DEVICE_BROKEN | Dev: Bathroom Light | Caused: GRANDFATHER (Ded) | Handled: FATHER (Notified)
-2026-01-01T14:00 | DEVICE_BROKEN | Dev: SMART_MIRROR #4 (NEW) | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
-2026-01-01T14:30 | DEVICE_REPAIRED | Dev: SMART_MIRROR #4 (NEW) | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T14:45 | DEVICE_REPAIRED | Dev: Bathroom Light | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T15:00 | DEVICE_BROKEN | Dev: Son TV | Caused: SON (Syn) | Handled: FATHER (Notified)
-2026-01-01T15:30 | DEVICE_BROKEN | Dev: Daughter Light | Caused: SON (Syn) | Handled: FATHER (Notified)
-2026-01-01T17:00 | DEVICE_REPAIRED | Dev: Son TV | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T17:15 | DEVICE_REPAIRED | Dev: Daughter Light | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T17:30 | DEVICE_BROKEN | Dev: Pet Feeder | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
-2026-01-01T17:45 | DEVICE_REPAIRED | Dev: Pet Feeder | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T18:00 | DEVICE_BROKEN | Dev: Smart Mirror | Caused: GRANDFATHER (Ded) | Handled: FATHER (Notified)
-2026-01-01T18:15 | DEVICE_REPAIRED | Dev: Smart Mirror | Caused: FATHER (Otec) | Handled: Otec
-2026-01-01T19:15 | DEVICE_BROKEN | Dev: SMART_MIRROR #4 (NEW) | Caused: DAUGHTER (Dcera) | Handled: FATHER (Notified)
-2026-01-01T19:30 | DEVICE_BROKEN | Dev: Pet Feeder | Caused: GRANDFATHER (Ded) | Handled: FATHER (Notified)
-2026-01-01T20:15 | DEVICE_REPAIRED | Dev: SMART_MIRROR #4 (NEW) | Caused: FATHER (Otec) | Handled: Otec

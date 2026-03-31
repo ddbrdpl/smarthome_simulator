@@ -127,15 +127,18 @@ public class SimulationVisualizer extends JFrame {
     private JSlider   speedSlider;
     private JLabel    weatherLabel;
 
+    private Runnable  onFinish; // called when simulation ends or Reports button clicked
+
     // ── Font ─────────────────────────────────────────────────────────────
     private Font pixelFont;
     private Font pixelFontSm;
 
     // ─────────────────────────────────────────────────────────────────────
-    public SimulationVisualizer(SmartHomeContext ctx, int totalSteps) {
+    public SimulationVisualizer(SmartHomeContext ctx, int totalSteps, Runnable onFinish) {
         this.ctx        = ctx;
         this.engine     = new SimulationEngine(ctx);
         this.totalSteps = totalSteps;
+        this.onFinish   = onFinish;
 
         loadFont();
         initPersonPositions();
@@ -274,10 +277,11 @@ public class SimulationVisualizer extends JFrame {
         weatherLabel.setForeground(new Color(0x8be9fd));
 
         // Buttons
-        JButton btnBack = makeBtn("◀ Prev");
-        btnPlay         = makeBtn("▶ Play");
-        JButton btnNext = makeBtn("Next ▶");
-        JButton btnReset= makeBtn("↺ Reset");
+        JButton btnBack  = makeBtn("◀ Prev");
+        btnPlay          = makeBtn("▶ Play");
+        JButton btnNext  = makeBtn("Next ▶");
+        JButton btnReset = makeBtn("↺ Reset");
+        JButton btnRep   = makeBtn("📋 Reports");
 
         // Speed slider
         JLabel speedLbl = new JLabel("Speed:");
@@ -299,6 +303,7 @@ public class SimulationVisualizer extends JFrame {
         bar.add(btnPlay);
         bar.add(btnNext);
         bar.add(btnReset);
+        bar.add(btnRep);
         bar.add(Box.createHorizontalStrut(10));
         bar.add(speedLbl);
         bar.add(speedSlider);
@@ -316,6 +321,7 @@ public class SimulationVisualizer extends JFrame {
         btnNext.addActionListener(e -> { stopPlay(); doStep(); });
         btnBack.addActionListener(e -> { stopPlay(); stepBack(); });
         btnReset.addActionListener(e -> { stopPlay(); resetSim(); });
+        btnRep.addActionListener(e -> generateReports());
 
         return bar;
     }
@@ -354,6 +360,7 @@ public class SimulationVisualizer extends JFrame {
     private void doStep() {
         if (currentStep >= totalSteps) {
             stopPlay();
+            generateReports(); // auto-generate when simulation finishes
             return;
         }
 
@@ -812,10 +819,26 @@ public class SimulationVisualizer extends JFrame {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
+    // ── Reports ───────────────────────────────────────────────────────────
+    private void generateReports() {
+        if (currentStep == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Run the simulation first before generating reports.\nPress ▶ Play or Next ▶ to start.",
+                    "No data yet", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (onFinish != null) {
+            onFinish.run();
+            JOptionPane.showMessageDialog(this,
+                    "Reports generated in 'output/' folder.\nSteps completed: " + currentStep + "/" + totalSteps,
+                    "Reports ready", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
     // ── Entry point ───────────────────────────────────────────────────────
-    public static void show(SmartHomeContext ctx, int steps) {
+    public static void show(SmartHomeContext ctx, int steps, Runnable onFinish) {
         SwingUtilities.invokeLater(() -> {
-            SimulationVisualizer viz = new SimulationVisualizer(ctx, steps);
+            SimulationVisualizer viz = new SimulationVisualizer(ctx, steps, onFinish);
             viz.setVisible(true);
         });
     }
