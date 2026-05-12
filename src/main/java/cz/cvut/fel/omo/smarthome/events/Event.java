@@ -14,8 +14,6 @@ public class Event {
     public Event(EventType type, Object source, Object target) {
         this.type = type;
         this.source = source;
-        // test comment
-
         this.target = target;
         this.createdAt = SmartHomeContext.getInstance().getCurrentTime();
     }

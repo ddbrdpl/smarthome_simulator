@@ -42,7 +42,6 @@ public enum MealTime {
     // Is it currently mealtime?
     public static MealTime current(LocalDateTime time) {
         int h = time.getHour();
-        int m = time.getMinute();
         for (MealTime mt : values()) {
             if (mt == NONE) continue;
             if (h >= mt.startHour && h < mt.endHour) return mt;

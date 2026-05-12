@@ -13,6 +13,7 @@ import java.util.Map;
 public class Mother extends Person {
 
     private MealTime lastCookedMeal = null; // avoid cooking same meal twice
+    private int lastCookedDay = -1;         // day of year when last meal was cooked
 
     public Mother(String id, String name, Role role, Room location, PermissionSet permissions) {
         super(id, name, role, location, permissions);
@@ -23,6 +24,11 @@ public class Mother extends Person {
         // Cooking has priority over sport AND rest
         // but only if not critically tired (energy > 20)
         if (energy > 20) {
+            int today = ctx.getCurrentTime().getDayOfYear();
+            if (today != lastCookedDay) {
+                lastCookedMeal = null;
+                lastCookedDay  = today;
+            }
             MealTime current = MealTime.current(ctx.getCurrentTime());
             if (current != MealTime.NONE && current != lastCookedMeal) {
                 if (tryCook(ctx, current)) {
