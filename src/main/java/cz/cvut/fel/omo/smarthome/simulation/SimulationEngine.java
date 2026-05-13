@@ -17,6 +17,8 @@ public class SimulationEngine {
     public void runStep() {
         ctx.advanceTime(15);
 
+        ctx.getWeatherService().tick();
+
         for (Person p : ctx.getResidents()) {
             p.performStep(ctx);
         }

@@ -46,6 +46,7 @@ public class AutoBuyer {
     }
 
     private static final int DEFAULT_LIMIT = 3;
+    private static final Random SHARED_RANDOM = new Random();
 
     // Only these types can be bought on impulse
     private static final DeviceType[] IMPULSE_TYPES = {
@@ -91,9 +92,8 @@ public class AutoBuyer {
 
     public void buyImpulseDevice(ShopContext ctx, String requester) {
         // Try up to 5 times to find a type that hasn't hit its limit
-        Random rnd = new Random();
         for (int i = 0; i < 5; i++) {
-            DeviceType type = IMPULSE_TYPES[rnd.nextInt(IMPULSE_TYPES.length)];
+            DeviceType type = IMPULSE_TYPES[SHARED_RANDOM.nextInt(IMPULSE_TYPES.length)];
             int count = countDevices(ctx, type);
             int limit = LIMITS.getOrDefault(type, DEFAULT_LIMIT);
             if (count < limit) {

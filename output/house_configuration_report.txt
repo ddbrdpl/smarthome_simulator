@@ -5,6 +5,7 @@ Floor: Main floor
     Devices:
       - Garage Light
       - Garage Motion
+      - Motion sensor #2
     Sports:
       - TREADMILL
       - BIKE
@@ -40,6 +41,8 @@ Floor: Main floor
       - Blinds Living
       - Smart light #6
       - Door window sensor #2
+      - Multiroom audio #2
+      - Smart tv #2
 
   [Room] Kitchen (KITCHEN)
     Devices:
@@ -47,6 +50,8 @@ Floor: Main floor
       - Smoke/Gas Sensor
       - Pet Feeder
       - Kitchen Fridge
+      - Smart coffee machine
+      - Smoke gas sensor #2
 
   [Room] Bathroom (BATHROOM)
     Devices:
@@ -54,12 +59,13 @@ Floor: Main floor
       - Water Leak Sensor
       - Washing Machine
       - Smart Mirror
+      - Water leak sensor #2
     Sports:
       - SCALE
 
 Residents:
-  - Otec (FATHER) → DaughterRoom
-  - Matka (MOTHER) → Kitchen
+  - Otec (FATHER) → Bathroom
+  - Matka (MOTHER) → LivingRoom
   - Syn (SON) → SonRoom
-  - Dcera (DAUGHTER) → Bathroom
-  - Ded (GRANDFATHER) → LivingRoom
+  - Dcera (DAUGHTER) → LivingRoom
+  - Ded (GRANDFATHER) → DaughterRoom

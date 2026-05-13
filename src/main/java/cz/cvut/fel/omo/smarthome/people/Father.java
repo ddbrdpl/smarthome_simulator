@@ -17,11 +17,9 @@ public class Father extends Person {
 
     private boolean isShopping    = false;
     private int     shoppingTicks = 0;
-    private Room    homeRoom;
 
     public Father(String id, String name, Role role, Room location, PermissionSet permissions) {
         super(id, name, role, location, permissions);
-        this.homeRoom = location;
     }
 
     @Override
@@ -77,9 +75,10 @@ public class Father extends Person {
                             + " soup:" + fridge.getStock(FoodType.SOUP)
                             + " steak:" + fridge.getStock(FoodType.STEAK));
         }
-        this.location = homeRoom;
+        Room returnRoom = homeRoom;
+        this.location = returnRoom;
         this.location.addPerson(this);
-        logActivity(ctx, "RETURNED", "Back home → " + homeRoom.getName());
+        logActivity(ctx, "RETURNED", "Back home → " + returnRoom.getName());
         System.out.println(" [" + name + "] Back from shopping! Fridge restocked.");
     }
 

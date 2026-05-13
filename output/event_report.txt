@@ -1,2 +1,9 @@
 === EVENT REPORT ===
 
+2026-01-01T11:00 | DEVICE_BROKEN | Dev: Son TV | Caused: SON (Syn) | Handled: FATHER (Notified)
+2026-01-01T11:30 | DEVICE_REPAIRED | Dev: Son TV | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T11:30 | DEVICE_BROKEN | Dev: Irrigation | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
+2026-01-01T11:45 | DEVICE_REPAIRED | Dev: Irrigation | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T12:15 | DEVICE_BROKEN | Dev: Irrigation | Caused: MOTHER (Matka) | Handled: FATHER (Notified)
+2026-01-01T12:30 | DEVICE_REPAIRED | Dev: Irrigation | Caused: FATHER (Otec) | Handled: Otec
+2026-01-01T21:30 | DEVICE_BROKEN | Dev: Smart coffee machine | Caused: MOTHER (Matka) | Handled: FATHER (Notified)

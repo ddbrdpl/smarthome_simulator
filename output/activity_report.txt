@@ -1,43 +1,219 @@
 === ACTIVITY REPORT ===
 
-2026-01-01 06:45:00 | Matka | STARTED_SPORT | TREADMILL (5 steps)
+2026-01-01 06:45:00 | Otec | STARTED_SPORT | TREADMILL (2 steps)
 2026-01-01 06:45:00 | Syn | TURN_ON | Son TV
-2026-01-01 06:45:00 | Dcera | TURN_ON | Daughter Mirror
-2026-01-01 06:45:00 | Ded | TURN_ON | Humidifier/AC
-2026-01-01 06:45:00 | Kocka | WANDERED_TO | LivingRoom
-2026-01-01 07:00:00 | Otec | TURN_ON | Main Door Lock
-2026-01-01 07:00:00 | Syn | STARTED_SPORT | BIKE (3 steps)
-2026-01-01 07:00:00 | AutoBuyer | BOUGHT_DEVICE | Outdoor camera → Garden (for Impulse by Dcera)
-2026-01-01 07:00:00 | Kocka | SLEEPING | LivingRoom
-2026-01-01 07:15:00 | Dcera | TURN_ON | Kitchen Light
-2026-01-01 07:15:00 | Ded | TURN_ON | Multiroom Audio
-2026-01-01 07:15:00 | Kocka | SLEEPING | LivingRoom
-2026-01-01 07:30:00 | Otec | TURN_ON | Living Group Light
-2026-01-01 07:30:00 | Ded | TURN_ON | Blinds Living
-2026-01-01 07:30:00 | Kocka | SLEEPING | LivingRoom
-2026-01-01 07:45:00 | Otec | TURN_OFF | Living Group Light
-2026-01-01 07:45:00 | Syn | FINISHED_SPORT | BIKE
-2026-01-01 07:45:00 | Dcera | TURN_OFF | Son TV
-2026-01-01 07:45:00 | Kocka | SLEEPING | LivingRoom
-2026-01-01 08:00:00 | Otec | STARTED_SPORT | TREADMILL (4 steps)
-2026-01-01 08:00:00 | Matka | RESTING | energy: 25/90
-2026-01-01 08:00:00 | Dcera | STARTED_SPORT | BIKE (4 steps)
-2026-01-01 08:00:00 | Ded | TURN_ON | Daughter Light
-2026-01-01 08:00:00 | Kocka | SLEEPING | LivingRoom
-2026-01-01 08:15:00 | Matka | COOKING | Breakfast (eggs x2, oatmeal x1) — fridge: 6 total
-2026-01-01 08:15:00 | Syn | STARTED_SPORT | SMITH_MACHINE (4 steps)
-2026-01-01 08:30:00 | Matka | RESTING | energy: 35/90
-2026-01-01 08:30:00 | Kocka | SLEEPING | LivingRoom
-2026-01-01 08:45:00 | AutoBuyer | BOUGHT_DEVICE | Smart light #6 → LivingRoom (for Impulse by Matka)
-2026-01-01 08:45:00 | Matka | TURN_ON | Son TV
+2026-01-01 06:45:00 | Ded | TURN_ON | Multiroom Audio
+2026-01-01 06:45:00 | Kocka | SLEEPING | Garden
+2026-01-01 07:00:00 | Matka | TURN_ON | Pet Feeder
+2026-01-01 07:00:00 | Syn | TURN_OFF | Son TV
+2026-01-01 07:00:00 | Dcera | DENIED_TURN_ON | Washing Machine
+2026-01-01 07:00:00 | Kocka | SLEEPING | Garden
+2026-01-01 07:15:00 | Otec | FINISHED_SPORT | TREADMILL
+2026-01-01 07:15:00 | Otec | STARTED_SPORT | TREADMILL (5 steps)
+2026-01-01 07:15:00 | Matka | STARTED_SPORT | BIKE (5 steps)
+2026-01-01 07:15:00 | Syn | STARTED_SPORT | SMITH_MACHINE (5 steps)
+2026-01-01 07:15:00 | Kocka | SLEEPING | Garden
+2026-01-01 07:30:00 | Dcera | TURN_ON | Bathroom Light
+2026-01-01 07:30:00 | Ded | TURN_ON | Kitchen Light
+2026-01-01 07:30:00 | Kocka | SLEEPING | Garden
+2026-01-01 07:45:00 | Kocka | SLEEPING | Garden
+2026-01-01 08:00:00 | Otec | RESTING | energy: 35/100
+2026-01-01 08:00:00 | Matka | COOKING | Breakfast (eggs x2, oatmeal x1) — fridge: 6 total
+2026-01-01 08:00:00 | Kocka | SLEEPING | Garden
+2026-01-01 08:15:00 | Dcera | TURN_ON | Son TV
+2026-01-01 08:15:00 | Kocka | WANDERED_TO | Bathroom
+2026-01-01 08:30:00 | Matka | FINISHED_SPORT | BIKE
+2026-01-01 08:30:00 | AutoBuyer | BOUGHT_DEVICE | Smart coffee machine → Kitchen (for Desire of Matka)
+2026-01-01 08:30:00 | Matka | TURN_OFF | Kitchen Light
+2026-01-01 08:30:00 | Syn | FINISHED_SPORT | SMITH_MACHINE
+2026-01-01 08:30:00 | Dcera | STARTED_SPORT | TREADMILL (5 steps)
+2026-01-01 08:30:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 08:45:00 | Otec | TURN_ON | Main Door Lock
+2026-01-01 08:45:00 | Matka | WATERING_PLANTS | Irrigation (sunny day)
+2026-01-01 08:45:00 | Ded | TURN_ON | Washing Machine
 2026-01-01 08:45:00 | Kocka | WANDERED_TO | DaughterRoom
-2026-01-01 09:00:00 | Otec | FINISHED_SPORT | TREADMILL
-2026-01-01 09:00:00 | Matka | TURN_ON | Son Light
-2026-01-01 09:00:00 | Dcera | FINISHED_SPORT | BIKE
-2026-01-01 09:00:00 | Ded | TURN_OFF | Humidifier/AC
+2026-01-01 09:00:00 | Otec | TURN_ON | Blinds Living
+2026-01-01 09:00:00 | Syn | TURN_ON | Garage Light
+2026-01-01 09:00:00 | AutoBuyer | BOUGHT_DEVICE | Smart light #6 → LivingRoom (for Impulse by Ded)
 2026-01-01 09:00:00 | Kocka | SLEEPING | DaughterRoom
-2026-01-01 09:15:00 | Syn | RESTING | energy: 31/120
-2026-01-01 09:15:00 | AutoBuyer | BOUGHT_DEVICE | Door window sensor #2 → LivingRoom (for Impulse by Dcera)
+2026-01-01 09:15:00 | AutoBuyer | BOUGHT_DEVICE | Water leak sensor #2 → Bathroom (for Impulse by Otec)
+2026-01-01 09:15:00 | Otec | TURN_OFF | Bathroom Light
+2026-01-01 09:15:00 | Matka | TURN_OFF | Main Door Lock
+2026-01-01 09:15:00 | Ded | TURN_ON | Main Door Lock
 2026-01-01 09:15:00 | Kocka | SLEEPING | DaughterRoom
-2026-01-01 09:30:00 | AutoBuyer | BOUGHT_DEVICE | Outdoor camera #2 → Garden (for Impulse by Dcera)
+2026-01-01 09:30:00 | Otec | TURN_ON | Bathroom Light
+2026-01-01 09:30:00 | Matka | TURN_OFF | Multiroom Audio
+2026-01-01 09:30:00 | Ded | TURN_OFF | Blinds Living
 2026-01-01 09:30:00 | Kocka | SLEEPING | DaughterRoom
+2026-01-01 09:45:00 | Otec | TURN_OFF | Bathroom Light
+2026-01-01 09:45:00 | Dcera | FINISHED_SPORT | TREADMILL
+2026-01-01 09:45:00 | Dcera | TURN_ON | Daughter Light
+2026-01-01 09:45:00 | Ded | TURN_ON | Multiroom Audio
+2026-01-01 09:45:00 | Kocka | SLEEPING | DaughterRoom
+2026-01-01 10:00:00 | Dcera | TURN_OFF | Daughter Light
+2026-01-01 10:00:00 | Kocka | SLEEPING | DaughterRoom
+2026-01-01 10:15:00 | Matka | TURN_ON | Living Group Light
+2026-01-01 10:15:00 | Syn | TURN_OFF | Son TV
+2026-01-01 10:15:00 | Ded | TURN_OFF | Garage Light
+2026-01-01 10:15:00 | Kocka | SLEEPING | DaughterRoom
+2026-01-01 10:30:00 | AutoBuyer | BOUGHT_DEVICE | Smoke gas sensor #2 → Kitchen (for Impulse by Otec)
+2026-01-01 10:30:00 | Otec | TURN_OFF | Main Door Lock
+2026-01-01 10:30:00 | Matka | TURN_ON | Smart light #6
+2026-01-01 10:30:00 | Syn | TURN_ON | Son TV
+2026-01-01 10:30:00 | Dcera | TURN_ON | Smart Mirror
+2026-01-01 10:30:00 | Kocka | SLEEPING | DaughterRoom
+2026-01-01 10:45:00 | Otec | TURN_ON | Blinds Living
+2026-01-01 10:45:00 | Matka | TURN_OFF | Multiroom Audio
+2026-01-01 10:45:00 | AutoBuyer | BOUGHT_DEVICE | Door window sensor #2 → LivingRoom (for Impulse by Ded)
+2026-01-01 10:45:00 | Ded | TURN_ON | Garage Light
+2026-01-01 10:45:00 | Kocka | WANDERED_TO | Bathroom
+2026-01-01 11:00:00 | Otec | STARTED_SPORT | TREADMILL (2 steps)
+2026-01-01 11:00:00 | AutoBuyer | BOUGHT_DEVICE | Outdoor camera → Garden (for Impulse by Matka)
+2026-01-01 11:00:00 | Matka | TURN_ON | Main Door Lock
+2026-01-01 11:00:00 | Syn | STARTED_SPORT | BIKE (5 steps)
+2026-01-01 11:00:00 | Dcera | TURN_OFF | Smart Mirror
+2026-01-01 11:00:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 11:15:00 | Matka | TURN_ON | Humidifier/AC
+2026-01-01 11:15:00 | Ded | TURN_OFF | Garage Light
+2026-01-01 11:15:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 11:30:00 | Otec | FINISHED_SPORT | TREADMILL
+2026-01-01 11:30:00 | Otec | REPAIRED | Son TV
+2026-01-01 11:30:00 | Matka | TURN_OFF | Blinds Living
+2026-01-01 11:30:00 | Dcera | TURN_ON | Smart Mirror
+2026-01-01 11:30:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 11:45:00 | Otec | REPAIRED | Irrigation
+2026-01-01 11:45:00 | Dcera | TURN_OFF | Living Group Light
+2026-01-01 11:45:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 12:00:00 | Matka | COOKING | Lunch (soup x2) — fridge: 4 total
+2026-01-01 12:00:00 | Matka | TURN_ON | Kitchen Light
+2026-01-01 12:00:00 | Syn | RESTING | energy: 25/120
+2026-01-01 12:00:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 12:15:00 | Matka | WATERING_PLANTS | Irrigation (sunny day)
+2026-01-01 12:15:00 | Syn | RESTING | energy: 35/120
+2026-01-01 12:15:00 | Dcera | TURN_ON | Son TV
+2026-01-01 12:15:00 | Ded | TURN_ON | Blinds Living
+2026-01-01 12:15:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 12:30:00 | Otec | REPAIRED | Irrigation
+2026-01-01 12:30:00 | AutoBuyer | BOUGHT_DEVICE | Motion sensor #2 → Garage (for Impulse by Dcera)
+2026-01-01 12:30:00 | Ded | TURN_ON_THERMOSTAT | Thermostat (cold weather: Cold)
+2026-01-01 12:30:00 | Kocka | WANDERED_TO | SonRoom
+2026-01-01 12:45:00 | Matka | STARTED_SPORT | TREADMILL (3 steps)
+2026-01-01 12:45:00 | Syn | TURN_ON | Son Light
+2026-01-01 12:45:00 | Dcera | TURN_OFF | Son Light
+2026-01-01 12:45:00 | Kocka | SLEEPING | SonRoom
+2026-01-01 13:00:00 | Otec | TURN_ON | Bathroom Light
+2026-01-01 13:00:00 | Dcera | TURN_OFF | Son TV
+2026-01-01 13:00:00 | AutoBuyer | BOUGHT_DEVICE | Multiroom audio #2 → LivingRoom (for Impulse by Ded)
+2026-01-01 13:00:00 | Ded | TURN_OFF | Smart Mirror
+2026-01-01 13:00:00 | Kocka | SLEEPING | SonRoom
+2026-01-01 13:15:00 | Otec | TURN_OFF | Kitchen Light
+2026-01-01 13:15:00 | Syn | TURN_ON | Multiroom audio #2
+2026-01-01 13:15:00 | Dcera | TURN_ON | Son TV
+2026-01-01 13:15:00 | Kocka | WANDERED_TO | Bathroom
+2026-01-01 13:30:00 | Otec | TURN_OFF | Pet Feeder
+2026-01-01 13:30:00 | Matka | FINISHED_SPORT | TREADMILL
+2026-01-01 13:30:00 | Dcera | TURN_OFF | Son TV
+2026-01-01 13:30:00 | AutoBuyer | BOUGHT_DEVICE | Outdoor camera #2 → Garden (for Impulse by Ded)
+2026-01-01 13:30:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 13:45:00 | Syn | TURN_ON | Son TV
+2026-01-01 13:45:00 | Dcera | TURN_OFF | Son TV
+2026-01-01 13:45:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 14:00:00 | Otec | TURN_ON | Smart coffee machine
+2026-01-01 14:00:00 | Matka | TURN_OFF | Smart light #6
+2026-01-01 14:00:00 | Syn | TURN_ON | Son TV
+2026-01-01 14:00:00 | Dcera | STARTED_SPORT | TREADMILL (5 steps)
+2026-01-01 14:00:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 14:15:00 | Otec | STARTED_SPORT | BIKE (4 steps)
+2026-01-01 14:15:00 | Syn | TURN_ON | Son Light
+2026-01-01 14:15:00 | Ded | TURN_OFF | Multiroom audio #2
+2026-01-01 14:15:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 14:30:00 | Ded | TURN_OFF | Main Door Lock
+2026-01-01 14:30:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 14:45:00 | Ded | TURN_ON | Daughter Light
+2026-01-01 14:45:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 15:00:00 | Otec | RESTING | energy: 39/100
+2026-01-01 15:00:00 | Dcera | RESTING | energy: 36/110
+2026-01-01 15:00:00 | Ded | TURN_OFF | Daughter Light
+2026-01-01 15:00:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 15:15:00 | Syn | STARTED_SPORT | TREADMILL (4 steps)
+2026-01-01 15:15:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 15:30:00 | Otec | TURN_OFF | Son TV
+2026-01-01 15:30:00 | Matka | TURN_ON | Living Group Light
+2026-01-01 15:30:00 | Ded | TURN_ON | Smart Mirror
+2026-01-01 15:30:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 15:45:00 | Matka | TURN_OFF | Living Group Light
+2026-01-01 15:45:00 | Ded | TURN_OFF | Washing Machine
+2026-01-01 15:45:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 16:00:00 | Otec | TURN_OFF | Son Light
+2026-01-01 16:00:00 | Syn | RESTING | energy: 36/120
+2026-01-01 16:00:00 | Ded | TURN_OFF | Bathroom Light
+2026-01-01 16:00:00 | Kocka | SLEEPING | Bathroom
+2026-01-01 16:15:00 | Otec | TURN_OFF | Smart Mirror
+2026-01-01 16:15:00 | Syn | TURN_ON | Son TV
+2026-01-01 16:15:00 | Kocka | WANDERED_TO | Garden
+2026-01-01 16:30:00 | Otec | TURN_ON | Smart Mirror
+2026-01-01 16:30:00 | Matka | TURN_ON | Multiroom audio #2
+2026-01-01 16:30:00 | Kocka | SLEEPING | Garden
+2026-01-01 16:45:00 | Matka | TURN_ON | Multiroom Audio
+2026-01-01 16:45:00 | Syn | TURN_ON | Bathroom Light
+2026-01-01 16:45:00 | Dcera | DENIED_TURN_ON | Main Door Lock
+2026-01-01 16:45:00 | Ded | TURN_ON | Daughter Mirror
+2026-01-01 16:45:00 | Kocka | SLEEPING | Garden
+2026-01-01 17:00:00 | Otec | TURN_OFF | Bathroom Light
+2026-01-01 17:00:00 | Ded | TURN_ON | Pet Feeder
+2026-01-01 17:00:00 | Kocka | SLEEPING | Garden
+2026-01-01 17:15:00 | Otec | TURN_ON | Washing Machine
+2026-01-01 17:15:00 | Matka | WATERING_PLANTS | Irrigation (sunny day)
+2026-01-01 17:15:00 | Ded | TURN_OFF | Pet Feeder
+2026-01-01 17:15:00 | Kocka | WANDERED_TO | Kitchen
+2026-01-01 17:30:00 | Otec | SHOPPING | Left for groceries (4 ticks ~1h)
+2026-01-01 17:30:00 | Ded | TURN_ON | Kitchen Light
+2026-01-01 17:30:00 | Kocka | SLEEPING | Kitchen
+2026-01-01 17:45:00 | Dcera | TURN_ON | Smart light #6
+2026-01-01 17:45:00 | Kocka | WANDERED_TO | Garage
+2026-01-01 18:00:00 | Matka | NO_INGREDIENTS | Dinner — waiting for restock
+2026-01-01 18:00:00 | Syn | TURN_OFF | Smart light #6
+2026-01-01 18:00:00 | Ded | TURN_OFF | Smart coffee machine
+2026-01-01 18:00:00 | Kocka | SLEEPING | Garage
+2026-01-01 18:15:00 | Matka | NO_INGREDIENTS | Dinner — waiting for restock
+2026-01-01 18:15:00 | Matka | TURN_ON | Smart coffee machine
+2026-01-01 18:15:00 | Kocka | WANDERED_TO | DaughterRoom
+2026-01-01 18:30:00 | Otec | RESTOCK | Fridge restocked — eggs:8 oatmeal:6 soup:4 steak:4
+2026-01-01 18:30:00 | Otec | RETURNED | Back home → Bathroom
+2026-01-01 18:30:00 | Matka | COOKING | Dinner (steak x2) — fridge: 20 total
+2026-01-01 18:30:00 | AutoBuyer | BOUGHT_DEVICE | Smart tv #2 → LivingRoom (for Impulse by Syn)
+2026-01-01 18:30:00 | Ded | TURN_OFF | Kitchen Light
+2026-01-01 18:30:00 | Kocka | WANDERED_TO | Garage
+2026-01-01 18:45:00 | Dcera | STARTED_SPORT | TREADMILL (4 steps)
+2026-01-01 18:45:00 | Kocka | SLEEPING | Garage
+2026-01-01 19:00:00 | Otec | STARTED_SPORT | BIKE (3 steps)
+2026-01-01 19:00:00 | Matka | STARTED_SPORT | SMITH_MACHINE (5 steps)
+2026-01-01 19:00:00 | Syn | TURN_OFF | Son TV
+2026-01-01 19:00:00 | Ded | TURN_OFF | Daughter Mirror
+2026-01-01 19:00:00 | Kocka | WANDERED_TO | Garden
+2026-01-01 19:15:00 | Syn | TURN_ON | Son TV
+2026-01-01 19:15:00 | Ded | TURN_ON | Daughter Mirror
+2026-01-01 19:15:00 | Kocka | SLEEPING | Garden
+2026-01-01 19:30:00 | Kocka | SLEEPING | Garden
+2026-01-01 19:45:00 | Otec | RESTING | energy: 37/100
+2026-01-01 19:45:00 | Dcera | RESTING | energy: 31/110
+2026-01-01 19:45:00 | Kocka | SLEEPING | Garden
+2026-01-01 20:00:00 | Otec | TURN_ON | Bathroom Light
+2026-01-01 20:00:00 | Ded | TURN_ON | Daughter Light
+2026-01-01 20:00:00 | Kocka | SLEEPING | Garden
+2026-01-01 20:15:00 | Matka | RESTING | energy: 25/90
+2026-01-01 20:15:00 | Syn | STARTED_SPORT | TREADMILL (2 steps)
+2026-01-01 20:15:00 | Ded | TURN_OFF | Daughter Light
+2026-01-01 20:15:00 | Kocka | SLEEPING | Garden
+2026-01-01 20:30:00 | Matka | RESTING | energy: 35/90
+2026-01-01 20:30:00 | Kocka | SLEEPING | Garden
+2026-01-01 20:45:00 | Otec | TURN_OFF | Smart Mirror
+2026-01-01 20:45:00 | Syn | FINISHED_SPORT | TREADMILL
+2026-01-01 20:45:00 | Kocka | WANDERED_TO | SonRoom
+2026-01-01 21:00:00 | Matka | TURN_ON | Kitchen Light
+2026-01-01 21:00:00 | Kocka | SLEEPING | SonRoom
+2026-01-01 21:15:00 | Matka | TURN_ON | Pet Feeder
+2026-01-01 21:15:00 | Dcera | DENIED_TURN_OFF | Blinds Living
+2026-01-01 21:15:00 | Kocka | SLEEPING | SonRoom
+2026-01-01 21:30:00 | Matka | TURN_ON | Living Group Light
+2026-01-01 21:30:00 | Kocka | WANDERED_TO | Garage

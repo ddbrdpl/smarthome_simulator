@@ -35,6 +35,7 @@ public class Fridge extends Device {
     public Fridge(String id, String name, Room location) {
         super(id, name, DeviceType.FRIDGE, location);
         stock.putAll(INITIAL_STOCK); // start with limited supply
+        turnOn(); // холодильник работает постоянно
     }
 
     // Fill everything to maximum
