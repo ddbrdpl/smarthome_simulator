@@ -54,15 +54,15 @@ One known mistake worth mentioning: the entire project was developed in a single
 
 ### Diagram 1 - Startup and Initialization
 
-![Diagram 1 - Startup and Initialization](docs/diagrams/diagram1_startup.png)
+![Diagram 1 - Startup and Initialization](docs/diagrams/diagram1_Startup_and_Initialization.png)
 
 ### Diagram 2 - Simulation Engine and Tick Cycle
 
-![Diagram 2 - Simulation Engine and Tick Cycle](docs/diagrams/diagram2_simulation_engine.png)
+![Diagram 2 - Simulation Engine and Tick Cycle](docs/diagrams/diagram2_Simulation_Engine_and_Tick_Cycle.png)
 
 ### Diagram 3 - Event System (Observer + Chain of Responsibility)
 
-![Diagram 3 - Event System](docs/diagrams/diagram3_event_system.png)
+![Diagram 3 - Event System](docs/diagrams/diagram3_Event_System__Observer___Chain_of_Responsibility_.png)
 
 ---
 
@@ -159,15 +159,15 @@ public abstract class AbstractReportGenerator {
 
 ### Diagram 4 - People and Animal Class Hierarchy
 
-![Diagram 4 - People Hierarchy](docs/diagrams/diagram4_people_hierarchy.png)
+![Diagram 4 - People Hierarchy](docs/diagrams/diagram4_People_and_Animal_Class_Hierarchy.png)
 
 ### Diagram 5 - Device Hierarchy and State Pattern
 
-![Diagram 5 - Device Hierarchy](docs/diagrams/diagram5_devices_states.png)
+![Diagram 5 - Device Hierarchy](docs/diagrams/diagram5_Device_Hierarchy_and_State_Pattern.png)
 
 ### Diagram 6 - Reports, AutoBuyer and Event Handlers
 
-![Diagram 6 - Reports and AutoBuyer](docs/diagrams/diagram6_reports_autobuyer.png)
+![Diagram 6 - Reports and AutoBuyer](docs/diagrams/diagram6_Reports_Template_Method_AutoBuyer_Chain_of_Responsibility.png)
 
 ---
 
