@@ -1,5 +1,8 @@
 # Smart Home Simulator
 
+**Language / Язык / Jazyk:**
+[🇬🇧 English](README.md) | [🇷🇺 Русский](README_RU.md) | [🇨🇿 Čeština](README_CZ.md)
+
 A Java-based smart home simulation with a pixel-art desktop visualizer. The project models the life of a Czech family in a smart house - residents interact with devices, follow daily routines, react to weather, and manage food supplies. The entire simulation plays out in real time through a GUI inspired by turn-based strategy games.
 
 ---
