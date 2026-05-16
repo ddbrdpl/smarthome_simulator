@@ -41,7 +41,17 @@ Simulace chytré domácnosti v Javě s pixelovým desktopovým vizualizérem. Pr
 
 ## Architektura systému
 
-Diagramy tříd a toků jsou umístěny ve složce [`docs/diagrams/`](docs/diagrams/).
+### Diagram 1 - Spuštění a inicializace
+
+![Diagram 1 - Spuštění a inicializace](docs/diagrams/diagram1_Startup_and_Initialization.png)
+
+### Diagram 2 - Simulační engine a cyklus tiků
+
+![Diagram 2 - Simulační engine](docs/diagrams/diagram2_Simulation_Engine_and_Tick_Cycle.png)
+
+### Diagram 3 - Systém událostí (Observer + Chain of Responsibility)
+
+![Diagram 3 - Systém událostí](docs/diagrams/diagram3_Event_System__Observer___Chain_of_Responsibility_.png)
 
 ---
 
@@ -136,7 +146,19 @@ public abstract class AbstractReportGenerator {
 
 ## Hierarchie tříd
 
-Diagramy tříd jsou umístěny ve složce [`docs/diagrams/`](docs/diagrams/).
+## Hierarchie tříd
+
+### Diagram 4 - Hierarchie obyvatel a zvířat
+
+![Diagram 4 - Hierarchie obyvatel](docs/diagrams/diagram4_People_and_Animal_Class_Hierarchy.png)
+
+### Diagram 5 - Hierarchie zařízení a vzor State
+
+![Diagram 5 - Hierarchie zařízení](docs/diagrams/diagram5_Device_Hierarchy_and_State_Pattern.png)
+
+### Diagram 6 - Reporty, AutoBuyer a zpracovatelé událostí
+
+![Diagram 6 - Reporty a AutoBuyer](docs/diagrams/diagram6_Reports_Template_Method_AutoBuyer_Chain_of_Responsibility.png)
 
 ---
 
