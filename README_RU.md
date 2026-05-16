@@ -41,7 +41,17 @@
 
 ## Архитектура системы
 
-Диаграммы классов и потоков находятся в папке [`docs/diagrams/`](docs/diagrams/).
+### Диаграмма 1 - Запуск и инициализация
+
+![Диаграмма 1 - Запуск и инициализация](docs/diagrams/diagram1_Startup_and_Initialization.png)
+
+### Диаграмма 2 - Движок симуляции и цикл тиков
+
+![Диаграмма 2 - Движок симуляции](docs/diagrams/diagram2_Simulation_Engine_and_Tick_Cycle.png)
+
+### Диаграмма 3 - Система событий (Observer + Chain of Responsibility)
+
+![Диаграмма 3 - Система событий](docs/diagrams/diagram3_Event_System__Observer___Chain_of_Responsibility_.png)
 
 ---
 
@@ -135,6 +145,18 @@ public abstract class AbstractReportGenerator {
 ---
 
 ## Иерархия классов
+
+### Диаграмма 4 - Иерархия жителей и животных
+
+![Диаграмма 4 - Иерархия жителей](docs/diagrams/diagram4_People_and_Animal_Class_Hierarchy.png)
+
+### Диаграмма 5 - Иерархия устройств и паттерн State
+
+![Диаграмма 5 - Иерархия устройств](docs/diagrams/diagram5_Device_Hierarchy_and_State_Pattern.png)
+
+### Диаграмма 6 - Отчёты, AutoBuyer и обработчики событий
+
+![Диаграмма 6 - Отчёты и AutoBuyer](docs/diagrams/diagram6_Reports_Template_Method_AutoBuyer_Chain_of_Responsibility.png)
 
 ---
 
